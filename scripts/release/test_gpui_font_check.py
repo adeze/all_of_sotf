@@ -31,9 +31,8 @@ class FontGateTests(unittest.TestCase):
         })
 
     def test_font_graph_requires_single_reviewed_source(self) -> None:
-        source = f"git+https://github.com/pop-os/cosmic-text.git?rev={gate.COSMIC_REV}#{gate.COSMIC_REV}"
         packages = (
-            f'[[package]]\nname="cosmic-text"\nversion="0.19.0"\nsource="{source}"\n'
+            '[[package]]\nname="sotf-cosmic-text"\nversion="0.19.0"\n'
             'dependencies=["fontdb"]\n'
             '[[package]]\nname="fontdb"\nversion="0.24.0"\n'
         ).encode()

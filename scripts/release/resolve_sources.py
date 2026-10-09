@@ -33,13 +33,13 @@ ORDER = (
 )
 AUTOEQ_DEMO = Path("crates/autoeq-gpui-examples")
 
-# Resolve the Vello/GPUI GPU stack to one pinned Zed fork. Cargo's normal
-# metadata refresh can retain the older crates.io lock entries after patches
-# change, so these exact packages need an explicit update first.
-TARGETED_UPDATES = {
-    "autoeq": (("wgpu", "29.0.4", "29.0.3"), ("naga", "29.0.4", "29.0.3")),
-    "sotf-daw": (("naga", "29.0.4", "29.0.3"),),
-}
+# No targeted updates remain. The Vello/GPUI GPU stack previously needed an
+# explicit downgrade to the patched Zed fork (wgpu/naga 29.0.4 -> 29.0.3)
+# because plain metadata refreshes retained older crates.io lock entries.
+# The collection crates now publish under renamed sotf-* package names and
+# consumers resolve them through direct path dependencies instead of
+# [patch] tables, so there is no crates.io entry left to downgrade.
+TARGETED_UPDATES: dict[str, tuple] = {}
 
 
 def git(workspace: Path, *args: str) -> str:

@@ -1,14 +1,5 @@
-[alsa]
-versions = ["0.9.1", "0.10.0"]
-
-[ashpd]
-versions = ["0.11.1", "0.13.12"]
-
-[async-channel]
-versions = ["1.9.0", "2.5.0"]
-
-[atomic]
-versions = ["0.5.3", "0.6.1"]
+[base64]
+versions = ["0.22.1", "0.23.1"]
 
 [bit-set]
 versions = ["0.5.3", "0.8.0", "0.9.1"]
@@ -17,7 +8,13 @@ versions = ["0.5.3", "0.8.0", "0.9.1"]
 versions = ["0.6.3", "0.8.0", "0.9.1"]
 
 [bitflags]
-versions = ["1.3.2", "2.13.0"]
+versions = ["1.3.2", "2.13.2"]
+
+[block-buffer]
+versions = ["0.10.4", "0.12.1"]
+
+[block2]
+versions = ["0.5.1", "0.6.2"]
 
 [cocoa]
 versions = ["0.25.0", "0.26.0"]
@@ -25,11 +22,14 @@ versions = ["0.25.0", "0.26.0"]
 [cocoa-foundation]
 versions = ["0.1.2", "0.2.0"]
 
+[const-oid]
+versions = ["0.9.6", "0.10.2"]
+
 [convert_case]
 versions = ["0.10.0", "0.11.0"]
 
 [core-foundation]
-versions = ["0.9.4", "0.10.0"]
+versions = ["0.9.4", "0.10.1"]
 
 [core-graphics]
 versions = ["0.23.2", "0.24.0"]
@@ -37,29 +37,47 @@ versions = ["0.23.2", "0.24.0"]
 [core-graphics-types]
 versions = ["0.1.3", "0.2.0"]
 
-[event-listener]
-versions = ["2.5.3", "5.4.1"]
+[cpufeatures]
+versions = ["0.2.17", "0.3.1"]
 
-[fastrand]
-versions = ["1.9.0", "2.4.1"]
+[crypto-common]
+versions = ["0.1.7", "0.2.2"]
+
+[darling]
+versions = ["0.20.11", "0.24.1"]
+
+[darling_core]
+versions = ["0.20.11", "0.24.1"]
+
+[darling_macro]
+versions = ["0.20.11", "0.24.1"]
+
+[digest]
+versions = ["0.10.7", "0.11.3"]
+
+[env_filter]
+versions = ["0.1.4", "2.0.0"]
 
 [fixedbitset]
 versions = ["0.4.2", "0.5.7"]
 
-[float-cmp]
-versions = ["0.9.0", "0.10.0"]
-
 [foldhash]
 versions = ["0.1.5", "0.2.0"]
 
-[futures-lite]
-versions = ["1.13.0", "2.6.1"]
+[font-types]
+versions = ["0.11.3", "0.12.6"]
+
+[foreign-types]
+versions = ["0.3.2", "0.5.0"]
+
+[foreign-types-shared]
+versions = ["0.1.1", "0.3.1"]
 
 [getrandom]
 versions = ["0.2.17", "0.3.4", "0.4.3"]
 
-[gif]
-versions = ["0.13.3", "0.14.2"]
+[harfrust]
+versions = ["0.5.2", "0.12.0"]
 
 [hashbrown]
 versions = ["0.14.5", "0.15.5", "0.16.1", "0.17.1"]
@@ -67,11 +85,8 @@ versions = ["0.14.5", "0.15.5", "0.16.1", "0.17.1"]
 [heck]
 versions = ["0.4.1", "0.5.0"]
 
-[hermit-abi]
-versions = ["0.1.19", "0.5.2"]
-
 [itertools]
-versions = ["0.12.1", "0.13.0", "0.14.0"]
+versions = ["0.13.0", "0.14.0", "0.15.0"]
 
 [jni]
 versions = ["0.21.1", "0.22.4"]
@@ -79,143 +94,146 @@ versions = ["0.21.1", "0.22.4"]
 [jni-sys]
 versions = ["0.3.1", "0.4.1"]
 
+[libloading]
+versions = ["0.7.4", "0.8.9"]
+
 [linux-raw-sys]
 versions = ["0.4.15", "0.12.1"]
 
-[lru]
-versions = ["0.16.4", "0.18.0"]
+[miniz_oxide]
+versions = ["0.8.9", "0.9.1"]
 
 [nix]
-versions = ["0.29.0", "0.31.3"]
+versions = ["0.29.0", "0.30.1", "0.31.3"]
 
 [nom]
 versions = ["7.1.3", "8.0.0"]
 
-[num-complex]
-versions = ["0.2.4", "0.4.6"]
+[num-bigint-dig]
+versions = ["0.8.6", "0.9.1"]
+
+[objc2]
+versions = ["0.5.3", "0.6.5"]
+
+[objc2-app-kit]
+versions = ["0.2.2", "0.3.2"]
+
+[objc2-core-data]
+versions = ["0.2.2", "0.3.2"]
+
+[objc2-core-image]
+versions = ["0.2.2", "0.3.2"]
+
+[objc2-foundation]
+versions = ["0.2.2", "0.3.2"]
+
+[objc2-metal]
+versions = ["0.2.2", "0.3.2"]
+
+[objc2-quartz-core]
+versions = ["0.2.2", "0.3.2"]
+
+[object]
+versions = ["0.37.3", "0.39.1"]
 
 [ordered-float]
-versions = ["4.6.0", "5.3.0"]
+versions = ["4.6.0", "5.5.0"]
 
-[png]
-versions = ["0.17.16", "0.18.1"]
+[phf]
+versions = ["0.11.3", "0.13.1"]
 
-[pollster]
-versions = ["0.2.5", "0.4.0"]
+[phf_generator]
+versions = ["0.11.3", "0.13.1"]
 
-[proptest]
-versions = ["1.10.0", "1.11.0"]
+[phf_macros]
+versions = ["0.11.3", "0.13.1"]
+
+[phf_shared]
+versions = ["0.11.3", "0.13.1"]
 
 [quick-error]
 versions = ["1.2.3", "2.0.1"]
-
-[quick-xml]
-versions = ["0.30.0", "0.39.4"]
 
 [r-efi]
 versions = ["5.3.0", "6.0.0"]
 
 [rand]
-versions = ["0.8.6", "0.9.4"]
+versions = ["0.8.8", "0.9.5", "0.10.3"]
 
 [rand_chacha]
-versions = ["0.3.1", "0.9.0"]
+versions = ["0.3.1", "0.9.0", "0.10.0"]
 
 [rand_core]
-versions = ["0.6.4", "0.9.5"]
-
-[raw-window-handle]
-versions = ["0.5.2", "0.6.2"]
+versions = ["0.6.4", "0.9.5", "0.10.1"]
 
 [read-fonts]
-versions = ["0.37.0", "0.39.2"]
+versions = ["0.37.0", "0.41.0"]
 
-[redox_syscall]
-versions = ["0.2.16", "0.5.18"]
+[roxmltree]
+versions = ["0.20.0", "0.21.1"]
 
 [rustc-hash]
-versions = ["1.1.0", "2.1.2"]
-
-[rustfft]
-versions = ["3.0.1", "6.4.1"]
+versions = ["1.1.0", "2.1.3"]
 
 [rustix]
-versions = ["0.38.44", "1.1.4"]
-
-[safe_arch]
-versions = ["0.7.4", "0.9.3"]
+versions = ["0.38.44", "1.1.5"]
 
 [serde_spanned]
 versions = ["0.6.9", "1.1.1"]
 
+[sha1]
+versions = ["0.10.7", "0.11.0"]
+
+[sha2]
+versions = ["0.10.9", "0.11.0"]
+
 [shlex]
 versions = ["1.3.0", "2.0.1"]
 
-[signal-hook]
-versions = ["0.3.18", "0.4.4"]
-
 [skrifa]
-versions = ["0.40.0", "0.42.1"]
-
-[socket2]
-versions = ["0.5.10", "0.6.4"]
-
-[spin]
-versions = ["0.9.8", "0.10.0"]
-
-[strum]
-versions = ["0.27.2", "0.28.0"]
-
-[strum_macros]
-versions = ["0.27.2", "0.28.0"]
+versions = ["0.40.0", "0.44.0"]
 
 [syn]
-versions = ["1.0.109", "2.0.118"]
+versions = ["1.0.109", "2.0.119", "3.0.6"]
+
+[synstructure]
+versions = ["0.13.2", "0.14.0"]
 
 [thiserror]
-versions = ["1.0.69", "2.0.18"]
+versions = ["1.0.69", "2.0.21"]
 
 [thiserror-impl]
-versions = ["1.0.69", "2.0.18"]
+versions = ["1.0.69", "2.0.21"]
 
 [toml]
-versions = ["0.8.23", "1.1.2+spec-1.1.0"]
+versions = ["0.8.23", "1.1.6+spec-1.1.0"]
 
 [toml_datetime]
 versions = ["0.6.11", "1.1.1+spec-1.1.0"]
 
 [toml_edit]
-versions = ["0.22.27", "0.25.12+spec-1.1.0"]
-
-[transpose]
-versions = ["0.1.0", "0.2.3"]
-
-[ttf-parser]
-versions = ["0.21.1", "0.25.1"]
+versions = ["0.22.27", "0.25.15+spec-1.1.0"]
 
 [which]
-versions = ["6.0.3", "8.0.4"]
-
-[wide]
-versions = ["0.7.33", "0.8.3"]
+versions = ["4.4.2", "8.0.6"]
 
 [windows]
-versions = ["0.44.0", "0.56.0", "0.57.0", "0.58.0", "0.61.3", "0.62.2"]
+versions = ["0.57.0", "0.58.0", "0.61.3", "0.62.2"]
 
 [windows-collections]
 versions = ["0.2.0", "0.3.2"]
 
 [windows-core]
-versions = ["0.56.0", "0.57.0", "0.58.0", "0.61.2", "0.62.2"]
+versions = ["0.57.0", "0.58.0", "0.61.2", "0.62.2"]
 
 [windows-future]
 versions = ["0.2.1", "0.3.2"]
 
 [windows-implement]
-versions = ["0.56.0", "0.57.0", "0.58.0", "0.60.2"]
+versions = ["0.57.0", "0.58.0", "0.60.2"]
 
 [windows-interface]
-versions = ["0.56.0", "0.57.0", "0.58.0", "0.59.3"]
+versions = ["0.57.0", "0.58.0", "0.59.3"]
 
 [windows-link]
 versions = ["0.1.3", "0.2.1"]
@@ -263,10 +281,4 @@ versions = ["0.42.2", "0.52.6", "0.53.1"]
 versions = ["0.42.2", "0.52.6", "0.53.1"]
 
 [winnow]
-versions = ["0.7.15", "1.0.3"]
-
-[zune-core]
-versions = ["0.4.12", "0.5.1"]
-
-[zune-jpeg]
-versions = ["0.4.21", "0.5.15"]
+versions = ["0.7.15", "1.0.4"]

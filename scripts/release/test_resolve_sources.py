@@ -157,11 +157,13 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
             stdout.write(json.dumps(metadata))
         return SimpleNamespace(pid=1234, poll=lambda: 0, wait=lambda timeout=None: 0)
 
+    updates = {"autoeq": (("wgpu", "29.0.4", "29.0.3"), ("naga", "29.0.4", "29.0.3"))}
     with patch.object(resolve_sources, "git", return_value="a" * 40):
         with patch.object(resolve_sources, "changed_paths", side_effect=[[], ["Cargo.lock"]]):
             with patch.object(resolve_sources.subprocess, "Popen", side_effect=fake_cargo):
                 with patch.object(resolve_sources, "process_group_alive", return_value=False):
-                    result = resolve_sources.resolve_one("autoeq", "a" * 40, root, output)
+                    with patch.dict(resolve_sources.TARGETED_UPDATES, updates, clear=True):
+                        result = resolve_sources.resolve_one("autoeq", "a" * 40, root, output)
     assert result["status"] == "RESOLVED"
     assert [(cwd, command[1]) for cwd, command in commands] == [
         (child, "update"), (child, "metadata"), (nested, "metadata")
@@ -240,10 +242,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
         assert command[1] == "update" and cwd == root / "autoeq"
         return SimpleNamespace(wait=lambda: 101)
 
+    updates = {"autoeq": (("wgpu", "29.0.4", "29.0.3"), ("naga", "29.0.4", "29.0.3"))}
     with patch.object(resolve_sources, "git", return_value="a" * 40):
         with patch.object(resolve_sources, "changed_paths", side_effect=[[], []]):
             with patch.object(resolve_sources.subprocess, "Popen", side_effect=fake_cargo):
-                result = resolve_sources.resolve_one("autoeq", "a" * 40, root, output)
+                with patch.dict(resolve_sources.TARGETED_UPDATES, updates, clear=True):
+                    result = resolve_sources.resolve_one("autoeq", "a" * 40, root, output)
     assert result["status"] == "FAIL"
     assert result["targeted_updates"][0]["exit_code"] == 101
     assert not (output / "metadata/autoeq.json").exists()

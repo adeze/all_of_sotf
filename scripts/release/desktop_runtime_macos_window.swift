@@ -51,9 +51,9 @@ case "desktop-window":
 case "desktop-ax":
     guard args.count == 3, let pid = Int32(args[2]) else { fail("desktop-ax requires PID") }
     let app = AXUIElementCreateApplication(pid)
-    guard let windows = attribute(app, kAXWindowsAttribute) as? [AXUIElement], windows.count == 1,
-          let role = attribute(windows[0], kAXRoleAttribute) as? String, role == "AXWindow",
-          let title = attribute(windows[0], kAXTitleAttribute) as? String,
+    guard let windows = attribute(app, kAXWindowsAttribute as CFString) as? [AXUIElement], windows.count == 1,
+          let role = attribute(windows[0], kAXRoleAttribute as CFString) as? String, role == "AXWindow",
+          let title = attribute(windows[0], kAXTitleAttribute as CFString) as? String,
           title == "SotF" else {
         fail("expected one SotF AXWindow owned by PID \(pid)")
     }

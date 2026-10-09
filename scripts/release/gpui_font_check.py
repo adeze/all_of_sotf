@@ -50,23 +50,29 @@ def exact_test(text: str, name: str) -> None:
 
 
 def font_graph(lock_bytes: dict[str, bytes]) -> dict:
-    expected = f"git+https://github.com/pop-os/cosmic-text.git?rev={COSMIC_REV}#{COSMIC_REV}"
+    forks = {
+        entry["directory"]: entry
+        for entry in json.loads((ROOT / "sotf-3rdparties" / "FORKS.json").read_bytes())["forks"]
+    }
+    pin = forks["cosmic-text"]["upstream_revision"]
+    if pin != COSMIC_REV:
+        raise RuntimeError("cosmic-text collection pin differs from reviewed upstream commit")
     results = {}
     for key, data in lock_bytes.items():
         packages = tomllib.loads(data.decode())["package"]
-        cosmic = [p for p in packages if p["name"] == "cosmic-text"]
+        cosmic = [p for p in packages if p["name"] == "sotf-cosmic-text"]
         fontdb = [p for p in packages if p["name"] == "fontdb"]
         if fontdb:
             if len(fontdb) != 1 or fontdb[0]["version"] != "0.24.0":
                 raise RuntimeError(f"{key}: fontdb must resolve once at 0.24.0")
         if cosmic:
-            if len(cosmic) != 1 or cosmic[0]["version"] != "0.19.0" or cosmic[0].get("source") != expected:
-                raise RuntimeError(f"{key}: cosmic-text source differs from reviewed upstream commit")
+            if len(cosmic) != 1 or cosmic[0]["version"] != "0.19.0" or "source" in cosmic[0]:
+                raise RuntimeError(f"{key}: sotf-cosmic-text is not the local 0.19.0 collection copy")
             if len(fontdb) != 1:
-                raise RuntimeError(f"{key}: cosmic-text has no sole fontdb")
+                raise RuntimeError(f"{key}: sotf-cosmic-text has no sole fontdb")
             if "fontdb" not in cosmic[0].get("dependencies", []):
-                raise RuntimeError(f"{key}: cosmic-text does not use the sole fontdb")
-            results[key] = {"cosmic_text": cosmic[0]["source"], "fontdb": fontdb[0]["version"]}
+                raise RuntimeError(f"{key}: sotf-cosmic-text does not use the sole fontdb")
+            results[key] = {"cosmic_text": pin, "fontdb": fontdb[0]["version"]}
     if "gpui-toolkit/Cargo.lock" not in results:
         raise RuntimeError("GPUI font graph is absent")
     return results
@@ -101,16 +107,16 @@ def main() -> int:
         persist_report(evidence, report)
         workspace = ROOT / "gpui-toolkit"
         run_required("gpui-font-all-targets",
-                     ["cargo", "check", "--locked", "-p", "gpui-toolkit-gpui",
-                      "-p", "gpui-toolkit-gpui-wgpu", "--all-targets", "--all-features"],
+                     ["cargo", "check", "--locked", "-p", "sotf-gpui-toolkit-gpui",
+                      "-p", "sotf-gpui-toolkit-gpui-wgpu", "--all-targets", "--all-features"],
                      workspace, evidence, report)
         text = run_required("bundled-font-layout",
-                            ["cargo", "test", "--locked", "-p", "gpui-toolkit-gpui-wgpu",
+                            ["cargo", "test", "--locked", "-p", "sotf-gpui-toolkit-gpui-wgpu",
                              "--features", "headless-qa", "--lib", FONT_TEST, "--",
                              "--test-threads=1", "--show-output"], workspace, evidence, report)
         exact_test(text, FONT_TEST)
         text = run_required("svg-font-fallback",
-                            ["cargo", "test", "--locked", "-p", "gpui-toolkit-gpui",
+                            ["cargo", "test", "--locked", "-p", "sotf-gpui-toolkit-gpui",
                              "--lib", "svg_renderer::tests::", "--", "--test-threads=1",
                              "--show-output"], workspace, evidence, report)
         passed = set(re.findall(r"(?m)^test\s+(\S+)\s+\.\.\.\s+ok$", text))
@@ -121,7 +127,7 @@ def main() -> int:
         paint_env = os.environ.copy()
         paint_env["GPUI_FONT_CAPTURE_DIR"] = str(evidence / "paint")
         text = run_required("wgpu-multiscript-paint",
-                            ["cargo", "test", "--locked", "-p", "gpui-toolkit-gpui-wgpu",
+                            ["cargo", "test", "--locked", "-p", "sotf-gpui-toolkit-gpui-wgpu",
                              "--features", "headless-qa", "--lib", PAINT_TEST, "--",
                              "--test-threads=1", "--show-output"],
                             workspace, evidence, report, env=paint_env)
