@@ -73,6 +73,10 @@ command = [
 need_stdout = true
 analyzer = "nextest"
 
+[jobs.mono-check]
+command = ["cargo", "check", "--workspace", "--locked", "--manifest-path", "Cargo.toml"]
+need_stdout = false
+
 [jobs.scripts]
 command = ["scripts/bacon/scripts-check.sh"]
 need_stdout = true
@@ -137,3 +141,4 @@ env.BACON_WORKSPACES = "symphonia-add-ons"
 
 [keybindings]
 c = "job:clippy-all" # comment this to have 'c' run clippy on only the default target
+m = "job:mono-check"

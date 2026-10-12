@@ -24,9 +24,9 @@ export PYTHONPATH="$ROOT/scripts/buildbot${PYTHONPATH:+:$PYTHONPATH}"
 
 # 2. Tests: require pytest so every maintenance suite runs.
 if [ -x "$ROOT/venv/bin/python" ] && "$ROOT/venv/bin/python" -m pytest --version >/dev/null 2>&1; then
-    exec "$ROOT/venv/bin/python" -m pytest scripts/align-crates scripts/buildbot/tests scripts/release -q -rf "$@"
+    exec "$ROOT/venv/bin/python" -m pytest scripts/align-crates scripts/buildbot/tests scripts/release scripts/mono -q -rf "$@"
 elif python3 -m pytest --version >/dev/null 2>&1; then
-    exec python3 -m pytest scripts/align-crates scripts/buildbot/tests scripts/release -q -rf "$@"
+    exec python3 -m pytest scripts/align-crates scripts/buildbot/tests scripts/release scripts/mono -q -rf "$@"
 else
     echo "pytest not found; install scripts/requirements.txt to run all maintenance tests" >&2
     exit 2
