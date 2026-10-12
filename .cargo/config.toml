@@ -1,0 +1,105 @@
+# Cargo configuration for the aggregate (mono) workspace.
+# Union of the member repos' .cargo/config.toml files: mono builds read only
+# this config, never the per-repo ones. Standalone repo builds are unaffected
+# (each repo keeps its own config).
+# Differences from the per-repo files, all deliberate:
+# - `jobs` is unset: math-audio pins 64 for a 64-thread EPYC, the other repos
+#   use the host default; mono follows the majority (host default).
+# - the machine-specific `-L /opt/homebrew/Cellar/llvm/...` link path present
+#   in some repos is omitted (it does not exist on every machine; cargo finds
+#   the framework paths without it).
+# - the wasm32 table comes from autoeq (needed by autoeq-report-wasm).
+
+[env]
+# macOS-specific configuration
+MACOSX_DEPLOYMENT_TARGET = "15.0"
+# Disabled: -Zthreads is nightly-only and the pinned toolchain is stable,
+# so any cargo invocation fails while this is set.
+# RUSTFLAGS = "-Zthreads=8"
+
+[build]
+rustflags = ["-Ctarget-cpu=native"]
+# jobs intentionally unset: cargo defaults to the logical CPU count.
+# Disabled: sccache is not installed in this environment; re-enable where
+# the wrapper exists.
+# rustc-wrapper = "sccache"
+
+# macOS Apple Silicon (M1-M5) - using Accelerate framework
+[target.aarch64-apple-darwin]
+rustflags = [
+  "-C", 'target-cpu=native',
+  "-C", 'target-feature=+neon',
+  "-C", "link-arg=-framework",
+  "-C", "link-arg=Accelerate",
+  "-C", "link-arg=-L /Applications/Xcode.app/Contents/Frameworks",
+]
+
+# macOS Intel - using Accelerate framework, untested
+[target.x86_64-apple-darwin]
+rustflags = [
+  "-C", "target-feature=+sse,+sse2,+sse3,+ssse3,+sse4.1,+sse4.2,+avx,+avx2",
+  "-C", "link-arg=-mmacosx-version-min=15.0",
+  "-C", "link-arg=-framework", "-C", "link-arg=Accelerate"
+]
+
+# ----------------------------------------------------------------------
+# Linux x86 use mold
+# ----------------------------------------------------------------------
+
+[target.x86_64-unknown-linux-gnu]
+# Use mold for lightning-fast parallel linking
+linker = "clang"
+rustflags = [
+  "-C", "link-arg=-fuse-ld=mold",
+  "-C", "target-cpu=native",
+  "-C", "symbol-mangling-version=v0",
+  "-C", "target-feature=+sse,+sse2,+sse3,+ssse3,+sse4.1,+sse4.2,+avx,+avx2",
+]
+
+# Linux ARM64 configuration
+[target.aarch64-unknown-linux-gnu]
+rustflags = [
+  "-C", 'target-feature=+neon',
+]
+
+# wasm32 (from autoeq): the workspace-wide `-Ctarget-cpu=native` resolves to
+# a host CPU whose features LLVM ignores on wasm, silently dropping the
+# target's default feature set (notably `reference-types`). Re-enable the
+# standard wasm feature set explicitly for this target.
+[target.wasm32-unknown-unknown]
+rustflags = [
+  "-C",
+  "target-feature=+bulk-memory,+mutable-globals,+reference-types,+sign-ext",
+]
+
+# Windows MSVC x86_64 configuration. Default CRT linkage (dynamic) is fine;
+# the MSIX declares the VCLibs framework dependency.
+[target.x86_64-pc-windows-msvc]
+rustflags = [
+  "-C", "target-feature=+sse,+sse2,+sse3,+ssse3,+sse4.1,+sse4.2,+avx,+avx2",
+]
+
+# Windows MSVC ARM configuration.
+[target.aarch64-pc-windows-msvc]
+rustflags = [
+  "-C", 'target-feature=+neon',
+]
+
+# Windows GNU x86_64 configuration, untested
+[target.x86_64-pc-windows-gnu]
+rustflags = [
+]
+
+# Linux x86_64 musl configuration (static linking)
+[target.x86_64-unknown-linux-musl]
+rustflags = [
+  "-C", "target-feature=+crt-static",
+  "-C", "target-feature=+sse,+sse2,+sse3,+ssse3,+sse4.1,+sse4.2,+avx,+avx2",
+]
+
+# Linux ARM64 musl configuration (static linking)
+[target.aarch64-unknown-linux-musl]
+rustflags = [
+  "-C", "target-feature=+crt-static",
+  "-C", "target-feature=+neon",
+]

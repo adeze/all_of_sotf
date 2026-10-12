@@ -1,0 +1,40 @@
+# Global mono reconciliations for the aggregate Cargo workspace.
+# Decided once here, reviewed when the generator reports a new conflict.
+# See scripts/mono/README.md for the merge rules.
+
+[mono]
+# Subtrees cargo must ignore for membership.
+# - sotf-3rdparties is consumed via git dependencies only; excluding it
+#   preserves standalone fork-development builds inside it (a root manifest
+#   would otherwise claim its rootless crates).
+# - gpui-toolkit is excluded while nested: autoeq-report-wasm path-deps on
+#   it, and excluded targets keep their own workspace context (probed),
+#   which the toolkit's workspace tables need. Cargo ignores missing
+#   excluded paths, so this entry is dangling-safe: leave it in place after
+#   the extraction removes the directory.
+exclude = ["sotf-3rdparties", "gpui-toolkit"]
+
+# Shared [workspace.package] for every member crate. Metadata only: never
+# publish from the mono workspace.
+[package]
+# Must satisfy every direct internal path pin (sotf-capture pins
+# autoeq>=0.5.54 plus caret-0.5 math crates); the generator asserts this.
+version = "0.5.77"
+edition = "2024"
+# Majority license. math-audio is ISC standalone; mono metadata is not
+# authoritative, per-repo manifests stay the source of truth.
+license = "GPL-3.0-or-later"
+authors = ["Pierre F. Aubert pierre@spinorama.org"]
+repository = "https://github.com/pierreaubert/all_of_sotf"
+keywords = ["audio", "dsp", "eq"]
+categories = ["multimedia::audio"]
+readme = "README.md"
+
+# Forced [workspace.dependencies] entries. Each replaces the merged spec
+# entirely (paths, if any, are aggregate-root-relative).
+
+[deps.proptest]
+# autoeq pins no-default-features+std while the other repos take defaults;
+# defaults-on plus std is the safer superset for mono check/test.
+version = "1.9"
+features = ["std"]
