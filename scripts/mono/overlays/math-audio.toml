@@ -1,0 +1,5 @@
+# Mono overlay for the `math-audio` directory: per-repo participation in the
+# aggregate Cargo workspace. Optional schema:
+#   [mono]
+#   exclude_members = ["crates/something"]  # skip these members in mono
+[mono]

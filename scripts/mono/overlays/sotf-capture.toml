@@ -1,0 +1,14 @@
+# Mono overlay for the `sotf-capture` directory: per-repo participation in
+# the aggregate Cargo workspace. Optional schema:
+#   [mono]
+#   exclude_members = ["crates/something"]  # skip these members in mono
+[mono]
+# TEMPORARY (issue #4): cargo forbids workspace-root packages in an outer
+# workspace ("multiple workspace roots"), so this root package stays out
+# until the repo root is virtualized (package moves into crates/).
+exclude_members = [
+    ".",
+]
+# NOTE: the direct internal pins here (autoeq>=0.5.54, caret-0.5 math
+# crates) constrain the mono [package] version in mono.toml. Keep pins
+# loose or bump mono.toml together when this crate rejoins.

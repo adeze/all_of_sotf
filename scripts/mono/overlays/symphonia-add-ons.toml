@@ -1,0 +1,7 @@
+# Mono overlay for the `symphonia-add-ons` directory: per-repo participation in the
+# aggregate Cargo workspace. Optional schema:
+#   [mono]
+#   exclude_members = ["crates/something"]  # skip these members in mono
+[mono]
+# NOTE: sotf/sotf-daw consume these crates via git deps standalone; mono
+# prefers the local path members so `cargo check` covers working-copy edits.

@@ -1,0 +1,19 @@
+# Mono overlay for the `sotf-daw` directory: per-repo participation in the
+# aggregate Cargo workspace. Optional schema:
+#   [mono]
+#   exclude_members = ["crates/something"]  # skip these members in mono
+[mono]
+# TEMPORARY (issue #4): reverse-dependency closure of the autoeq and
+# sotf-capture root packages, which cannot join mono until those repo roots
+# are virtualized (cargo: "multiple workspace roots"). Rejoins untouched.
+exclude_members = [
+    "crates/driver-hal",
+    "crates/sotf-engine",
+    "crates/sotf-plugins",
+    "crates/sotf-plugins/crates/plugins-ffi",
+    "crates/sotf-plugins/crates/plugins-nih",
+    "crates/sotf-plugins/crates/sotf-plugin-hal-input",
+    "crates/sotf-plugins/crates/sotf-plugin-hal-output",
+    "crates/sotf-room-eq-graph",
+    "crates/sotf-testkit",
+]

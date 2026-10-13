@@ -152,3 +152,16 @@ local-clean:
 	just --justfile sotf-daw/Justfile --working-directory sotf-daw clean
 	just --justfile sotf-systemwide/Justfile --working-directory sotf-systemwide clean
 	just --justfile symphonia-add-ons/Justfile --working-directory symphonia-add-ons clean
+
+# Aggregate mono workspace (root Cargo.toml, generated -- see scripts/mono).
+mono-generate:
+	python3 scripts/mono/generate.py
+
+mono-check-generate:
+	python3 scripts/mono/generate.py --check
+
+mono-check:
+	cargo check --workspace --locked --manifest-path Cargo.toml
+
+mono-test-build:
+	cargo test --workspace --locked --manifest-path Cargo.toml --no-run

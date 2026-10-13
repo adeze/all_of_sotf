@@ -1,0 +1,17 @@
+# Mono overlay for the `autoeq` directory: per-repo participation in the
+# aggregate Cargo workspace. Optional schema:
+#   [mono]
+#   exclude_members = ["crates/something"]  # skip these members in mono
+[mono]
+# TEMPORARY (issue #4): cargo forbids workspace-root packages in an outer
+# workspace ("multiple workspace roots"), so the root facade stays out
+# until the repo root is virtualized (facade moves into crates/).
+exclude_members = [
+    ".",
+]
+# NOTE: crates/autoeq-report-wasm path-deps on the nested gpui-toolkit
+# checkout, which mono excludes (keeps its own workspace context, probed).
+# The extraction track migrates it to a git dependency; mono needs no
+# change either way.
+# NOTE: crates/autoeq-gpui-examples is excluded by autoeq itself (own
+# workspace) and stays out of mono.
