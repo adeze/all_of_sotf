@@ -16,9 +16,6 @@
 [submodule "math-audio"]
 	path = math-audio
 	url = https://github.com/pierreaubert/math-audio
-[submodule "gpui-toolkit"]
-	path = gpui-toolkit
-	url = https://github.com/pierreaubert/gpui-toolkit
 [submodule "sofa-reader"]
 	path = sofa-reader
 	url = https://github.com/pierreaubert/sofa-reader
