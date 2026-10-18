@@ -19,9 +19,6 @@
 [submodule "sofa-reader"]
 	path = sofa-reader
 	url = https://github.com/pierreaubert/sofa-reader
-[submodule "symphonia-add-ons"]
-	path = symphonia-add-ons
-	url = https://github.com/pierreaubert/symphonia-add-ons
 [submodule "ms-rust-skill"]
 	path = skills/ms-rust-skill
 	url = https://gitlab.com/lx-industries/ms-rust-skill.git

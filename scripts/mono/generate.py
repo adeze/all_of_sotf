@@ -40,7 +40,6 @@ MONO_REPOS = [
     "sotf-capture",
     "sotf-daw",
     "sotf-systemwide",
-    "symphonia-add-ons",
 ]
 
 CANONICAL_DEP_KEYS = (

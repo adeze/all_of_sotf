@@ -106,12 +106,6 @@ members = [
     "sotf/crates/sotf-server/crates/sotf-service-tidal",
     "sotf/crates/sotf-server/crates/sotf-services",
     "sotf/crates/sotf-server/crates/sotf-tls",
-    "symphonia-add-ons/symphonia-codec-dsd",
-    "symphonia-add-ons/symphonia-codec-dst",
-    "symphonia-add-ons/symphonia-codec-wavpack",
-    "symphonia-add-ons/symphonia-format-iamf",
-    "symphonia-add-ons/symphonia-format-sacd",
-    "symphonia-add-ons/symphonia-iamf-core",
 ]
 exclude = [
     "gpui-toolkit",
@@ -179,11 +173,11 @@ dst-decoder = { package = "sotf-dst-decoder", version = "0.1.2", git = "https://
 encoding_rs = { version = "0.8" }
 env_logger = { version = "0.11" }
 flate2 = { version = "1.1.10" }
-font-kit = { package = "sotf-zed-font-kit", version = "0.14.1-zed", git = "https://github.com/pierreaubert/sotf-3rdparties" }
+font-kit = { package = "sotf-zed-font-kit", version = "0.14.1-zed", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
 fontdue = { version = "0.9" }
 futures = { version = "0.3" }
 glam = { version = "0.33" }
-gpui = { package = "sotf-gpui-toolkit-gpui", version = "0.2.3", git = "https://github.com/pierreaubert/sotf-3rdparties" }
+gpui = { package = "sotf-gpui-toolkit-gpui", version = "0.2.3", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
 gpui-au = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-audio-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-builder = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
@@ -199,10 +193,10 @@ gpui-px = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolki
 gpui-themes = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-ui-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-ui-kit-macros = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui_linux = { package = "sotf-gpui-toolkit-gpui-linux", version = "0.1.0", git = "https://github.com/pierreaubert/sotf-3rdparties" }
-gpui_macos = { package = "sotf-gpui-toolkit-gpui-macos", version = "0.1.1", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "font-kit" ] }
-gpui_wgpu = { package = "sotf-gpui-toolkit-gpui-wgpu", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties" }
-gpui_windows = { package = "sotf-gpui-toolkit-gpui-windows", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties" }
+gpui_linux = { package = "sotf-gpui-toolkit-gpui-linux", version = "0.1.0", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
+gpui_macos = { package = "sotf-gpui-toolkit-gpui-macos", version = "0.1.1", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux", features = [ "font-kit" ] }
+gpui_wgpu = { package = "sotf-gpui-toolkit-gpui-wgpu", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
+gpui_windows = { package = "sotf-gpui-toolkit-gpui-windows", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
 hex = { version = "0.4" }
 hound = { version = "3.5" }
 id3 = { version = "1.16.3" }
@@ -372,18 +366,17 @@ symphonia-bundle-flac = { version = "0.6" }
 symphonia-bundle-mp3 = { version = "0.6" }
 symphonia-codec-aac = { version = "0.6" }
 symphonia-codec-alac = { version = "0.6" }
-symphonia-codec-dsd = { path = "symphonia-add-ons/symphonia-codec-dsd" }
-symphonia-codec-dst = { path = "symphonia-add-ons/symphonia-codec-dst" }
+symphonia-codec-dsd = { version = "0.2.0", git = "https://github.com/pierreaubert/symphonia-add-ons" }
+symphonia-codec-dst = { version = "0.2.0", git = "https://github.com/pierreaubert/symphonia-add-ons" }
 symphonia-codec-pcm = { version = "0.6" }
 symphonia-codec-vorbis = { version = "0.6" }
-symphonia-codec-wavpack = { path = "symphonia-add-ons/symphonia-codec-wavpack" }
+symphonia-codec-wavpack = { version = "0.1.1", git = "https://github.com/pierreaubert/symphonia-add-ons" }
 symphonia-core = { version = "0.6" }
-symphonia-format-iamf = { path = "symphonia-add-ons/symphonia-format-iamf" }
 symphonia-format-isomp4 = { version = "0.6" }
 symphonia-format-ogg = { version = "0.6" }
 symphonia-format-riff = { version = "0.6" }
-symphonia-format-sacd = { path = "symphonia-add-ons/symphonia-format-sacd" }
-symphonia-iamf-core = { path = "symphonia-add-ons/symphonia-iamf-core" }
+symphonia-format-sacd = { version = "0.1.2", git = "https://github.com/pierreaubert/symphonia-add-ons" }
+symphonia-iamf-core = { version = "0.1.0", git = "https://github.com/pierreaubert/symphonia-add-ons" }
 symphonia-metadata = { version = "0.6" }
 syn = { version = "2", features = [ "extra-traits", "full", "parsing" ] }
 tempfile = { version = "3.23" }
@@ -439,7 +432,6 @@ unnecessary_safety_comment = "warn"
 unnecessary_safety_doc = "warn"
 unneeded_field_pattern = "warn"
 unused_result_ok = "warn"
-wildcard_imports = "warn"
 
 [workspace.lints.rust]
 ambiguous_negative_literals = "warn"
