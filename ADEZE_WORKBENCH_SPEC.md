@@ -177,6 +177,74 @@ shared geometry and scientific data, not cross-language UI objects.
 
 ## Delivery sequence and acceptance
 
+### Live scientific workbench, CAD and knowledge
+
+The target interaction is shared selection across room/speaker geometry,
+response/decay plots, objective tradeoffs and a solver progress timeline. Display
+actual evaluated candidates, current best feasible result, constraint violations
+and objective components where the backend reports them. Distinguish physical
+propagation time from optimizer iterations. Do not invent smooth trajectories
+or intermediate acoustic fields between unreported candidates.
+
+Existing Rust hooks include `autoeq-optim` candidate/progress callbacks and
+`roomeq-engine/src/channel_fir/progress.rs: FirProgress`. Callback support varies:
+some algorithms report native generation boundaries; others have stage-boundary
+cancellation only. Introduce bounded, revision-tagged snapshots outside solver
+hot paths; UI sampling must not block optimization or change numerical results.
+Start/pause/cancel/replay controls must reflect actual backend capabilities.
+Preserve run/config/source identity when comparing or replaying candidates.
+
+Python already has `cad/speaker.py: build` and checked STEP/GLB export in an
+isolated locked build123d environment; `docs/SPEAKER_CAD_SOLVER_WORKFLOW.md`
+describes its limits. Retain build123d as geometry authority, behind a job adapter
+rather than a mandatory Rust rewrite. A parameter edit schedules geometry checks,
+tessellation and explicitly supported simulation. Bind exact parameter/CAD/source
+digests to meshes and studies. STEP is a derivative, not the editable parameter
+history; visual meshes do not prove manufacturing validity. Current cavity air
+reporting excludes real driver/gasket/brace displacement; forced structural/
+acoustic response, absorber qualification and CAM are not completed by this CAD.
+
+The knowledge capability should reuse Python `knowledge.py: search_knowledge`,
+which already returns local Markdown passages with source paths, lines and
+digests. It is bounded lexical retrieval, not an existing materials database or
+semantic RAG system. Add typed, cited driver/material/manufacturing records only
+as needed, retaining units, frequency dependence, uncertainty and licensing.
+Knowledge suggestions become explicit reviewed design inputs; retrieval is not
+measurement evidence or receiver state. No vector database is required initially.
+
+SAR-DT offers `sar_dt/geometry/img2threejs.py` geometry import and
+`sar_dt/apps/dash_evidence_viewer.py` evidence viewing. This bounded audit did not
+establish an independently reusable voxel-editor component. Evaluate extraction
+of geometry, selection, clipping and scientific-data adapters before importing
+its application or dependencies. Spatial Studio and `gpui-scene3d` are nearer
+existing renderer candidates. Keep exact CAD solids separate from voxel/mesh
+inspection and acoustic discretization.
+
+### Agent protocols
+
+Use MCP for an external agent operating the application: typed tool calls and
+resources over the same commands/state used by ordinary UI. Existing Swift
+`CalibrationMCP*` adapters already cover saved operations, measurement workflows
+and receiver-service adapters; do not build a competing calibration authority.
+Proposed workbench operations include inspect current selection/design, propose
+and validate a revision-bound patch, run/cancel an offline CAD or solver job,
+read progress/results, retrieve cited knowledge and export a selected artifact.
+These are proposed capabilities, not a claim that all tools already exist.
+
+Long jobs return handles; provide bounded progress snapshots and artifact/resource
+references rather than repeatedly serializing full meshes or measurement arrays.
+Preserve locks, stale-state rejection, source qualification and existing receiver
+authorization. Agent control must not bypass the host's normal validation.
+
+ACP is an optional client interface if the workbench itself hosts an external
+coding-agent conversation, including prompts, session updates and permission
+handling. It is not required for agents to invoke our MCP tools. Keep chat
+disabled until explicitly activated; MCP capability design does not enable a model.
+See [MCP architecture](https://modelcontextprotocol.io/docs/learn/architecture)
+and [ACP overview](https://agentclientprotocol.com/protocol/v1/overview).
+
+### Incremental delivery
+
 1. Complete embedded speaker workbench and feature-on/off navigation checks.
 2. Define shared Designer/context contracts over existing Room EQ controls.
    Changed inputs invalidate downstream results; returning to earlier stages
