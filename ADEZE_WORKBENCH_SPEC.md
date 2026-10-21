@@ -166,12 +166,11 @@ composition, native object lifetime management or automatic widget translation.
 | --- | --- |
 | Platform-specific controls over shared state/actions | Preferred baseline: GPUI in SOTF, React in Spatial Studio, SwiftUI in native Apple apps. Keep control parameter bounds, units and commands compatible; visual implementations may differ. |
 | GPUI inside a Swift/AppKit host | Existing pattern: `gpui-toolkit/crates/gpui-au/src/ffi.rs:gpui_au_create_with`, `plugins-au/GenericAU/GPUIAUView.swift` and `GenericRustViewController.swift`. The AU host owns the NSView; FFI provides resizing/input/frame/teardown. Extending it to a full mixed workbench requires separate layout and lifecycle testing. |
-| SwiftUI/AppKit controls inside GPUI | No generic existing control slot established by this audit. Requires a macOS platform adapter for view geometry, clipping/occlusion, input/focus, accessibility, main-thread lifecycle and teardown. Do not assume the scalar ABI solves this. |
+| SwiftUI/AppKit controls inside GPUI | Out of scope by user decision. Use host-native controls over shared commands and typed interfaces; do not build a custom embedding adapter. |
 | Embedded web controls | `sotf/crates/app-gpui/ui/report_window.rs:SharedReportWindow::new` already uses a Wry child webview in a dedicated report window. An inline workbench panel still needs sizing/focus/lifecycle and typed event integration; it is not implemented by this fixture. |
 
-Keep the speaker workbench inside SOTF's main content view. Add a native or web
-panel adapter only for a concrete control that cannot reasonably use the host's
-existing toolkit. Do not wrap/rewrite the entire Rust player merely to obtain
+Keep the speaker workbench inside SOTF's main content view using existing GPUI
+controls. Do not wrap/rewrite the entire Rust player merely to obtain
 one richer control. Apple tracking/RealityKit remain platform adapters consuming
 shared geometry and scientific data, not cross-language UI objects.
 
@@ -226,7 +225,13 @@ Use MCP for an external agent operating the application: typed tool calls and
 resources over the same commands/state used by ordinary UI. Existing Swift
 `CalibrationMCP*` adapters already cover saved operations, measurement workflows
 and receiver-service adapters; do not build a competing calibration authority.
-Proposed workbench operations include inspect current selection/design, propose
+The opt-in Rust [workbench MCP service](sotf/crates/sotf-dev-driver/WORKBENCH_MCP.md)
+implements inspection, revision-bound edits to four Room EQ limits, and starting
+or cancelling the existing offline optimization. UI and agent edits use the same
+`RoomEqScreenModel::update_design_limits` validation. Chat remains disabled.
+This does not establish Swift calibration parity or hardware qualification.
+
+Further proposed operations include inspect current selection/design, propose
 and validate a revision-bound patch, run/cancel an offline CAD or solver job,
 read progress/results, retrieve cited knowledge and export a selected artifact.
 These are proposed capabilities, not a claim that all tools already exist.

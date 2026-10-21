@@ -80,6 +80,16 @@ crossover plugin. Numerical models remain in Sonium; no solver code is copied.
 See [Adeze capability and contribution specification](ADEZE_WORKBENCH_SPEC.md)
 for Designer, receiver/Audyssey, room visualization and cross-language boundaries.
 
+The optional [workbench MCP service](sotf/crates/sotf-dev-driver/WORKBENCH_MCP.md)
+lets agents inspect Room EQ state, edit supported limits and run offline studies
+through the same commands as the UI. Chat remains disabled.
+
+See [design language](DESIGN.md) and [workflow/storage integration](WORKBENCH_WORKFLOW.md) for current boundaries.
+
+Sync installed Symposium guidance from this umbrella root with
+`cargo-agents sync --update none --json`. Generated `.agents/skills/` stay local;
+dependency ownership and each repository's instructions remain authoritative.
+
 The optional [Swift–Rust ABI build probe](scripts/swift-rust-bridge/README.md)
 checks native macOS linkage in both directions without choosing production DSP
 interfaces or rebuilding the player:
