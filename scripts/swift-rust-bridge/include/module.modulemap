@@ -1,0 +1,4 @@
+module AdezeRustProbe {
+    header "AdezeRustProbe.h"
+    export *
+}

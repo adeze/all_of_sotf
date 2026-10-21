@@ -5,6 +5,21 @@ the shared `sotf-3rdparties/` vendored dependency repository. The
 workspaces are kept as Git submodules so each project retains its own history,
 Cargo workspace, tests, and release process.
 
+The umbrella also inventories the sibling Swift and Python applications without
+moving or copying their checkouts. `scripts/quality-matrix/repos.json` records
+them separately from Cargo/release workspaces:
+
+```sh
+uv run --no-project python scripts/workspaces.py --applications
+uv run --no-project python scripts/workspaces.py --all-sources
+```
+
+Paths are relative to this umbrella root. The default command remains the Rust
+workspace list used by existing build tooling. Companion checkouts are not
+automatically cloned, built or included in Rust releases. Their own lockfiles,
+instructions and build tools remain authoritative. Private project data stays
+outside source inventory; see [storage and capability plan](ADEZE_WORKBENCH_SPEC.md).
+
 | Workspace | Directory | Repository |
 | --- | --- | --- |
 | SOTF | `sotf/` | <https://github.com/adeze/sotf> |
@@ -56,10 +71,22 @@ rustup run stable cargo metadata --locked --format-version 1
 rustup run stable cargo metadata --locked --format-version 1 --manifest-path sotf/Cargo.toml
 ```
 
-Sonium's `sonium-speaker-designer` is an offline measured passive crossover
-workbench depending on `sonium-fem`. It should integrate as an editor/workbench
-while retaining its numerical ownership. SOTF's existing real-time crossover
-plugin remains the processing implementation; no Sonium code has been moved.
+Sonium is a pinned source dependency, excluded from the aggregate numerical
+workspace so its package metadata remains authoritative. The
+[`sotf-speaker-workbench`](sotf/crates/sotf-speaker-workbench/README.md) embeds its
+passive editor and offers a separate active preview through SOTF's existing
+crossover plugin. Numerical models remain in Sonium; no solver code is copied.
+
+See [Adeze capability and contribution specification](ADEZE_WORKBENCH_SPEC.md)
+for Designer, receiver/Audyssey, room visualization and cross-language boundaries.
+
+The optional [Swift–Rust ABI build probe](scripts/swift-rust-bridge/README.md)
+checks native macOS linkage in both directions without choosing production DSP
+interfaces or rebuilding the player:
+
+```sh
+bash scripts/swift-rust-bridge/check.sh
+```
 
 ## Populate the Git tree
 

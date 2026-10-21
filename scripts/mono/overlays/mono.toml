@@ -12,7 +12,8 @@
 #   which the toolkit's workspace tables need. Cargo ignores missing
 #   excluded paths, so this entry is dangling-safe: leave it in place after
 #   the extraction removes the directory.
-exclude = ["sotf-3rdparties", "gpui-toolkit"]
+# Sonium retains its own numerical workspace and package metadata.
+exclude = ["sotf-3rdparties", "gpui-toolkit", "sonium"]
 
 # Shared [workspace.package] for every member crate. Metadata only: never
 # publish from the mono workspace.

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Read the shared inventory used by workspace checks and release tooling."""
 
+import argparse
 import json
 from pathlib import Path
 
@@ -39,5 +40,26 @@ def source_names() -> list[str]:
     return names
 
 
+def application_paths() -> list[str]:
+    """Return companion sibling checkouts without adding them to Rust releases."""
+    entries = json.loads(INVENTORY.read_text(encoding="utf-8")).get("companion_applications", [])
+    paths = [entry["path"] for entry in entries]
+    if len(paths) != len(set(paths)):
+        raise ValueError("duplicate companion application paths in inventory")
+    for path in paths:
+        parts = Path(path).parts
+        if len(parts) != 2 or parts[0] != ".." or parts[1] in {".", ".."}:
+            raise ValueError(f"application must be a sibling checkout: {path!r}")
+    return paths
+
+
 if __name__ == "__main__":
-    print("\n".join(workspace_names()))
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--applications", action="store_true", help="List companion Swift/Python checkout paths")
+    mode.add_argument("--all-sources", action="store_true", help="List Rust, vendor and companion checkout paths")
+    args = parser.parse_args()
+    paths = application_paths() if args.applications else (
+        source_names() + application_paths() if args.all_sources else workspace_names()
+    )
+    print("\n".join(paths))

@@ -1,0 +1,12 @@
+[package]
+name = "adeze-abi-build-probe"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+name = "adeze_rust_bridge"
+crate-type = ["cdylib"]
+
+# This dependency-free build fixture is not a production Cargo workspace member.
+[workspace]

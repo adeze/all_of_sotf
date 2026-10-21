@@ -41,3 +41,7 @@
 	path = gpui-toolkit
 	url = https://github.com/adeze/gpui-toolkit.git
 	branch = codex/all-of-sotf
+[submodule "sonium"]
+	path = sonium
+	url = https://github.com/adeze/sonium.git
+	branch = codex/sotf-speaker-workbench

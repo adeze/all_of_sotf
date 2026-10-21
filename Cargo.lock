@@ -358,6 +358,12 @@ checksum = "76a2e8124351fda1ef8aaaa3bbd7ebbcb486bbcd4225aca0aa0d84bb2db8fecb"
 
 [[package]]
 name = "arrayvec"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23b62fc65de8e4e7f52534fb52b0f3ed04746ae267519eef2a83941e8085068b"
+
+[[package]]
+name = "arrayvec"
 version = "0.7.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d3fb67a6e08acf24fdeccbac2cb6ac4305825bd1f117462e0e6f2f193345ad56"
@@ -795,7 +801,7 @@ dependencies = [
  "log",
  "math-iir-fir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "rustfft",
  "schemars 1.2.3",
  "serde",
@@ -812,7 +818,7 @@ dependencies = [
  "hound",
  "math-iir-fir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "rustfft",
  "tempfile",
 ]
@@ -852,7 +858,7 @@ dependencies = [
  "math-iir-fir",
  "math-optimisation",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "num_cpus",
  "rand 0.10.3",
  "rand_chacha 0.10.0",
@@ -895,7 +901,7 @@ dependencies = [
  "clap",
  "csv",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "roomeq-analysis",
  "roomeq-cli",
  "roomeq-engine",
@@ -983,9 +989,9 @@ dependencies = [
  "aligned",
  "anyhow",
  "arg_enum_proc_macro",
- "arrayvec",
+ "arrayvec 0.7.8",
  "log",
- "num-rational",
+ "num-rational 0.4.2",
  "num-traits",
  "pastey",
  "rayon",
@@ -1001,10 +1007,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8cfddb07216410377231960af4fcab838eaa12e013417781b78bd95ee22077f8"
 dependencies = [
  "anyhow",
- "arrayvec",
+ "arrayvec 0.7.8",
  "log",
  "nom 8.0.0",
- "num-rational",
+ "num-rational 0.4.2",
  "v_frame",
 ]
 
@@ -1014,7 +1020,7 @@ version = "0.8.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e7178fe5f7d460b13895ebb9dcb28a3a6216d2df2574a0806cb51b555d297f38"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
 ]
 
 [[package]]
@@ -1117,7 +1123,7 @@ dependencies = [
  "bitflags 2.13.2",
  "cexpr",
  "clang-sys",
- "itertools 0.10.5",
+ "itertools 0.13.0",
  "log",
  "prettyplease",
  "proc-macro2",
@@ -2327,7 +2333,7 @@ dependencies = [
  "asn1-rs",
  "displaydoc",
  "nom 7.1.3",
- "num-bigint",
+ "num-bigint 0.4.8",
  "num-traits",
  "rusticata-macros",
 ]
@@ -2464,7 +2470,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2502,7 +2508,7 @@ version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ab8ecd87370524b461f8557c119c405552c396ed91fc0a8eec68679eab26f94a"
 dependencies = [
- "libloading 0.7.4",
+ "libloading 0.8.9",
 ]
 
 [[package]]
@@ -2733,7 +2739,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2785,7 +2791,7 @@ dependencies = [
  "half",
  "lebe",
  "miniz_oxide 0.8.9",
- "num-complex",
+ "num-complex 0.4.6",
  "pulp",
  "rayon-core",
  "smallvec",
@@ -2894,7 +2900,7 @@ version = "1.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "59c7588004ca8c0d0c6fce15a02c0bdca964d94a83a73e45680a6874d551d405"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "bitstream-io",
  "md5",
 ]
@@ -4611,7 +4617,7 @@ version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4b60dfc32f652b926df6192e55525b16d186c69d47876c3ead4da5cc9f8450e2"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "euclid",
  "polycool",
  "smallvec",
@@ -4646,6 +4652,19 @@ name = "lebe"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7a79a3332a6609480d7d0c9eab957bca6b455b91bb84e66d19f5ff66294b85b8"
+
+[[package]]
+name = "lexical-core"
+version = "0.7.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6607c62aa161d23d17a9072cc5da0be67cdfc89d3afb1e8d9c842bebc2525ffe"
+dependencies = [
+ "arrayvec 0.5.2",
+ "bitflags 1.3.2",
+ "cfg-if",
+ "ryu",
+ "static_assertions",
+]
 
 [[package]]
 name = "libbz2-rs-sys"
@@ -4871,7 +4890,7 @@ version = "1.0.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4336502e29e32af93cf2dad2214ed6003c17ceb5bd499df77b1de663b9042b92"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "euclid",
  "num-traits",
 ]
@@ -4962,7 +4981,7 @@ dependencies = [
  "math-dsp",
  "math-iir-fir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "rand 0.10.3",
  "realfft",
@@ -5005,7 +5024,7 @@ dependencies = [
  "log",
  "math-iir-fir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "oxiblas-ndarray",
  "proptest",
  "rand 0.10.3",
@@ -5028,7 +5047,7 @@ dependencies = [
  "criterion",
  "hound",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "proptest",
  "rustfft",
@@ -5068,7 +5087,7 @@ dependencies = [
  "math-rir",
  "math-test-functions",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "rustfft",
  "serde",
  "serde_json",
@@ -5293,6 +5312,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "mshio"
+version = "0.4.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "01f3aa844a89eb69a2f58cea74055711d77356e20490cdd0a3670117a96a8e2e"
+dependencies = [
+ "nom 5.1.3",
+ "num 0.3.1",
+ "num-derive 0.3.3",
+ "num-traits",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "multiversion_no_op"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5304,7 +5336,7 @@ version = "29.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2bf919621e7975acb27d881bae2fb993e0d45c8e0446e85e6272971e00dc8df"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "bit-set 0.9.1",
  "bitflags 2.13.2",
  "cfg-if",
@@ -5347,7 +5379,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "882ed72dce9365842bf196bdeedf5055305f11fc8c03dee7bb0194a6cad34841"
 dependencies = [
  "matrixmultiply",
- "num-complex",
+ "num-complex 0.4.6",
  "num-integer",
  "num-traits",
  "portable-atomic",
@@ -5362,7 +5394,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "520080814a7a6b4a6e9070823bb24b4531daac8c4627e08ba5de8c5ef2f2752d"
 dependencies = [
  "matrixmultiply",
- "num-complex",
+ "num-complex 0.4.6",
  "num-integer",
  "num-traits",
  "portable-atomic",
@@ -5431,6 +5463,17 @@ dependencies = [
 
 [[package]]
 name = "nom"
+version = "5.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08959a387a676302eebf4ddbcbc611da04285579f76f88ee0506c63b1a61dd4b"
+dependencies = [
+ "lexical-core",
+ "memchr",
+ "version_check",
+]
+
+[[package]]
+name = "nom"
 version = "7.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d273983c5a657a70a3e8f2a01329822f3b8c8172b73826411a55751e404a0a4a"
@@ -5480,15 +5523,40 @@ dependencies = [
 
 [[package]]
 name = "num"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b7a8e9be5e039e2ff869df49155f1c06bd01ade2117ec783e56ab0932b67a8f"
+dependencies = [
+ "num-bigint 0.3.3",
+ "num-complex 0.3.1",
+ "num-integer",
+ "num-iter",
+ "num-rational 0.3.2",
+ "num-traits",
+]
+
+[[package]]
+name = "num"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "35bd024e8b2ff75562e5f34e7f4905839deb4b22955ef5e73d2fea1b9813cb23"
 dependencies = [
- "num-bigint",
- "num-complex",
+ "num-bigint 0.4.8",
+ "num-complex 0.4.6",
  "num-integer",
  "num-iter",
- "num-rational",
+ "num-rational 0.4.2",
+ "num-traits",
+]
+
+[[package]]
+name = "num-bigint"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f6f7833f2cbf2360a6cfd58cd41a53aa7a90bd4c202f5b1c7dd2ed73c57b2c3"
+dependencies = [
+ "autocfg",
+ "num-integer",
  "num-traits",
 ]
 
@@ -5537,12 +5605,22 @@ dependencies = [
 
 [[package]]
 name = "num-complex"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "747d632c0c558b87dbabbe6a82f3b4ae03720d0646ac5b7b4dae89394be5f2c5"
+dependencies = [
+ "num-traits",
+]
+
+[[package]]
+name = "num-complex"
 version = "0.4.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "73f88a1307638156682bada9d7604135552957b7818057dcef22705b4d509495"
 dependencies = [
  "bytemuck",
  "num-traits",
+ "serde",
 ]
 
 [[package]]
@@ -5550,6 +5628,17 @@ name = "num-conv"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "521739c6d2bac4aa25192232afe6841231376b2b26d4d9fae5ecf8ca5772e441"
+
+[[package]]
+name = "num-derive"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "876a53fff98e03a936a674b29568b0e605f06b29372c2489ff4de23f1949743d"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
 
 [[package]]
 name = "num-derive"
@@ -5583,11 +5672,23 @@ dependencies = [
 
 [[package]]
 name = "num-rational"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12ac428b1cb17fce6f731001d307d351ec70a6d202fc2e60f7d4c5e42d8f4f07"
+dependencies = [
+ "autocfg",
+ "num-bigint 0.3.3",
+ "num-integer",
+ "num-traits",
+]
+
+[[package]]
+name = "num-rational"
 version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f83d14da390562dca69fc84082e73e548e1ad308d24accdedd2720017cb37824"
 dependencies = [
- "num-bigint",
+ "num-bigint 0.4.8",
  "num-integer",
  "num-traits",
 ]
@@ -6049,7 +6150,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3b9e1346a6fb0c859ba99a0c46d54c3b6f620b132ce1be4aa7ef93634002009b"
 dependencies = [
  "bytemuck",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "oxiblas-core",
  "oxiblas-matrix",
@@ -6063,7 +6164,7 @@ checksum = "bb71a758e4b67699331dc2f01a20ddc05a5b952b66be9e46857f2aafe19db353"
 dependencies = [
  "bytemuck",
  "libc",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
 ]
 
@@ -6074,7 +6175,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a31dc82201c233fbadc57e7583644062c364f4eb8e77fa8c9fb830722ec8b7e8"
 dependencies = [
  "bytemuck",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "oxiblas-blas",
  "oxiblas-core",
@@ -6088,7 +6189,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f3b5d0050e3dea737a5d9c7c30d0029a73f270c5edb59281cef991a4d13c9fb9"
 dependencies = [
  "bytemuck",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "oxiblas-core",
 ]
@@ -6101,7 +6202,7 @@ checksum = "796fd699643634753a2314234ea1fab6f6fa9caa123f5797830894f0fa91ec86"
 dependencies = [
  "bytemuck",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "oxiblas-blas",
  "oxiblas-core",
@@ -6632,7 +6733,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "50596ddc09eb5ad5f75cacd40209568e66df71baf86e1499a0e99c4cff12a5a6"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
 ]
 
 [[package]]
@@ -6883,7 +6984,7 @@ dependencies = [
  "bytemuck",
  "cfg-if",
  "libm",
- "num-complex",
+ "num-complex 0.4.6",
  "paste",
  "pulp-wasm-simd-flag",
  "raw-cpuid",
@@ -6932,6 +7033,16 @@ name = "quick-error"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a993555f31e5a609f617c12db6250dedcac1b0a85076912c436e6fc9b2c8e6a3"
+
+[[package]]
+name = "quick-xml"
+version = "0.36.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f7649a7b4df05aed9ea7ec6f628c67c9953a43869b8bc50929569b2999d443fe"
+dependencies = [
+ "memchr",
+ "serde",
+]
 
 [[package]]
 name = "quick-xml"
@@ -7006,7 +7117,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -7175,7 +7286,7 @@ dependencies = [
  "aligned-vec",
  "arbitrary",
  "arg_enum_proc_macro",
- "arrayvec",
+ "arrayvec 0.7.8",
  "av-scenechange",
  "av1-grain",
  "bitstream-io",
@@ -7189,7 +7300,7 @@ dependencies = [
  "maybe-rayon",
  "new_debug_unreachable",
  "noop_proc_macro",
- "num-derive",
+ "num-derive 0.4.2",
  "num-traits",
  "paste",
  "profiling",
@@ -7504,7 +7615,7 @@ dependencies = [
  "math-iir-fir",
  "math-rir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "rand 0.10.3",
  "rand_chacha 0.10.0",
  "roomeq-model",
@@ -7527,7 +7638,7 @@ dependencies = [
  "log",
  "math-dsp",
  "math-rir",
- "num-complex",
+ "num-complex 0.4.6",
  "roomeq-engine",
  "roomeq-export",
  "roomeq-model",
@@ -7555,7 +7666,7 @@ dependencies = [
  "math-optimisation",
  "math-rir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "num_cpus",
  "oxiblas-ndarray",
  "rand 0.10.3",
@@ -7580,7 +7691,7 @@ dependencies = [
  "clap",
  "hound",
  "math-iir-fir",
- "num-complex",
+ "num-complex 0.4.6",
  "roomeq-engine",
  "roomeq-model",
  "roomeq-workflow",
@@ -7642,7 +7753,7 @@ dependencies = [
  "hound",
  "math-iir-fir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "roomeq-model",
  "rustfft",
  "schemars 1.2.3",
@@ -7678,7 +7789,7 @@ dependencies = [
  "math-iir-fir",
  "math-rir",
  "ndarray 0.17.2",
- "num-complex",
+ "num-complex 0.4.6",
  "rayon",
  "roomeq-analysis",
  "roomeq-engine",
@@ -7832,7 +7943,7 @@ version = "6.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "21db5f9893e91f41798c88680037dba611ca6674703c1a18601b01a72c8adb89"
 dependencies = [
- "num-complex",
+ "num-complex 0.4.6",
  "num-integer",
  "num-traits",
  "primal-check",
@@ -7872,7 +7983,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -7930,7 +8041,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -8468,7 +8579,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f1a7200d82ff1c7b4235efd12f11e2537a402c91cf83a5cb97ce80eef787fde7"
 dependencies = [
  "approx",
- "num-complex",
+ "num-complex 0.4.6",
  "num-traits",
  "wide",
 ]
@@ -8616,6 +8727,281 @@ dependencies = [
  "rusqlite",
  "serde",
  "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-compute"
+version = "0.1.7"
+dependencies = [
+ "cc",
+ "half",
+ "libc",
+ "log",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sonium-fastmath",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-fastmath"
+version = "0.1.0"
+dependencies = [
+ "num-bigint 0.4.8",
+ "num-complex 0.4.6",
+ "num-traits",
+]
+
+[[package]]
+name = "sonium-fem"
+version = "0.6.1"
+dependencies = [
+ "anyhow",
+ "clap",
+ "env_logger",
+ "log",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "serde",
+ "serde_json",
+ "sonium-compute",
+ "sonium-mesher",
+ "sonium-solvers",
+ "sonium-wave",
+ "sonium-xem",
+ "spec_math",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-fft"
+version = "0.1.0"
+dependencies = [
+ "num-complex 0.4.6",
+ "num-traits",
+ "sonium-compute",
+ "sonium-fastmath",
+]
+
+[[package]]
+name = "sonium-mesher"
+version = "0.1.4"
+dependencies = [
+ "anyhow",
+ "delaunator",
+ "log",
+ "mshio",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rand 0.9.5",
+ "rayon",
+ "robust",
+ "serde",
+ "serde_json",
+ "sonium-xem",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers"
+version = "0.4.6"
+dependencies = [
+ "half",
+ "log",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-compute",
+ "sonium-solvers-core",
+ "sonium-solvers-direct",
+ "sonium-solvers-eigen",
+ "sonium-solvers-iterative",
+ "sonium-solvers-nonlinear",
+ "sonium-solvers-optimization",
+ "sonium-solvers-preconditioners",
+ "sonium-solvers-sparse",
+ "sonium-solvers-sys",
+ "sonium-solvers-time-integration",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-core"
+version = "0.4.5"
+dependencies = [
+ "half",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-compute",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-direct"
+version = "0.4.5"
+dependencies = [
+ "half",
+ "log",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-compute",
+ "sonium-solvers-core",
+ "sonium-solvers-sparse",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-eigen"
+version = "0.4.5"
+dependencies = [
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-solvers-core",
+ "sonium-solvers-direct",
+ "sonium-solvers-sparse",
+]
+
+[[package]]
+name = "sonium-solvers-iterative"
+version = "0.4.5"
+dependencies = [
+ "log",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-compute",
+ "sonium-solvers-core",
+ "sonium-solvers-direct",
+ "sonium-solvers-sparse",
+ "sonium-solvers-sys",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-nonlinear"
+version = "0.4.5"
+dependencies = [
+ "log",
+ "num-traits",
+ "sonium-solvers-core",
+ "sonium-solvers-iterative",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-optimization"
+version = "0.4.5"
+dependencies = [
+ "directories",
+ "log",
+ "num-traits",
+ "rand 0.9.5",
+ "rayon",
+ "sonium-solvers-core",
+ "sonium-solvers-direct",
+ "sonium-solvers-eigen",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-preconditioners"
+version = "0.4.5"
+dependencies = [
+ "log",
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-compute",
+ "sonium-solvers-core",
+ "sonium-solvers-direct",
+ "sonium-solvers-eigen",
+ "sonium-solvers-sparse",
+ "sonium-solvers-sys",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-sparse"
+version = "0.4.5"
+dependencies = [
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "sonium-compute",
+ "sonium-solvers-core",
+ "sonium-solvers-sys",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-solvers-sys"
+version = "0.4.5"
+dependencies = [
+ "libc",
+ "rayon",
+]
+
+[[package]]
+name = "sonium-solvers-time-integration"
+version = "0.4.5"
+dependencies = [
+ "num-traits",
+ "sonium-compute",
+ "sonium-solvers-core",
+ "sonium-solvers-sparse",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-speaker-designer"
+version = "0.1.0"
+dependencies = [
+ "gpui-miniapp",
+ "gpui-ui-kit",
+ "num-complex 0.4.6",
+ "serde",
+ "serde_json",
+ "sonium-fem",
+ "sotf-gpui-toolkit-gpui",
+ "thiserror 2.0.21",
+]
+
+[[package]]
+name = "sonium-wave"
+version = "0.5.0"
+dependencies = [
+ "num-complex 0.4.6",
+ "num-traits",
+ "rayon",
+ "serde",
+ "serde_json",
+ "sonium-compute",
+ "sonium-fft",
+ "sonium-xem",
+ "spec_math",
+]
+
+[[package]]
+name = "sonium-xem"
+version = "0.4.2"
+dependencies = [
+ "chrono",
+ "directories",
+ "flate2",
+ "num-complex 0.4.6",
+ "rayon",
+ "serde",
+ "serde_json",
+ "sonium-compute",
+ "vtkio",
 ]
 
 [[package]]
@@ -9225,8 +9611,8 @@ dependencies = [
  "hyper-util",
  "log",
  "nonzero_ext",
- "num-bigint",
- "num-derive",
+ "num-bigint 0.4.8",
+ "num-derive 0.4.2",
  "num-integer",
  "num-traits",
  "pbkdf2",
@@ -9392,7 +9778,7 @@ dependencies = [
 name = "sotf-naga"
 version = "29.0.3"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "bit-set 0.9.1",
  "bitflags 2.13.2",
  "cfg-if",
@@ -9419,8 +9805,8 @@ dependencies = [
  "approx",
  "glam",
  "matrixmultiply",
- "num-complex",
- "num-rational",
+ "num-complex 0.4.6",
+ "num-rational 0.4.2",
  "num-traits",
  "simba",
  "typenum",
@@ -9430,7 +9816,7 @@ dependencies = [
 name = "sotf-nnnoiseless"
 version = "0.1.1"
 dependencies = [
- "num-complex",
+ "num-complex 0.4.6",
  "once_cell",
  "rustfft",
 ]
@@ -9462,7 +9848,7 @@ dependencies = [
  "hkdf",
  "hmac",
  "md-5",
- "num",
+ "num 0.4.3",
  "num-bigint-dig 0.9.1",
  "pbkdf2",
  "serde",
@@ -9825,7 +10211,7 @@ name = "sotf-plugin-linear-phase-eq"
 version = "0.5.6"
 dependencies = [
  "math-iir-fir",
- "num-complex",
+ "num-complex 0.4.6",
  "plugins-spatial",
  "proptest",
  "realfft",
@@ -10044,7 +10430,7 @@ version = "5.0.0"
 dependencies = [
  "audioadapter",
  "audioadapter-buffers",
- "num-complex",
+ "num-complex 0.4.6",
  "num-integer",
  "num-traits",
  "realfft",
@@ -10085,6 +10471,20 @@ dependencies = [
 [[package]]
 name = "sotf-services"
 version = "0.8.2"
+
+[[package]]
+name = "sotf-speaker-workbench"
+version = "0.1.0"
+dependencies = [
+ "gpui-ui-kit",
+ "num-complex 0.4.6",
+ "serde",
+ "serde_json",
+ "sonium-speaker-designer",
+ "sotf-gpui-toolkit-gpui",
+ "sotf-host",
+ "sotf-plugin-crossover",
+]
 
 [[package]]
 name = "sotf-streaming"
@@ -10140,7 +10540,7 @@ dependencies = [
  "log",
  "maplit",
  "ndarray 0.16.1",
- "num-complex",
+ "num-complex 0.4.6",
  "num-integer",
  "num-traits",
  "pastey",
@@ -10309,7 +10709,7 @@ dependencies = [
 name = "sotf-wgpu"
 version = "29.0.3"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "bitflags 2.13.2",
  "bytemuck",
  "cfg-if",
@@ -10337,7 +10737,7 @@ dependencies = [
 name = "sotf-wgpu-core"
 version = "29.0.3"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "bit-set 0.9.1",
  "bit-vec 0.9.1",
  "bitflags 2.13.2",
@@ -10390,7 +10790,7 @@ name = "sotf-wgpu-hal"
 version = "29.0.3"
 dependencies = [
  "android_system_properties",
- "arrayvec",
+ "arrayvec 0.7.8",
  "ash",
  "bit-set 0.9.1",
  "bitflags 2.13.2",
@@ -10525,6 +10925,12 @@ dependencies = [
  "sotf-xim-parser",
  "x11rb",
 ]
+
+[[package]]
+name = "spec_math"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "02ef091d4e8b981dbaa4cc17789d00b53d5d2c001ae689f14e6093f30c529036"
 
 [[package]]
 name = "spin"
@@ -10909,7 +11315,7 @@ dependencies = [
  "bytemuck",
  "lazy_static",
  "log",
- "num-complex",
+ "num-complex 0.4.6",
  "smallvec",
 ]
 
@@ -11097,7 +11503,7 @@ version = "0.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "639627c87f43b9181c811f40a6296409e093a17bc761214cba3c15df74f86b99"
 dependencies = [
- "arrayvec",
+ "arrayvec 0.7.8",
  "serde",
  "slotmap",
  "smallvec",
@@ -11142,7 +11548,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix 1.1.5",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -11267,7 +11673,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "47ffee5eaaf5527f630fb0e356b90ebdec84d5d18d937c5e440350f88c5a91ea"
 dependencies = [
  "arrayref",
- "arrayvec",
+ "arrayvec 0.7.8",
  "bytemuck",
  "cfg-if",
  "log",
@@ -11588,6 +11994,12 @@ dependencies = [
  "num-integer",
  "strength_reduce",
 ]
+
+[[package]]
+name = "trim-in-place"
+version = "0.1.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "daa60874b45b168f67f3f9ba1ee821ad77144d6fa19cef1cd1874a7450a948da"
 
 [[package]]
 name = "try-lock"
@@ -12010,6 +12422,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "vtkio"
+version = "0.7.0-rc2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d7cba514932ebb50de553d2abf395d0702333ea28ba900fec629d88cd4e79a9"
+dependencies = [
+ "base64 0.22.1",
+ "bytemuck",
+ "byteorder",
+ "log",
+ "nom 8.0.0",
+ "num-derive 0.4.2",
+ "num-traits",
+ "quick-xml 0.36.2",
+ "serde",
+ "trim-in-place",
+]
+
+[[package]]
 name = "wait-timeout"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -12312,7 +12742,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -12788,7 +13218,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d6f32a0ff4a9f6f01231eb2059cc85479330739333e0e58cadf03b6af2cca10"
 dependencies = [
  "cfg-if",
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]

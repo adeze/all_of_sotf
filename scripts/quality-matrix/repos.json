@@ -1,5 +1,9 @@
 {
-  "vendored_repositories": ["sotf-3rdparties"],
+  "companion_applications": [
+    {"name": "Open Room Calibration", "path": "../open-room-calibration", "primary_language": "Swift", "role": "canonical calibration and Apple applications"},
+    {"name": "Spatial Studio and offline analysis", "path": "../py-open-room-calibration", "primary_language": "Python", "role": "offline analysis and spatial-studio TypeScript presentation"}
+  ],
+  "vendored_repositories": ["sotf-3rdparties", "sonium"],
   "repositories": [
     {"name": "autoeq", "path": "autoeq", "primary_language": "Rust", "is_monorepo": false},
     {"name": "gpui-toolkit", "path": "gpui-toolkit", "primary_language": "Rust", "is_monorepo": true},

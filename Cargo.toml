@@ -106,6 +106,7 @@ members = [
     "sotf/crates/sotf-server/crates/sotf-service-tidal",
     "sotf/crates/sotf-server/crates/sotf-services",
     "sotf/crates/sotf-server/crates/sotf-tls",
+    "sotf/crates/sotf-speaker-workbench",
     "symphonia-add-ons/symphonia-codec-dsd",
     "symphonia-add-ons/symphonia-codec-dst",
     "symphonia-add-ons/symphonia-codec-wavpack",
@@ -115,6 +116,7 @@ members = [
 ]
 exclude = [
     "gpui-toolkit",
+    "sonium",
     "sotf-3rdparties",
 ]
 
