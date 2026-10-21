@@ -1,7 +1,7 @@
 # Cargo configuration for the aggregate (mono) workspace.
 # Union of the member repos' .cargo/config.toml files: mono builds read only
-# this config, never the per-repo ones. Standalone repo builds are unaffected
-# (each repo keeps its own config).
+# this config, never the per-repo ones. Builds started inside a member also
+# inherit this config; standalone clones outside the umbrella are unaffected.
 # Differences from the per-repo files, all deliberate:
 # - `jobs` is unset: math-audio pins 64 for a 64-thread EPYC, the other repos
 #   use the host default; mono follows the majority (host default).
@@ -103,3 +103,71 @@ rustflags = [
   "-C", "target-feature=+crt-static",
   "-C", "target-feature=+neon",
 ]
+
+# Resolve shared first-party sources from these Adeze working copies.
+# Applies when Cargo starts in this umbrella or a descendant; published crate
+# manifests and standalone clones keep their declared upstream sources.
+
+[patch."https://github.com/pierreaubert/gpui-toolkit"]
+gpui-profiler = { path = "gpui-toolkit/crates/gpui-profiler" }
+gpui-layout-expr = { path = "gpui-toolkit/crates/gpui-layout-expr" }
+gpui-android = { path = "gpui-toolkit/crates/gpui-android" }
+gpui-au = { path = "gpui-toolkit/crates/gpui-au" }
+gpui-audio-kit = { path = "gpui-toolkit/crates/gpui-audio-kit" }
+gpui-builder = { path = "gpui-toolkit/crates/gpui-builder" }
+gpui-component-lab = { path = "gpui-toolkit/crates/gpui-component-lab" }
+gpui-d3rs = { path = "gpui-toolkit/crates/gpui-d3rs" }
+gpui-design = { path = "gpui-toolkit/crates/gpui-design" }
+gpui-design-tools = { path = "gpui-toolkit/crates/gpui-design-tools" }
+gpui-ios = { path = "gpui-toolkit/crates/gpui-ios" }
+gpui-keybinding = { path = "gpui-toolkit/crates/gpui-keybinding" }
+gpui-miniapp = { path = "gpui-toolkit/crates/gpui-miniapp" }
+gpui-pretext = { path = "gpui-toolkit/crates/gpui-pretext" }
+gpui-px = { path = "gpui-toolkit/crates/gpui-px" }
+gpui-themes = { path = "gpui-toolkit/crates/gpui-themes" }
+gpui-ui-kit = { path = "gpui-toolkit/crates/gpui-ui-kit" }
+gpui-ui-kit-macros = { path = "gpui-toolkit/crates/gpui-ui-kit-macros" }
+
+[patch."https://github.com/pierreaubert/sofa-reader"]
+sofa-reader = { path = "sofa-reader" }
+
+[patch."https://github.com/pierreaubert/sotf-3rdparties"]
+sotf-assert_no_alloc = { path = "sotf-3rdparties/rust-assert-no-alloc" }
+sotf-coreaudio-rs = { path = "sotf-3rdparties/coreaudio-rs" }
+sotf-dst-decoder = { path = "sotf-3rdparties/dst-decoder" }
+sotf-gpui-toolkit-gpui = { path = "sotf-3rdparties/gpui/crates/gpui" }
+sotf-gpui-toolkit-gpui-linux = { path = "sotf-3rdparties/gpui/crates/gpui_linux" }
+sotf-gpui-toolkit-gpui-macos = { path = "sotf-3rdparties/gpui/crates/gpui_macos" }
+sotf-gpui-toolkit-gpui-web = { path = "sotf-3rdparties/gpui/crates/gpui_web" }
+sotf-gpui-toolkit-gpui-wgpu = { path = "sotf-3rdparties/gpui/crates/gpui_wgpu" }
+sotf-gpui-toolkit-gpui-windows = { path = "sotf-3rdparties/gpui/crates/gpui_windows" }
+sotf-librespot-core = { path = "sotf-3rdparties/librespot/core" }
+sotf-librespot-metadata = { path = "sotf-3rdparties/librespot/metadata" }
+sotf-librespot-playback = { path = "sotf-3rdparties/librespot/playback" }
+sotf-librespot-protocol = { path = "sotf-3rdparties/librespot/protocol" }
+sotf-metaheuristics-nature = { path = "sotf-3rdparties/metaheuristics-nature-rs" }
+sotf-nalgebra = { path = "sotf-3rdparties/nalgebra" }
+sotf-nih_plug = { path = "sotf-3rdparties/nih-plug" }
+sotf-nnnoiseless = { path = "sotf-3rdparties/nnnoiseless" }
+sotf-objc = { path = "sotf-3rdparties/objc" }
+sotf-predicates = { path = "sotf-3rdparties/predicates" }
+sotf-rdsd2pcm = { path = "sotf-3rdparties/rdsd2pcm" }
+sotf-rfd = { path = "sotf-3rdparties/rfd" }
+sotf-rubato = { path = "sotf-3rdparties/rubato" }
+sotf-tract-onnx = { path = "sotf-3rdparties/tract/onnx" }
+sotf-vello = { path = "sotf-3rdparties/vello" }
+sotf-vst3-com = { path = "sotf-3rdparties/vst3-sys/com" }
+sotf-vst3-sys = { path = "sotf-3rdparties/vst3-sys" }
+sotf-wgpu = { path = "sotf-3rdparties/wgpu/wgpu" }
+sotf-zed-font-kit = { path = "sotf-3rdparties/zed-font-kit" }
+
+[patch."https://github.com/pierreaubert/symphonia-add-ons"]
+symphonia-codec-dsd = { path = "symphonia-add-ons/symphonia-codec-dsd" }
+symphonia-codec-dst = { path = "symphonia-add-ons/symphonia-codec-dst" }
+symphonia-codec-wavpack = { path = "symphonia-add-ons/symphonia-codec-wavpack" }
+symphonia-format-sacd = { path = "symphonia-add-ons/symphonia-format-sacd" }
+symphonia-iamf-core = { path = "symphonia-add-ons/symphonia-iamf-core" }
+
+# gpui-toolkit consumes this sibling through a registry requirement.
+[patch.crates-io]
+math-delaunay = { path = "math-audio/crates/math-delaunay" }

@@ -7,16 +7,59 @@ Cargo workspace, tests, and release process.
 
 | Workspace | Directory | Repository |
 | --- | --- | --- |
-| SOTF | `sotf/` | <https://github.com/pierreaubert/sotf> |
-| AutoEQ | `autoeq/` | <https://github.com/pierreaubert/autoeq> |
-| Math Audio | `math-audio/` | <https://github.com/pierreaubert/math-audio> |
-| GPUI Toolkit | `gpui-toolkit/` | <https://github.com/pierreaubert/gpui-toolkit> |
-| SOFA Reader | `sofa-reader/` | <https://github.com/pierreaubert/sofa-reader> |
-| Symphonia Add-ons | `symphonia-add-ons/` | <https://github.com/pierreaubert/symphonia-add-ons> |
-| Shared third-party crates | `sotf-3rdparties/` | <https://github.com/pierreaubert/sotf-3rdparties> |
+| SOTF | `sotf/` | <https://github.com/adeze/sotf> |
+| SOTF DAW and plugins | `sotf-daw/` | <https://github.com/adeze/sotf-daw> |
+| Systemwide | `sotf-systemwide/` | <https://github.com/adeze/sotf-systemwide> |
+| Capture | `sotf-capture/` | <https://github.com/adeze/sotf-capture> |
+| AutoEQ | `autoeq/` | <https://github.com/adeze/autoeq> |
+| Math Audio | `math-audio/` | <https://github.com/adeze/math-audio> |
+| GPUI Toolkit | `gpui-toolkit/` | <https://github.com/adeze/gpui-toolkit> |
+| SOFA Reader | `sofa-reader/` | <https://github.com/adeze/sofa-reader> |
+| Symphonia Add-ons | `symphonia-add-ons/` | <https://github.com/adeze/symphonia-add-ons> |
+| Shared third-party crates | `sotf-3rdparties/` | <https://github.com/adeze/sotf-3rdparties> |
 
-There is no top-level `Cargo.toml`; run Cargo commands from a workspace or
-pass its manifest path explicitly.
+The generated top-level `Cargo.toml` supports aggregate checks; see
+[`scripts/mono/README.md`](scripts/mono/README.md) for exclusions and metadata
+limits. Standalone workspace manifests remain authoritative for publishing.
+
+## Adeze integration checkout
+
+Submodules use Adeze forks and the `codex/all-of-sotf` integration branches.
+Gitlinks pin the compatible source revisions; the branch setting only affects
+explicit `git submodule update --remote` operations. Existing older Adeze-only
+changes are not implicitly merged into these revisions.
+
+On the original development machine these directories are linked Git worktrees
+sharing object stores with sibling clones. Their existing branches and working
+files remain separate. Remove a linked checkout with `git worktree remove`
+from its owning clone, rather than deleting its Git administration files.
+
+Run Cargo from this tree so its `.cargo/config.toml` applies. Other projects
+depending on these crates must supply their own source overrides; Cargo ignores
+dependency-local patch configuration.
+
+The local source overrides cover the shared GPUI, SOFA, Symphonia, vendor and
+registry Math Audio dependencies. Capture's legacy `block` compatibility patch
+retains its pinned Git source: the current vendor package is renamed
+`sotf-block`, which is not a transparent replacement. Local-source resolution
+and compilation are separate checks; refresh affected lockfiles deliberately
+when changing integration revisions.
+
+Integration validation (2026-10-22): all 53 override paths match package names;
+root and SOTF full locked metadata resolve without Git-sourced dependencies;
+all nine standalone workspace manifests pass metadata discovery. Compilation,
+runtime behavior and capture's separate legacy compatibility graph are not
+established by these checks.
+
+```bash
+rustup run stable cargo metadata --locked --format-version 1
+rustup run stable cargo metadata --locked --format-version 1 --manifest-path sotf/Cargo.toml
+```
+
+Sonium's `sonium-speaker-designer` is an offline measured passive crossover
+workbench depending on `sonium-fem`. It should integrate as an editor/workbench
+while retaining its numerical ownership. SOTF's existing real-time crossover
+plugin remains the processing implementation; no Sonium code has been moved.
 
 ## Populate the Git tree
 

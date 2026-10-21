@@ -1,30 +1,43 @@
 [submodule "sotf"]
 	path = sotf
-	url = https://github.com/pierreaubert/sotf
+	url = https://github.com/adeze/sotf.git
+	branch = codex/all-of-sotf
 [submodule "sotf-systemwide"]
 	path = sotf-systemwide
-	url = https://github.com/pierreaubert/sotf-systemwide
+	url = https://github.com/adeze/sotf-systemwide.git
+	branch = codex/all-of-sotf
 [submodule "sotf-daw"]
 	path = sotf-daw
-	url = https://github.com/pierreaubert/sotf-daw
+	url = https://github.com/adeze/sotf-daw.git
+	branch = codex/all-of-sotf
 [submodule "sotf-capture"]
 	path = sotf-capture
-	url = https://github.com/pierreaubert/sotf-capture
+	url = https://github.com/adeze/sotf-capture.git
+	branch = codex/all-of-sotf
 [submodule "autoeq"]
 	path = autoeq
-	url = https://github.com/pierreaubert/autoeq
+	url = https://github.com/adeze/autoeq.git
+	branch = codex/all-of-sotf
 [submodule "math-audio"]
 	path = math-audio
-	url = https://github.com/pierreaubert/math-audio
+	url = https://github.com/adeze/math-audio.git
+	branch = codex/all-of-sotf
 [submodule "sofa-reader"]
 	path = sofa-reader
-	url = https://github.com/pierreaubert/sofa-reader
+	url = https://github.com/adeze/sofa-reader.git
+	branch = codex/all-of-sotf
 [submodule "symphonia-add-ons"]
 	path = symphonia-add-ons
-	url = https://github.com/pierreaubert/symphonia-add-ons
+	url = https://github.com/adeze/symphonia-add-ons.git
+	branch = codex/all-of-sotf
 [submodule "ms-rust-skill"]
 	path = skills/ms-rust-skill
 	url = https://gitlab.com/lx-industries/ms-rust-skill.git
 [submodule "sotf-3rdparties"]
 	path = sotf-3rdparties
-	url = https://github.com/pierreaubert/sotf-3rdparties
+	url = https://github.com/adeze/sotf-3rdparties.git
+	branch = codex/all-of-sotf
+[submodule "gpui-toolkit"]
+	path = gpui-toolkit
+	url = https://github.com/adeze/gpui-toolkit.git
+	branch = codex/all-of-sotf
