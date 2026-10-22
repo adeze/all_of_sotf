@@ -1,0 +1,30 @@
+{
+  "revision": "offline-pilot-r1",
+  "project": {
+    "config_directory": null,
+    "data_source": "Synthetic offline SDK fixture",
+    "screen": "RoomEq",
+    "measurement_count": 0,
+    "channels": []
+  },
+  "config": {},
+  "designer": {
+    "min_freq": 20.0,
+    "max_freq": 1600.0,
+    "max_cut_db": 12.0,
+    "max_boost_db": 4.0,
+    "wizard_mode": "Full"
+  },
+  "study": {
+    "status": "Idle",
+    "progress": 0.0,
+    "iteration": 0,
+    "message": "Synthetic offline SDK fixture; not a calibration result",
+    "error": null,
+    "result_count": 0,
+    "results_current": false,
+    "artifact_directory": null
+  },
+  "chat_enabled": false,
+  "offline_only": true
+}

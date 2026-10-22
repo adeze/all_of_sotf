@@ -28,3 +28,4 @@ Use this skill for `crates/app-gpui`, `crates/gpui-toolkit`, plugin panels rende
 ## References
 
 - Read `references/gpui-checklist.md` for common files, commands, and review focus.
+- Read `references/gpui-workbench-panels.md` before changing embedded Designer/speaker panels, entity lifetimes, typed commands, theme inheritance or canvas interaction.

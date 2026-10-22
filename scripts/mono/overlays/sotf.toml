@@ -12,6 +12,7 @@ exclude_members = [
     "crates/app-ios",
     "crates/app-tui",
     "crates/app-tvos",
+    "crates/sotf-calibration-workbench",
     "crates/sotf-docs-gen",
     "crates/sotf-player",
     "crates/sotf-server/crates/sotf-federation",

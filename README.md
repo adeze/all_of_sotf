@@ -84,6 +84,18 @@ The optional [workbench MCP service](sotf/crates/sotf-dev-driver/WORKBENCH_MCP.m
 lets agents inspect Room EQ state, edit supported limits and run offline studies
 through the same commands as the UI. Chat remains disabled.
 
+The optional [`sotf-calibration-workbench`](sotf/crates/sotf-calibration-workbench/README.md)
+adds a local Designer tab in Room EQ Configure, preserving the original shell and
+default Parameters view. Enable the embedded workbenches with:
+
+```sh
+cargo run --manifest-path sotf/Cargo.toml -p sotf-gpui --bin sotf-desktop --features calibration-designer,speaker-workbench,workbench-api
+```
+
+Reusable audio controls belong in `gpui-toolkit/crates/gpui-audio-kit`, canvas
+interaction in `gpui-ui-kit`, and plotting primitives in `gpui-d3rs`/`gpui-px`.
+The workbench owns calibration presentation and delegates execution to Room EQ.
+
 See [design language](DESIGN.md) and [workflow/storage integration](WORKBENCH_WORKFLOW.md) for current boundaries.
 
 Sync installed Symposium guidance from this umbrella root with

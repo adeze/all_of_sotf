@@ -4,9 +4,15 @@ This document maps the desired integrated workflow onto observed components. Pla
 
 ## Restart checkpoint — 2026-10-22
 
-The original application shell, navigation, menus and startup behavior are restored. Do not hide or repurpose music destinations. The next integration should be an isolated embedded workbench extension, following the speaker-workbench ownership pattern, with its own view and the existing shared commands/state. This is a workbench feature, not a realtime DSP plugin. Native Denon acquisition can become a supported measurement-source adapter through the authoritative Swift implementation; it is not connected to Rust by this checkpoint. Keep chat disabled.
+The original application shell, navigation, menus and startup behavior are retained. Do not hide or repurpose music destinations. The optional `calibration-designer` app feature embeds `sotf-calibration-workbench` inside Room EQ Configure, following the speaker-workbench ownership pattern. Local Parameters/Designer tabs default to the existing Parameters form. This is a build-linked workbench component, not a realtime DSP plugin or dynamically loaded module. Native Denon acquisition remains a separate measurement-source adapter task through the authoritative Swift implementation. Keep chat disabled.
 
-The selectable pipeline currently remains a read-only projection in Room EQ Configure, with the existing form providing parameter edits. Arbitrary stage execution/reordering and a standalone calibration workbench extension remain unimplemented. Before resuming feature work, run the toolkit read-only canvas interaction test and review the graph/speaker tabs visually. The restored-shell application suites passed 146 tests; no hardware acquisition or transfer was performed.
+The Designer consumes a bounded projection of the current shared model without copying measurement arrays or owning a parallel optimizer configuration. It displays the actual engine stage order and observed lifecycle, and emits typed commands for four supported limits plus offline study start/cancel. The host dispatches existing validation and calculation paths, also used by the ordinary UI and MCP. Arbitrary stage execution/reordering remains unimplemented. Current extraction tests and native visual review must be reported separately; this document does not establish that they passed. No hardware acquisition or transfer is part of this work.
+
+## Verification checkpoint — 2026-10-22
+
+The isolated implementation passes 180 scoped application/workbench tests and 472 toolkit unit tests. The default application library also checks without the optional workbenches. Metal visual review covers Designer, scrolled Designer controls and speaker panels in dark/light palettes, including 1.25 typography zoom. The harness checks named accessibility nodes and records requested viewports separately from actual image pixels; macOS clamps oversized windows to this display's bounds.
+
+Regular interactive launch remains blocked during Core Audio input-device capability enumeration, before a window opens. Offscreen Metal captures avoid device enumeration; they do not establish normal startup or physical keyboard/audio behavior. No receiver operation, live capture or transfer was performed.
 
 ## Shared context
 
@@ -35,9 +41,11 @@ The intended Designer stages are evidence/selection, analysis, goals/constraints
 
 Each stage has a summary, implemented inputs/overrides, applicable locks and a direct link to its response or room context. Perceptual goals should be recorded as explicit tradeoffs and translated only through supported typed parameters. Predicted front-stage/center-stage changes are not verified perceptual improvement. Keep chat disabled until requested.
 
-Existing `sotf/crates/app-gpui/components/plugins/ui_graph.rs` uses toolkit `WorkflowCanvas` for pan, zoom, connections and hit testing. Plugin graph node identities are preserved when building canvas state. Reuse that interaction surface for routing and stage relationships where useful. Calibration execution remains with Room EQ/workflow services; a graph edge alone does not implement acquisition, evidence qualification or candidate generation. The graph is an alternative view of shared state, not a parallel configuration store or optimizer.
+Existing `sotf/crates/app-gpui/components/plugins/ui_graph.rs` uses toolkit `WorkflowCanvas` for pan, zoom, connections and hit testing. Plugin graph node identities are preserved when building canvas state. The isolated `sotf/crates/sotf-calibration-workbench/` reuses that canvas in read-only mode for canonical engine order, stage selection and explanations. Generic controls, canvas behavior and plot primitives belong to `gpui-toolkit`; calibration-specific presentation belongs to the workbench component, with domain state, validation and execution remaining in the existing player/Room EQ owners. A graph edge alone does not implement acquisition, evidence qualification or candidate generation.
 
 ## Speaker workbench boundary
+
+The embedded Passive circuit/Active crossover tabs preserve their drafts and previews. The wrapper tracks Sonium's passive calculation generation so selection-only or calculation-completion notifications do not invalidate an active preview. A changed project calculation or active crossover setting still invalidates it; no measurement-array copy/hash is required for notification filtering.
 
 `../sonium/crates/sonium-speaker-designer` currently owns measured two-way passive RLC modeling: four FRD/ZMA imports, six components, driver delay/polarity, complex circuit solution and response/impedance prediction. Its version-1 JSON includes imported samples. GUI currently uses optional sibling GPUI toolkit dependencies. Keep reusable view/state separate from standalone launch code when embedding it.
 

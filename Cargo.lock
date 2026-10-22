@@ -6878,12 +6878,25 @@ dependencies = [
  "chacha20",
  "core_detect",
  "num-traits",
+ "proptest-macro",
  "rand 0.10.3",
  "rand_xorshift",
  "regex-syntax",
  "rusty-fork",
  "tempfile",
  "unarray",
+]
+
+[[package]]
+name = "proptest-macro"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e99782ea31698c2206c6887c1220d2f594b291c26cb9ec5b6d7cf175320bc212"
+dependencies = [
+ "convert_case",
+ "proc-macro2",
+ "quote",
+ "syn 3.0.9",
 ]
 
 [[package]]
@@ -9191,6 +9204,7 @@ dependencies = [
  "anyhow",
  "async-channel",
  "async-task",
+ "backtrace",
  "bitflags 2.13.2",
  "block",
  "cbindgen",
@@ -9225,6 +9239,7 @@ dependencies = [
  "pin-project",
  "pollster",
  "profiling",
+ "proptest",
  "rand 0.9.5",
  "raw-window-handle",
  "regex",
