@@ -1,0 +1,32 @@
+[package]
+name = "rerun-workbench"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "GPL-3.0-or-later"
+
+[workspace]
+
+[dependencies]
+sotf-rerun-viewer = { path = "../../sotf/crates/sotf-rerun-viewer" }
+roomeq-model = { path = "../../autoeq/crates/roomeq-model" }
+roomeq-workflow = { path = "../../autoeq/crates/roomeq-workflow" }
+autoeq-measurements = { path = "../../autoeq/crates/autoeq-measurements", default-features = false }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+math-iir-fir = { path = "../../math-audio/crates/math-iir-fir" }
+sotf-dev-api = { path = "../../sotf/crates/sotf-dev-api", features = ["workbench-server"] }
+
+[patch."https://github.com/pierreaubert/sofa-reader"]
+sofa-reader = { path = "../../sofa-reader" }
+
+[profile.dev]
+opt-level = 1
+split-debuginfo = "packed"
+debug = 0
+incremental = false
+
+[profile.test]
+debug = 0
+incremental = false

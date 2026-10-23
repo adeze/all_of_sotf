@@ -802,6 +802,13 @@ def generate(root: Path) -> tuple[str, dict]:
             "exclude_members", []))
     )
 
+    # Cargo auto-joins path dependencies even when omitted from members.
+    # Exclude skipped workspace roots explicitly; their listed children stay members.
+    exclude = sorted(set(exclude) | {
+        rel for rel in excluded
+        if "workspace" in load_toml(root / rel / "Cargo.toml")
+    })
+
     by_name = collect_workspace_deps(root)
     forced = mono_overlay.get("deps", {}) or {}
     for dep_name, spec in forced.items():

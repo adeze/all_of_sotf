@@ -5,10 +5,13 @@ Runs under pytest (`pytest scripts/mono`) and standalone
 (`python3 scripts/mono/generate_test.py`) for environments without pytest.
 """
 
+import json
+import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -184,6 +187,43 @@ class TestCollectMembers(unittest.TestCase):
             )
             with self.assertRaisesRegex(MonoError, "multiple workspace roots"):
                 generate.collect_members(root, overlays)
+
+
+class TestExcludedWorkspaceRoots(unittest.TestCase):
+    def test_path_dependency_root_stays_standalone(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root, overlays = make_fixture_root(tmp)
+            (root / "autoeq" / "Cargo.toml").write_text(
+                '[package]\nname = "autoeq"\nversion = "0.1.0"\n'
+                '[workspace]\nmembers = [".", "child"]\n', encoding="utf-8",
+            )
+            overlays["autoeq"] = {"mono": {"exclude_members": ["."]}}
+            child = root / "autoeq" / "child"
+            for directory in (root / "autoeq", child):
+                (directory / "src").mkdir(parents=True)
+                (directory / "src" / "lib.rs").write_text("", encoding="utf-8")
+            (child / "Cargo.toml").write_text(
+                '[package]\nname = "child"\nversion = "0.1.0"\n'
+                '[dependencies]\nautoeq = { path = ".." }\n', encoding="utf-8",
+            )
+            mono = {"mono": {"exclude": []}, "package": {"version": "0.1.0"}}
+            with patch.object(generate, "load_overlays", return_value=(mono, overlays)):
+                text, _ = generate.generate(root)
+            self.assertIn('    "autoeq",', text)
+            self.assertIn('    "autoeq/child",', text)
+            (root / "Cargo.toml").write_text(text, encoding="utf-8")
+            result = subprocess.run(
+                ["cargo", "metadata", "--offline", "--no-deps", "--format-version", "1"],
+                cwd=root, capture_output=True, text=True, check=True,
+            )
+            metadata = json.loads(result.stdout)
+            self.assertEqual(len(metadata["workspace_members"]), 1)
+            self.assertEqual(metadata["packages"][0]["name"], "child")
+            standalone = subprocess.run(
+                ["cargo", "metadata", "--offline", "--no-deps", "--format-version", "1"],
+                cwd=root / "autoeq", capture_output=True, text=True, check=True,
+            )
+            self.assertEqual(json.loads(standalone.stdout)["workspace_root"], str((root / "autoeq").resolve()))
 
 
 class TestValidateExternalPaths(unittest.TestCase):

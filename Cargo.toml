@@ -99,6 +99,7 @@ members = [
     "sotf/crates/sotf-dev-driver",
     "sotf/crates/sotf-media-controls",
     "sotf/crates/sotf-report-host",
+    "sotf/crates/sotf-rerun-viewer",
     "sotf/crates/sotf-server/crates/sotf-cast",
     "sotf/crates/sotf-server/crates/sotf-dlna",
     "sotf/crates/sotf-server/crates/sotf-mpd",
@@ -115,9 +116,12 @@ members = [
     "symphonia-add-ons/symphonia-iamf-core",
 ]
 exclude = [
+    "autoeq",
     "gpui-toolkit",
+    "sofa-reader",
     "sonium",
     "sotf-3rdparties",
+    "sotf-capture",
 ]
 
 [workspace.package]

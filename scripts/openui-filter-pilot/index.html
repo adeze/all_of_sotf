@@ -1,0 +1,4 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Filter comparison · OpenUI pilot</title></head><body><div id="root"></div>
+<!-- OpenUI 1.0.1's inspector reads process.env["NODE_ENV"] without a browser guard. No server environment is exposed. -->
+<script>globalThis.process ??= {env:{NODE_ENV:"development"}};</script>
+<script type="module" src="./src/app.tsx"></script></body></html>

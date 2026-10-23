@@ -53,6 +53,11 @@ Run Cargo from this tree so its `.cargo/config.toml` applies. Other projects
 depending on these crates must supply their own source overrides; Cargo ignores
 dependency-local patch configuration.
 
+Overrides are explicit, not an automatic fork policy. Unpatched dependencies
+still resolve from the registry or Git sources declared in manifests and pinned
+in lockfiles; Cargo downloads missing sources into its cache. Updating submodule
+commits, updating dependency resolution and validating builds are separate steps.
+
 The local source overrides cover the shared GPUI, SOFA, Symphonia, vendor and
 registry Math Audio dependencies. Capture's legacy `block` compatibility patch
 retains its pinned Git source: the current vendor package is renamed
@@ -161,6 +166,61 @@ root. Install the shared Python dependencies when needed with:
 ```bash
 python3 -m pip install -r scripts/requirements.txt
 ```
+
+### `scripts/rerun-study/` — Optimizer checkpoint inspection
+
+The opt-in [native scientific viewer](sotf/crates/sotf-rerun-viewer/README.md)
+embeds Rerun inside the existing Room EQ workspace (`rerun-viewer` feature),
+using current measurements, explicitly selected room geometry and real study
+callbacks. It does not replace the app shell or require a Python runtime.
+
+Optional Rust exporter and live observer for optimizer checkpoints in Rerun.
+It writes derived `.rrd` recordings and can stream observed generation updates
+to a local viewer without changing GPUI or the solver.
+For complete supported AutoEQ generation history, prefer AutoEQ's opt-in
+`rerun-telemetry` feature and `--rerun-recording` rather than polling checkpoint
+files. Rerun is the selected scientific viewer SDK; the migration boundary and
+remaining room/volumetric integration are described in
+[ADEZE_WORKBENCH_SPEC.md](ADEZE_WORKBENCH_SPEC.md#rust-first-migration-boundary).
+See [usage and limitations](scripts/rerun-study/README.md).
+
+### `scripts/solver-envelope-pilot/` — Live population responses
+
+Direct DE generation callbacks, translucent min/max and p10/p90 bands, shared
+Swift/Rust display smoothing and selectable speaker comparisons. The bounded
+[cached-build trial](scripts/solver-envelope-pilot/README.md) reuses numerical and
+Rerun libraries without building the application shell or touching calibration.
+
+### `scripts/sonium-room-pilot/` — Offline acoustic parity trial
+
+Saved VisionPlan nominal geometry → Sonium wave/ray source modules → Swift wave
+and analytical reflection comparisons → Rerun. Separate grid views preserve the
+distinction between implementation parity and unestablished physical convergence.
+See [commands, results and upgrade policy](scripts/sonium-room-pilot/README.md).
+
+### `scripts/speaker-geometry-pilot/` — Parametric speaker geometry
+
+Isolated Solarxy headless-kernel → Manifold CSG → Rerun trial, with full cabinet,
+cutaway and chamber-air meshes. Pinned dependencies, metre-based parameters and
+solid/volume tests; no acoustic qualification or app-shell changes.
+See [usage and limits](scripts/speaker-geometry-pilot/README.md).
+
+### Independent workbench pilots
+
+`scripts/rerun-native-workbench/` embeds the actual native Rerun application with
+shared measured spectrogram/waterfall controls, fixed native solver plots and
+saved room/algorithm recording navigation. It consumes explicit saved inputs;
+see [native workbench usage and scientific limits](scripts/rerun-native-workbench/README.md).
+
+`scripts/rerun-workbench/` projects explicitly selected room/project data and
+serialized filter responses into a separate Rerun viewer. `scripts/openui-filter-pilot/`
+renders the real candidate comparison and supported Designer controls in a local
+OpenUI panel. Applied limits can start or cancel a canonical offline RoomEQ study.
+Direct callbacks retain response history and update both viewers; final pipeline
+output remains separate from optimizer proposals and saved electrical filters.
+Chat stays disabled. These experiments reuse libraries and typed commands; they do not
+replace or restructure the SOTF player shell. See their READMEs for supported
+inputs, command connections and remaining qualification gaps.
 
 ### `scripts/align-crates/` — Cargo dependency alignment
 

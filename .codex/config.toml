@@ -1,0 +1,6 @@
+# Opt into repository tools; specialist MCP servers default off in user config.
+[mcp_servers.smlibpy]
+enabled = true
+
+[plugins."whiteboard@devfast".mcp_servers.whiteboard]
+enabled = true

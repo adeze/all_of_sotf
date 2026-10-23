@@ -1,0 +1,29 @@
+[package]
+name = "rerun-native-workbench"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[workspace]
+
+[dependencies]
+anyhow = "1"
+rerun = { version = "0.40.0", default-features = false, features = ["sdk", "native_viewer"] }
+re_log_channel = "0.40.0"
+re_data_source = "0.40.0"
+re_log_msg = "0.40.0"
+re_viewer_context = "0.40.0"
+egui_plot = "0.38"
+serde_json = "1"
+rustfft = "6"
+sha2 = "0.10"
+
+[profile.dev]
+opt-level = 1
+debug = 0
+incremental = false
+
+[profile.test]
+opt-level = 1
+debug = 0
+incremental = false

@@ -1,0 +1,23 @@
+[package]
+name = "speaker-geometry-pilot"
+version = "0.1.0"
+edition = "2024"
+publish = false
+license = "GPL-3.0-or-later"
+
+[workspace]
+
+[dependencies]
+solarxy-kernel = { git = "https://github.com/marko-koljancic/solarxy", rev = "9aa3b49191f0904478fd3a19dc7a4c1fbbfb6e36" }
+manifold-rust = "=0.16.0"
+rerun = { version = "0.40.0", default-features = false, features = ["sdk", "web_viewer"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.dev]
+debug = 0
+incremental = false
+
+[profile.test]
+debug = 0
+incremental = false

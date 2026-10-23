@@ -53,6 +53,11 @@ membership, workspace deps, lints, or patches.
 - **External deps**: sources must agree; most-specific version req wins
   (`4.0.1` over `3`/`4` for serial_test); features union; `default-features`
   disagreements fail loudly and need a `[deps.*]` overlay decision.
+- **Skipped workspace roots are explicitly excluded.** The generator adds any
+  skipped package with a `[workspace]` table to root `workspace.exclude`.
+  Omitting it from `members` alone is insufficient: Cargo otherwise auto-joins
+  it through a path dependency and reports multiple workspace roots. Explicitly
+  listed child crates still participate; standalone fork manifests stay unchanged.
 - **Excluded targets keep their own context.** A path dep under an
   `[mono] exclude` path resolves with its own workspace tables and version
   (probed) instead of joining mono. Used for the nested gpui-toolkit.
@@ -94,9 +99,10 @@ inherit only names mono defines.
   plus their reverse-dependency closure stay out until those repo roots are
   virtualized (facade moves into `crates/`). Removing the overlay entries
   then rejoins the crates untouched; no other mono change is needed.
-- **1 permanent.** `sofa-reader` is its own workspace root and every
-  consumer takes it via git, so mono resolves the git rev and never lists
-  the working copy. Covered standalone instead.
+- **1 permanent.** `sofa-reader` remains a standalone workspace rather than
+  an aggregate member. Consumers declare a Git dependency, but this umbrella's
+  `.cargo/config.toml` patches it to the local `sofa-reader/` checkout. Standalone
+  clones outside this umbrella need their own override to use that local fork.
 
 Mono is decoupled from the gpui-toolkit extraction: while nested, the
 toolkit is excluded (its path dependents keep its workspace context); after
