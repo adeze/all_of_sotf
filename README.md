@@ -51,11 +51,10 @@ branches, staging, and untracked files. Switch branches with care: every project
 using either path sees the same checkout. The local merged branches are named
 `codex/shared-checkouts-20261026`; they have not been pushed.
 
-The previous checkouts and original sibling files were preserved in
-`../all_of_sotf-preserved-20261026-170058/`. Its `state.json` records original
-branches and commits; `worktrees/` retains the original umbrella worktrees.
-See its `RECOVERY.md` before undoing the layout. Do not delete Git administration
-files to remove a worktree; use `git worktree remove` from its owning checkout.
+Original branches remain available. Uncommitted edits were captured in local
+preservation commits before merging, and both original histories remain reachable
+from the shared branches. The temporary filesystem snapshots and archived
+worktrees were removed after verifying preservation, at the user's request.
 Submodule updates also affect projects using the sibling paths; review the
 target revisions before updating these shared checkouts.
 
