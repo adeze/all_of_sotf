@@ -48,8 +48,8 @@ On the original development machine, these directories contain the canonical
 checkouts, including their Git storage. The sibling `adeze/<repo>` paths are
 relative symlinks to `adeze/all_of_sotf/<repo>`, so both paths share edits,
 branches, staging, and untracked files. Switch branches with care: every project
-using either path sees the same checkout. The local merged branches are named
-`codex/shared-checkouts-20261026`; they have not been pushed.
+using either path sees the same checkout. The merged branches are named
+`codex/shared-checkouts-20261026`.
 
 Original branches remain available. Uncommitted edits were captured in local
 preservation commits before merging, and both original histories remain reachable
