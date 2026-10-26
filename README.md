@@ -39,15 +39,25 @@ limits. Standalone workspace manifests remain authoritative for publishing.
 
 ## Adeze integration checkout
 
-Submodules use Adeze forks and the `codex/all-of-sotf` integration branches.
+Submodule configuration tracks Adeze forks and the `codex/all-of-sotf` branches.
 Gitlinks pin the compatible source revisions; the branch setting only affects
 explicit `git submodule update --remote` operations. Existing older Adeze-only
 changes are not implicitly merged into these revisions.
 
-On the original development machine these directories are linked Git worktrees
-sharing object stores with sibling clones. Their existing branches and working
-files remain separate. Remove a linked checkout with `git worktree remove`
-from its owning clone, rather than deleting its Git administration files.
+On the original development machine, these directories contain the canonical
+checkouts, including their Git storage. The sibling `adeze/<repo>` paths are
+relative symlinks to `adeze/all_of_sotf/<repo>`, so both paths share edits,
+branches, staging, and untracked files. Switch branches with care: every project
+using either path sees the same checkout. The local merged branches are named
+`codex/shared-checkouts-20261026`; they have not been pushed.
+
+The previous checkouts and original sibling files were preserved in
+`../all_of_sotf-preserved-20261026-170058/`. Its `state.json` records original
+branches and commits; `worktrees/` retains the original umbrella worktrees.
+See its `RECOVERY.md` before undoing the layout. Do not delete Git administration
+files to remove a worktree; use `git worktree remove` from its owning checkout.
+Submodule updates also affect projects using the sibling paths; review the
+target revisions before updating these shared checkouts.
 
 Run Cargo from this tree so its `.cargo/config.toml` applies. Other projects
 depending on these crates must supply their own source overrides; Cargo ignores
