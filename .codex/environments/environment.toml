@@ -1,0 +1,10 @@
+version = 1
+name = "all_of_sotf"
+
+[setup]
+script = ""
+
+[[actions]]
+name = "clean-build-artifacts"
+icon = "tool"
+command = "uv run --no-project python scripts/clean_build_artifacts.py"

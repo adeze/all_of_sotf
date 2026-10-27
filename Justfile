@@ -142,6 +142,10 @@ local-build:
 	cargo build --manifest-path sotf-systemwide/Cargo.toml --workspace
 	cargo build --manifest-path symphonia-add-ons/Cargo.toml --workspace
 
+# Preserve QA logs and reports; also available as a Codex action.
+clean-build-artifacts:
+	uv run --no-project python scripts/clean_build_artifacts.py
+
 local-clean:
 	just --justfile autoeq/Justfile --working-directory autoeq clean
 	just --justfile gpui-toolkit/Justfile --working-directory gpui-toolkit clean
