@@ -4,3 +4,10 @@ enabled = true
 
 [plugins."whiteboard@devfast".mcp_servers.whiteboard]
 enabled = true
+
+[mcp_servers.rust_analyzer]
+command = "/opt/homebrew/bin/uv"
+args = ["run", "--no-project", "--with", "mcp", "python", "/Users/adam/Development/adeze/all_of_sotf/.codex/rust_analyzer_mcp.py"]
+enabled_tools = ["lookup_symbol"]
+startup_timeout_sec = 120
+tool_timeout_sec = 120
