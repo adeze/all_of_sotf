@@ -227,16 +227,21 @@ fn record_callback(
         + 1;
     let response = p.response.as_ref().map(|r| json!({"channel":p.current_speaker,"frequency_hz":r.frequency_hz,
         "prepared_measurement_db":r.prepared_measurement_db,"target_db":r.target_db,"filter_db":r.filter_db,"predicted_db":r.predicted_db}));
-    let loss = p.response.is_some()
+    let loss = p
+        .response
+        .is_some()
         .then_some(p.loss)
         .filter(|v| v.is_finite());
     let event = json!({"callback_index":count,"iteration":p.iteration,"progress":p.overall_progress,
         "loss":loss,"response":response,"channel":p.current_speaker,"stage":format!("{:?}/{:?}",p.step_id,p.step_status),"message":p.message});
     let bytes = serde_json::to_vec(&event).map_err(|e| e.to_string())?;
-    if file.metadata().map_err(|e| e.to_string())?.len() + bytes.len() as u64 + 1 > 512 * 1024 * 1024 {
+    if file.metadata().map_err(|e| e.to_string())?.len() + bytes.len() as u64 + 1
+        > 512 * 1024 * 1024
+    {
         return Err("Callback recording reached the 512 MiB study budget; study stopped without dropping history".into());
     }
-    file.write_all(&bytes).and_then(|_| file.write_all(b"\n"))
+    file.write_all(&bytes)
+        .and_then(|_| file.write_all(b"\n"))
         .and_then(|_| file.sync_data())
         .map_err(|e| e.to_string())?;
     {
@@ -348,10 +353,19 @@ mod tests {
     #[test]
     fn real_offline_callbacks_final_output_cancellation_and_failure() {
         let viewer_source = include_str!("../../../sotf/crates/sotf-rerun-viewer/src/lib.rs");
-        let reset = viewer_source.split("pub fn begin_solver_study").nth(1).unwrap().split("pub fn log_final_response").next().unwrap();
+        let reset = viewer_source
+            .split("pub fn begin_solver_study")
+            .nth(1)
+            .unwrap()
+            .split("pub fn log_final_response")
+            .next()
+            .unwrap();
         assert!(reset.contains("set_time_sequence(\"callback\""));
         assert!(reset.contains(".log(\"solver/channels\""));
-        assert!(!reset.contains("log_static(\"solver/channels\""), "static clears hide temporal response histories");
+        assert!(
+            !reset.contains("log_static(\"solver/channels\""),
+            "static clears hide temporal response histories"
+        );
         let root = Path::new(env!("CARGO_MANIFEST_DIR"))
             .parent()
             .unwrap()
@@ -400,7 +414,12 @@ mod tests {
             callbacks.len() as u64,
             completed["callback_count"].as_u64().unwrap()
         );
-        assert!(callbacks.iter().filter(|event| event["response"].is_null()).all(|event| event["loss"].is_null()));
+        assert!(
+            callbacks
+                .iter()
+                .filter(|event| event["response"].is_null())
+                .all(|event| event["loss"].is_null())
+        );
         let responses: Vec<_> = callbacks
             .iter()
             .filter_map(|event| event["response"]["predicted_db"].as_array())

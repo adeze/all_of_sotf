@@ -130,7 +130,7 @@ fn load(path: &Path) -> Result<Snapshot> {
     }
     // serde_json rejects NaN/Infinity/overflow rather than silently converting them.
     let raw: Value = serde_json::from_slice(&bytes)?;
-    let state: State = serde_json::from_value(raw.clone())?;
+    let state = State::deserialize(&raw)?;
     state.validate()?;
     validate_terminal(
         &raw["checkpoint"]["terminal"],
@@ -542,6 +542,7 @@ fn main() -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use rerun::external::re_log_msg::LogMsg;
 
     // Handcrafted schema fixture; not a measured acoustic or solver result.
     fn fixture(generation: i64) -> Value {
@@ -630,7 +631,7 @@ mod tests {
             {"kind":"positive_infinity"},{"kind":"positive_infinity"}]);
         export(&path, &[snapshot(fixture(1)), snapshot(second)]).unwrap();
         let bytes = std::fs::read(&path).unwrap();
-        let messages: Vec<re_log_types::LogMsg> =
+        let messages: Vec<LogMsg> =
             re_log_encoding::Decoder::decode_eager(std::io::Cursor::new(&bytes))
                 .unwrap()
                 .collect::<std::result::Result<_, _>>()
@@ -734,7 +735,7 @@ mod tests {
         )
         .unwrap();
         writer.join().unwrap();
-        let messages: Vec<re_log_types::LogMsg> = re_log_encoding::Decoder::decode_eager(
+        let messages: Vec<LogMsg> = re_log_encoding::Decoder::decode_eager(
             std::io::BufReader::new(File::open(&output).unwrap()),
         )
         .unwrap()
@@ -780,7 +781,7 @@ mod tests {
             )
             .is_err()
         );
-        let messages: Vec<re_log_types::LogMsg> = re_log_encoding::Decoder::decode_eager(
+        let messages: Vec<LogMsg> = re_log_encoding::Decoder::decode_eager(
             std::io::BufReader::new(File::open(&output).unwrap()),
         )
         .unwrap()
