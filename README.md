@@ -39,7 +39,8 @@ limits. Standalone workspace manifests remain authoritative for publishing.
 
 ## Adeze integration checkout
 
-Submodule configuration tracks Adeze forks and the `codex/all-of-sotf` branches.
+Submodule configuration tracks Adeze forks and their default branches (`main`,
+or `master` for `sotf`).
 Gitlinks pin the compatible source revisions; the branch setting only affects
 explicit `git submodule update --remote` operations. Existing older Adeze-only
 changes are not implicitly merged into these revisions.
@@ -48,12 +49,13 @@ On the original development machine, these directories contain the canonical
 checkouts, including their Git storage. The sibling `adeze/<repo>` paths are
 relative symlinks to `adeze/all_of_sotf/<repo>`, so both paths share edits,
 branches, staging, and untracked files. Switch branches with care: every project
-using either path sees the same checkout. The merged branches are named
-`codex/shared-checkouts-20261026`.
+using either path sees the same checkout. These checkouts use each fork's
+default branch.
 
-Original branches remain available. Uncommitted edits were captured in local
-preservation commits before merging, and both original histories remain reachable
-from the shared branches. The temporary filesystem snapshots and archived
+Uncommitted edits were captured in local preservation commits before merging,
+and both original histories remain reachable from each fork's default branch.
+The merged integration branches were removed after publishing and verifying
+their commits on the default branches. The temporary filesystem snapshots and archived
 worktrees were removed after verifying preservation, at the user's request.
 Submodule updates also affect projects using the sibling paths; review the
 target revisions before updating these shared checkouts.
