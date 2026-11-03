@@ -8,7 +8,6 @@
     {"name": "sotf", "path": "sotf", "primary_language": "Rust", "is_monorepo": true},
     {"name": "sotf-capture", "path": "sotf-capture", "primary_language": "Rust", "is_monorepo": false},
     {"name": "sotf-daw", "path": "sotf-daw", "primary_language": "Rust", "is_monorepo": true},
-    {"name": "sotf-systemwide", "path": "sotf-systemwide", "primary_language": "Rust", "is_monorepo": false},
-    {"name": "symphonia-add-ons", "path": "symphonia-add-ons", "primary_language": "Rust", "is_monorepo": true}
+    {"name": "sotf-systemwide", "path": "sotf-systemwide", "primary_language": "Rust", "is_monorepo": false}
   ]
 }

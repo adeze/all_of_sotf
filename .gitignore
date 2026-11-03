@@ -10,6 +10,9 @@ node_modules
 /books
 /index
 /docs
+/tmp
+
+release-progress.md
 
 .tokensave
 .DS_Store

@@ -152,12 +152,12 @@ PY
     fi
 }
 
-run_check daw-engine-lab-tests sotf-daw cargo test -p sotf-engine --lib --locked lab_tests
-run_check daw-engine-all-targets sotf-daw cargo check -p sotf-engine --all-targets --locked
-if run_check systemwide-ipc-lab-compile sotf-systemwide cargo test -p sotf-daemon --test ipc_line_tests --locked --no-run; then
+run_check daw-engine-lab-tests sotf-daw cargo test -p sotf-engine --lib lab_tests
+run_check daw-engine-all-targets sotf-daw cargo check -p sotf-engine --all-targets
+if run_check systemwide-ipc-lab-compile sotf-systemwide cargo test -p sotf-daemon --test ipc_line_tests --no-run; then
     for test_name in systemwide_lab_restarts_with_a_fresh_coherent_snapshot systemwide_lab_scenario_matrix_over_unix_socket; do
         run_bounded_check "$test_name" sotf-systemwide 180 \
-            cargo test -p sotf-daemon --test ipc_line_tests --locked "$test_name" -- --exact --nocapture --test-threads=1
+            cargo test -p sotf-daemon --test ipc_line_tests "$test_name" -- --exact --nocapture --test-threads=1
         if ! grep -Fq "test ${test_name} ..." "$output/$test_name.log" || \
             ! grep -Eq '^test result: ok\. 1 passed; 0 failed; 0 ignored;' "$output/$test_name.log"; then
             printf '[%s] required lab test did not pass\n' "$test_name" >&2

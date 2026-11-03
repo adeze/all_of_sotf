@@ -6,12 +6,9 @@ default:
 set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
 
 qa_evidence_root := env_var_or_default("SOTF_QA_EVIDENCE_ROOT", "/Volumes/home_tmp/cache/mbx/release-qa")
-export CARGO_NET_OFFLINE := env_var_or_default("CARGO_NET_OFFLINE", "true")
 export CARGO_HOME := `python3 -c 'import os; from pathlib import Path; home=os.environ.get("CARGO_HOME"); home=(str(Path(os.environ.get("HOME") or Path.home()) / ".cargo") if home is None else home); print(str((Path(os.path.expanduser(home)) if Path(os.path.expanduser(home)).is_absolute() else Path.cwd() / os.path.expanduser(home)).resolve()) if home else "")'`
 workspaces := "autoeq gpui-toolkit math-audio sofa-reader sotf sotf-capture sotf-daw sotf-systemwide symphonia-add-ons"
 
-# Aggregate gates run offline by default. Set CARGO_NET_OFFLINE=false only when
-# a developer intentionally allows Cargo to access the network.
 dependencies:
 	SOTF_QA_EVIDENCE_ROOT="{{qa_evidence_root}}" python3 scripts/release/qa.py --phase metadata
 
@@ -55,7 +52,7 @@ local-test-sotf:
 	just --justfile sotf/Justfile --working-directory sotf test
 
 local-test-sotf-capture:
-	cargo test --manifest-path sotf-capture/Cargo.toml --workspace --locked
+	cargo test --manifest-path sotf-capture/Cargo.toml --workspace
 
 local-test-sotf-daw:
 	just --justfile sotf-daw/Justfile --working-directory sotf-daw ntest
@@ -161,7 +158,7 @@ mono-check-generate:
 	python3 scripts/mono/generate.py --check
 
 mono-check:
-	cargo check --workspace --locked --manifest-path Cargo.toml
+	cargo check --workspace --manifest-path Cargo.toml
 
 mono-test-build:
-	cargo test --workspace --locked --manifest-path Cargo.toml --no-run
+	cargo test --workspace --manifest-path Cargo.toml --no-run

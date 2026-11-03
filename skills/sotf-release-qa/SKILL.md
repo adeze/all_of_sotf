@@ -16,6 +16,13 @@ Use this skill when preparing or verifying a release, choosing QA commands, buil
 3. Record exact commands and pass/fail status.
 4. If a slow or platform-specific check is skipped, say why and name the remaining risk.
 
+## Release Hosting
+
+- GitLab owns development branches, merge requests, and release preparation. GitHub receives completed code changes and public releases.
+- Before publishing, read `../sotf-workflow/references/repo-protocol.md` for remote selection, publication scope, and public bug handling.
+- Publish only the intended code branch, release tags, and release assets to GitHub. Keep development branches and review history in GitLab.
+- For public GitHub bugs fixed by a release, update their issues with public fix/release links and availability as part of the requested bug-handling work.
+
 ## Default Ladder
 
 - Local targeted tests for the edited crate.

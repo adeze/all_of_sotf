@@ -71,8 +71,8 @@ def test_test_inventory_requires_named_passes_and_rejects_mixed_failures(tmp_pat
 
 
 def test_test_inventory_keeps_compile_only_commands_exempt():
-    assert not qa.requires_test_inventory(("cargo", "check", "--locked"))
-    assert qa.requires_test_inventory(("cargo", "test", "--locked"))
+    assert not qa.requires_test_inventory(("cargo", "check"))
+    assert qa.requires_test_inventory(("cargo", "test"))
     assert qa.requires_test_inventory(("just", "ntest"))
 
 
@@ -82,7 +82,7 @@ def test_rejected_upmixer_experiments_require_exact_inventory(tmp_path):
              for name, reason in qa.REJECTED_UPMIXER_EXPERIMENTS.items()]
     log.write_text("\n".join(lines) + "\n"
                    "test result: ok. 147 passed; 0 failed; 3 ignored; 0 filtered out;\n")
-    command = ("cargo", "test", "--locked", "-p", "sotf-plugin-upmixer",
+    command = ("cargo", "test", "-p", "sotf-plugin-upmixer",
                "--features", "onnx", "--lib")
     inventory = qa.test_inventory(log)
     inventory["named_passes"] = [f"module::other_{index}" for index in range(145)] + [
@@ -283,19 +283,15 @@ def test_nested_autoeq_lock_is_required_and_guarded(tmp_path, monkeypatch):
     ]
 
 
-def test_nested_demo_and_iamf_commands_are_required():
+def test_nested_demo_commands_are_required():
     demo = "crates/autoeq-gpui-examples/Cargo.toml"
-    metadata = ("cargo", "metadata", "--locked", "--format-version", "1",
+    metadata = ("cargo", "metadata", "--format-version", "1",
                 "--all-features", "--manifest-path", demo)
-    check = ("cargo", "check", "--locked", "--all-targets", "--all-features",
+    check = ("cargo", "check", "--all-targets", "--all-features",
              "--manifest-path", demo)
     assert metadata in qa.commands_for("autoeq", "metadata", "linux")
     assert check in qa.commands_for("autoeq", "check", "macos")
     assert check in qa.commands_for("autoeq", "qa", "linux")
-    iamf = ("cargo", "test", "--locked", "--all-features", "-p",
-            "symphonia-iamf-core", "-p", "symphonia-format-iamf")
-    assert iamf in qa.commands_for("symphonia-add-ons", "tests", "macos")
-    assert iamf in qa.commands_for("symphonia-add-ons", "qa", "linux")
 
 
 def test_nested_demo_metadata_requires_both_real_binary_targets(tmp_path):
@@ -324,7 +320,7 @@ def test_daw_qa_covers_cross_format_plugin_comparison():
 
 def test_linux_daw_qa_requires_feature_gated_sandbox_worker():
     sandbox = (
-        "cargo", "test", "--locked", "-p", "sotf-host",
+        "cargo", "test", "-p", "sotf-host",
         "--features", "worker-test-backend,external-plugin-clap",
         "--test", "external_plugin_isolation", "--", "--nocapture",
     )

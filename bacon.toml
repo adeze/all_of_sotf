@@ -42,7 +42,6 @@ watch = [
     "sotf-capture",
     "sotf-daw",
     "sotf-systemwide",
-    "symphonia-add-ons",
 ]
 
 [jobs.check]
@@ -74,7 +73,7 @@ need_stdout = true
 analyzer = "nextest"
 
 [jobs.mono-check]
-command = ["cargo", "check", "--workspace", "--locked", "--manifest-path", "Cargo.toml"]
+command = ["cargo", "check", "--workspace", "--manifest-path", "Cargo.toml"]
 need_stdout = false
 
 [jobs.scripts]
@@ -133,11 +132,6 @@ need_stdout = false
 watch = ["sotf-systemwide"]
 env.BACON_WORKSPACES = "sotf-systemwide"
 
-[jobs.check-symphonia-add-ons]
-command = ["scripts/bacon/cargo-all.sh", "check"]
-need_stdout = false
-watch = ["symphonia-add-ons"]
-env.BACON_WORKSPACES = "symphonia-add-ons"
 
 [keybindings]
 c = "job:clippy-all" # comment this to have 'c' run clippy on only the default target

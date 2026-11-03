@@ -221,7 +221,7 @@ def commands(evidence: Path) -> list[tuple[str, str, list[str]]]:
         ("dependency-graph", ".", ["python3", "scripts/release/dependency_graph.py", "--output", str(evidence / "dependency-graph.json")]),
         ("all-nine-check", ".", ["python3", "scripts/release/qa.py", "check", "--platform", "macos", "--require-clean", "--output", str(evidence / "all-nine-check")]),
     ]
-    for workspace in ("autoeq", "math-audio", "gpui-toolkit", "sofa-reader", "sotf-capture", "symphonia-add-ons", "sotf-systemwide"):
+    for workspace in ("autoeq", "math-audio", "gpui-toolkit", "sofa-reader", "sotf-capture", "sotf-systemwide"):
         checks.append((f"{workspace}-qa", ".", ["python3", "scripts/release/qa.py", "qa", "--workspace", workspace, "--platform", "macos", "--require-clean", "--output", str(evidence / f"{workspace}-qa")]))
     for recipe in ("check", "lint", "test-pr", "ntest", "test-negative", "test-proptest"):
         checks.append((f"sotf-{recipe}", "sotf", ["just", recipe]))

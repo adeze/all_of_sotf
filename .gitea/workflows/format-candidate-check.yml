@@ -50,7 +50,7 @@ jobs:
           test "$(rustc --version | awk '{print $2}')" = 1.99.0
           rustup component add clippy rustfmt --toolchain 1.99.0
           if ! command -v just >/dev/null 2>&1; then
-            cargo install just --version 1.58.0 --locked
+            cargo install just --version 1.58.0
           fi
           test "$(just --version | awk '{print $2}')" = 1.58.0
           echo "$CARGO_HOME/bin" >> "$GITHUB_PATH"

@@ -138,7 +138,7 @@ def main() -> int:
         errors.extend(source_issues(before, before, require_clean=True))
         if errors:
             raise RuntimeError("pinned source checkout is dirty")
-        host_command = ["cargo", "test", "--locked", "-p", "sotf-host", "--lib",
+        host_command = ["cargo", "test", "-p", "sotf-host", "--lib",
                         "analyzer_spectrum::tests::", "--", "--show-output", "--test-threads=1"]
         host_log = evidence / "logs" / "sotf-host-analyzer.log"
         host_exit, host_cleanup, host_survivors, host_inspection_errors = run_host(

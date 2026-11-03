@@ -71,10 +71,10 @@ def gate_commands(workspace: Workspace, qa: bool = False) -> Tuple[Tuple[str, ..
         return tuple(("just", recipe) for recipe in recipes)
     return (
         ("cargo", "fmt", "--all", "--", "--check"),
-        ("cargo", "check", "--workspace", "--all-targets", "--locked"),
-        ("cargo", "clippy", "--workspace", "--all-targets", "--locked", "--", "-D", "warnings"),
-        ("cargo", "test", "--workspace", "--all-targets", "--locked"),
-        ("cargo", "test", "--workspace", "--doc", "--locked"),
+        ("cargo", "check", "--workspace", "--all-targets"),
+        ("cargo", "clippy", "--workspace", "--all-targets", "--", "-D", "warnings"),
+        ("cargo", "test", "--workspace", "--all-targets"),
+        ("cargo", "test", "--workspace", "--doc"),
     )
 
 DESKTOP_PLATFORMS: Tuple[Platform, ...] = (

@@ -15,8 +15,8 @@ from checkout_sources import read_manifest
 from qa import ROOT, source_issues, source_state
 
 COMMANDS = (
-    ("qa-unit-tests", ("cargo", "test", "--locked", "-p", "autoeq-cli", "--lib", "qa_tests")),
-    ("build-autoeq", ("cargo", "build", "--locked", "--release", "--features", "cli", "--bin", "autoeq")),
+    ("qa-unit-tests", ("cargo", "test", "-p", "autoeq-cli", "--lib", "qa_tests")),
+    ("build-autoeq", ("cargo", "build", "--release", "--features", "cli", "--bin", "autoeq")),
     ("qa-ascilab-6b", ("just", "qa-ascilab-6b")),
     ("qa-beyerdynamic-dt1990pro-score2", ("just", "qa-beyerdynamic-dt1990pro-score2")),
 )

@@ -12,7 +12,7 @@ Cargo workspace, tests, and release process.
 | Math Audio | `math-audio/` | <https://github.com/pierreaubert/math-audio> |
 | GPUI Toolkit | `gpui-toolkit/` | <https://github.com/pierreaubert/gpui-toolkit> |
 | SOFA Reader | `sofa-reader/` | <https://github.com/pierreaubert/sofa-reader> |
-| Symphonia Add-ons | `symphonia-add-ons/` | <https://github.com/pierreaubert/symphonia-add-ons> |
+| Symphonia Add-ons | git dependency | <https://github.com/pierreaubert/symphonia-add-ons> |
 | Shared third-party crates | `sotf-3rdparties/` | <https://github.com/pierreaubert/sotf-3rdparties> |
 
 There is no top-level `Cargo.toml`; run Cargo commands from a workspace or

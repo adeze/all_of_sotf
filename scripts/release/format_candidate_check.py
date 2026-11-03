@@ -26,7 +26,6 @@ CLIPPY_RECIPES = {
     "sotf-capture": "clippy",
     "sotf-daw": "lint",
     "sotf-systemwide": "lint",
-    "symphonia-add-ons": "lint",
 }
 
 

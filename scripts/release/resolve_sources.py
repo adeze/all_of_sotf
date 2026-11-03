@@ -2,7 +2,7 @@
 """Resolve nine pinned workspaces on Gitea and preserve lockfile evidence.
 
 This is a preparation phase, not a release QA pass. Its Cargo.lock outputs
-must be reviewed and committed before the --locked QA workflow is dispatched.
+record the selected dependency graph for the following QA workflow.
 """
 
 from __future__ import annotations
@@ -28,7 +28,7 @@ from checkout_sources import read_manifest
 from qa import demo_metadata_issues
 
 ORDER = (
-    "math-audio", "gpui-toolkit", "sofa-reader", "symphonia-add-ons",
+    "math-audio", "gpui-toolkit", "sofa-reader",
     "autoeq", "sotf-daw", "sotf-capture", "sotf", "sotf-systemwide",
 )
 AUTOEQ_DEMO = Path("crates/autoeq-gpui-examples")

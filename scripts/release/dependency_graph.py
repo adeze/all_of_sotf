@@ -22,7 +22,7 @@ LAYERS = {
     "sotf": 0, "sotf-systemwide": 0,
     "sotf-daw": 1, "sotf-capture": 1,
     "gpui-toolkit": 2, "autoeq": 2,
-    "math-audio": 3, "sofa-reader": 3, "symphonia-add-ons": 3,
+    "math-audio": 3, "sofa-reader": 3,
 }
 SOURCE_LAYERS = {**LAYERS, **{name: 4 for name in vendor_names()}}
 SKIP_DIRS = {".git", "target", "target-static", "venv", ".venv", ".release-venv", "node_modules", "dist", "build", ".muse", ".worktrees", "worktrees", ".evo", "audit", ".docker-target"}

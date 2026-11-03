@@ -3,12 +3,8 @@
 #   [mono]
 #   exclude_members = ["crates/something"]  # skip these members in mono
 [mono]
-# TEMPORARY (issue #4): cargo forbids workspace-root packages in an outer
-# workspace ("multiple workspace roots"), so the root facade stays out
-# until the repo root is virtualized (facade moves into crates/).
-exclude_members = [
-    ".",
-]
+# AutoEQ is a virtual workspace; there is no root package to exclude.
+exclude_members = []
 # NOTE: crates/autoeq-report-wasm path-deps on the nested gpui-toolkit
 # checkout, which mono excludes (keeps its own workspace context, probed).
 # The extraction track migrates it to a git dependency; mono needs no

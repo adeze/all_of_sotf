@@ -93,7 +93,7 @@ def build_contract() -> dict[str, object]:
             "desktop": {
                 "required": True,
                 "build_only": [
-                    _step(".", ["cargo", "build", *sotf_manifest, "--profile", "dist", "--locked", "--offline", "--target", triple, "-p", "sotf-gpui", "--bin", "sotf-desktop", *sotf_features], f"{binary_root}/sotf-desktop", "desktop-cargo"),
+                    _step(".", ["cargo", "build", *sotf_manifest, "--profile", "dist", "--target", triple, "-p", "sotf-gpui", "--bin", "sotf-desktop", *sotf_features], f"{binary_root}/sotf-desktop", "desktop-cargo"),
                 ],
                 "expected_distribution_artifacts": (
                     ["sotf/target/dist/sotf-desktop-<version>-macos-arm64.dmg"]
@@ -111,7 +111,7 @@ def build_contract() -> dict[str, object]:
             "tui": {
                 "required": True,
                 "build_only": [
-                    _step(".", ["cargo", "build", *sotf_manifest, "--profile", "dist", "--locked", "--offline", "--target", triple, "-p", "sotf-tui", *sotf_features], f"{binary_root}/sotf-tui", "tui-cargo"),
+                    _step(".", ["cargo", "build", *sotf_manifest, "--profile", "dist", "--target", triple, "-p", "sotf-tui", *sotf_features], f"{binary_root}/sotf-tui", "tui-cargo"),
                 ],
                 "expected_distribution_artifacts": (
                     ["sotf/dist/sotf-tui-<version>-macos-arm64"]
@@ -126,7 +126,7 @@ def build_contract() -> dict[str, object]:
             "roomeq": {
                 "required": True,
                 "build_only": [
-                    _step(".", ["cargo", "build", "--manifest-path", "autoeq/Cargo.toml", "--profile", "dist", "--locked", "--offline", "--target", triple, "--features", "cli", "--bin", "roomeq"], f"autoeq/target/{triple}/dist/roomeq", "roomeq-cargo"),
+                    _step(".", ["cargo", "build", "--manifest-path", "autoeq/Cargo.toml", "--profile", "dist", "--target", triple, "--features", "cli", "--bin", "roomeq"], f"autoeq/target/{triple}/dist/roomeq", "roomeq-cargo"),
                 ],
                 "expected_distribution_artifacts": [f"autoeq/target/{triple}/dist/roomeq"],
                 "existing_package_route": "autoeq: just dist-roomeq (dist profile; native target only)",
@@ -137,7 +137,7 @@ def build_contract() -> dict[str, object]:
                 "build_only": [
                     _step(
                         ".",
-                        ["cargo", "build", "--manifest-path", "sotf-daw/Cargo.toml", "--profile", "dist", "--locked", "--offline", "--target", triple, "-p", "plugins-nih", "--no-default-features", "--features", feature],
+                        ["cargo", "build", "--manifest-path", "sotf-daw/Cargo.toml", "--profile", "dist", "--target", triple, "-p", "plugins-nih", "--no-default-features", "--features", feature],
                         f"sotf-daw/target/{triple}/dist/libplugins_nih.{ 'dylib' if is_macos else 'so' }",
                         f"plugin-{feature}",
                     )
@@ -164,7 +164,7 @@ def build_contract() -> dict[str, object]:
                 "build_only": ([
                     _step(
                         ".",
-                        ["cargo", "build", "--manifest-path", "sotf-systemwide/Cargo.toml", "--profile", "dist", "--locked", "--offline", "--target", triple, "-p", "sotf-daemon", *( ["--features", "hal"] if is_macos else [] )],
+                        ["cargo", "build", "--manifest-path", "sotf-systemwide/Cargo.toml", "--profile", "dist", "--target", triple, "-p", "sotf-daemon", *( ["--features", "hal"] if is_macos else [] )],
                         f"sotf-systemwide/target/{triple}/dist/sotf-daemon",
                         "systemwide-daemon-cargo",
                     ),
@@ -213,7 +213,7 @@ def build_contract() -> dict[str, object]:
         "status": "qualification in progress",
         "distribution": "local only; GitHub sync deferred",
         "execution_policy": {
-            "build_mode": "local Cargo only; --offline --locked; no SSH, signing, installation, or publishing",
+            "build_mode": "local Cargo only; no SSH, signing, installation, or publishing",
             "dry_run": "plans every required group without executing commands",
             "complete_release_requires": "all expected distribution artifacts and required validators; build-only is never release-complete",
         },
@@ -350,7 +350,6 @@ def run_build_only(
     target_dir.mkdir()
 
     environment = cargo_environment(ROOT)
-    environment["CARGO_NET_OFFLINE"] = "true"
     environment["CARGO_TARGET_DIR"] = str(target_dir)
     try:
         sources_before = _snapshot_provenance(ROOT)
@@ -371,7 +370,7 @@ def run_build_only(
         "cargo_environment": {
             "cargo_home": environment.get("CARGO_HOME"),
             "cargo_target_dir": environment["CARGO_TARGET_DIR"],
-            "cargo_net_offline": environment["CARGO_NET_OFFLINE"],
+            "cargo_net_offline": environment.get("CARGO_NET_OFFLINE"),
         },
         "sources_before": sources_before,
         "results": [],

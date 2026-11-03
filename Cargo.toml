@@ -15,15 +15,19 @@ members = [
     "autoeq/crates/autoeq-core",
     "autoeq/crates/autoeq-fir",
     "autoeq/crates/autoeq-measurements",
+    "autoeq/crates/autoeq-objective",
     "autoeq/crates/autoeq-optim",
+    "autoeq/crates/autoeq-optim-types",
     "autoeq/crates/autoeq-plot",
     "autoeq/crates/autoeq-qa",
     "autoeq/crates/autoeq-report-gpui",
+    "autoeq/crates/autoeq-report-native",
     "autoeq/crates/autoeq-report-wasm",
     "autoeq/crates/autoeq-report-wasm-shell",
     "autoeq/crates/autoeq-workflow",
     "autoeq/crates/roomeq-analysis",
     "autoeq/crates/roomeq-cli",
+    "autoeq/crates/roomeq-dsp",
     "autoeq/crates/roomeq-engine",
     "autoeq/crates/roomeq-export",
     "autoeq/crates/roomeq-model",
@@ -93,8 +97,10 @@ members = [
     "sotf-daw/crates/sotf-plugins/crates/sotf-plugin-transient-shaper",
     "sotf-daw/crates/sotf-plugins/crates/sotf-plugin-upmixer",
     "sotf-daw/crates/sotf-plugins/crates/sotf-plugin-xtc",
+    "sotf-daw/crates/sotf-plugins/crates/sotf-restoration-mask",
     "sotf-daw/crates/sotf-streaming",
     "sotf-daw/crates/sotf-test-macros",
+    "sotf-systemwide/crates/callback-metrics",
     "sotf/crates/sotf-dev-api",
     "sotf/crates/sotf-dev-driver",
     "sotf/crates/sotf-media-controls",
@@ -129,15 +135,17 @@ arc-swap = { version = "1" }
 assert_fs = { version = "1.0" }
 async-trait = { version = "0.1" }
 audioadapter-buffers = { version = "5" }
-autoeq = { path = "autoeq" }
 autoeq-artifacts = { path = "autoeq/crates/autoeq-artifacts" }
 autoeq-cli = { path = "autoeq/crates/autoeq-cli" }
 autoeq-core = { path = "autoeq/crates/autoeq-core" }
 autoeq-fir = { path = "autoeq/crates/autoeq-fir" }
 autoeq-measurements = { path = "autoeq/crates/autoeq-measurements" }
+autoeq-objective = { path = "autoeq/crates/autoeq-objective" }
 autoeq-optim = { path = "autoeq/crates/autoeq-optim" }
+autoeq-optim-types = { path = "autoeq/crates/autoeq-optim-types" }
 autoeq-plot = { path = "autoeq/crates/autoeq-plot" }
 autoeq-report-gpui = { path = "autoeq/crates/autoeq-report-gpui" }
+autoeq-report-native = { path = "autoeq/crates/autoeq-report-native" }
 autoeq-report-wasm = { path = "autoeq/crates/autoeq-report-wasm" }
 autoeq-report-wasm-shell = { path = "autoeq/crates/autoeq-report-wasm-shell" }
 autoeq-workflow = { path = "autoeq/crates/autoeq-workflow" }
@@ -147,7 +155,7 @@ block2 = { version = "0.6" }
 build_html = { version = "2.7" }
 bytemuck = { version = "1.14", features = [ "derive" ] }
 byteorder = { version = "1.5" }
-cbindgen = { version = "0.28" }
+cbindgen = { version = "0.29.4" }
 chacha20 = { version = "=0.10.2", features = [ "rng" ], default-features = false }
 chacha20poly1305 = { version = "0.11", features = [ "zeroize" ] }
 chrono = { version = "0.4", features = [ "serde" ] }
@@ -155,10 +163,10 @@ clap = { version = "4.5", features = [ "derive" ] }
 cocoa = { version = "0.26" }
 core-foundation = { version = "0.10" }
 core-foundation-sys = { version = "0.8" }
-core-graphics = { version = "0.24" }
-core-text = { version = "=21.0.0" }
+core-graphics = { version = "0.25" }
+core-text = { version = "22" }
 coreaudio-rs = { package = "sotf-coreaudio-rs", version = "0.14.2", git = "https://github.com/pierreaubert/sotf-3rdparties" }
-cpal = { version = "0.17" }
+cpal = { version = "0.18.2" }
 criterion = { version = "0.8.2" }
 crossbeam = { version = "0.8" }
 crossterm = { version = "0.29" }
@@ -173,11 +181,11 @@ dst-decoder = { package = "sotf-dst-decoder", version = "0.1.2", git = "https://
 encoding_rs = { version = "0.8" }
 env_logger = { version = "0.11" }
 flate2 = { version = "1.1.10" }
-font-kit = { package = "sotf-zed-font-kit", version = "0.14.1-zed", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
+font-kit = { package = "sotf-zed-font-kit", version = "0.14.1-zed", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 fontdue = { version = "0.9" }
 futures = { version = "0.3" }
 glam = { version = "0.33" }
-gpui = { package = "sotf-gpui-toolkit-gpui", version = "0.2.3", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
+gpui = { package = "sotf-gpui-toolkit-gpui", version = "0.2.3", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 gpui-au = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-audio-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-builder = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
@@ -193,23 +201,23 @@ gpui-px = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolki
 gpui-themes = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-ui-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-ui-kit-macros = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui_linux = { package = "sotf-gpui-toolkit-gpui-linux", version = "0.1.0", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
-gpui_macos = { package = "sotf-gpui-toolkit-gpui-macos", version = "0.1.1", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux", features = [ "font-kit" ] }
-gpui_wgpu = { package = "sotf-gpui-toolkit-gpui-wgpu", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
-gpui_windows = { package = "sotf-gpui-toolkit-gpui-windows", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties", branch = "foreign-parent-win-linux" }
+gpui_linux = { package = "sotf-gpui-toolkit-gpui-linux", version = "0.1.0", git = "https://github.com/pierreaubert/sotf-3rdparties" }
+gpui_macos = { package = "sotf-gpui-toolkit-gpui-macos", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "font-kit" ] }
+gpui_wgpu = { package = "sotf-gpui-toolkit-gpui-wgpu", version = "0.1.3", git = "https://github.com/pierreaubert/sotf-3rdparties" }
+gpui_windows = { package = "sotf-gpui-toolkit-gpui-windows", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 hex = { version = "0.4" }
 hound = { version = "3.5" }
 id3 = { version = "1.16.3" }
 image = { version = "0.25" }
 insta = { version = "1.42", features = [ "json" ] }
-libc = { version = "=0.2.189" }
-libloading = { version = "0.8" }
+libc = { version = "=0.2.191" }
+libloading = { version = "0.9.0" }
 libm = { version = "=0.2.16", default-features = false }
 librespot-core = { package = "sotf-librespot-core", version = "0.8", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "native-tls" ], default-features = false }
 librespot-metadata = { package = "sotf-librespot-metadata", version = "0.8", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "native-tls" ], default-features = false }
 librespot-playback = { package = "sotf-librespot-playback", version = "0.8", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "native-tls" ], default-features = false }
 librespot-protocol = { package = "sotf-librespot-protocol", version = "0.8", git = "https://github.com/pierreaubert/sotf-3rdparties", default-features = false }
-lofty = { version = "0.22" }
+lofty = { version = "0.25.5" }
 log = { version = "0.4.28" }
 m3u8-rs = { version = "6" }
 math-analog = { path = "math-audio/crates/math-analog" }
@@ -243,7 +251,7 @@ objc2-foundation = { version = "0.3" }
 objc2-media-player = { version = "0.3" }
 oslog = { version = "0.2" }
 oxiblas-ndarray = { version = "0.2.2" }
-parking_lot = { version = "0.12", features = [ "deadlock_detection" ] }
+parking_lot = { version = "0.13.0", features = [ "deadlock_detection" ] }
 pathfinder_geometry = { version = "0.5" }
 plist = { version = "1.10.1" }
 plotly = { version = "0.14.1" }
@@ -270,6 +278,7 @@ reqwest = { version = "0.13", features = [ "json" ] }
 rfd = { package = "sotf-rfd", version = "0.17.2", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 roomeq-analysis = { path = "autoeq/crates/roomeq-analysis" }
 roomeq-cli = { path = "autoeq/crates/roomeq-cli" }
+roomeq-dsp = { path = "autoeq/crates/roomeq-dsp" }
 roomeq-engine = { path = "autoeq/crates/roomeq-engine" }
 roomeq-export = { path = "autoeq/crates/roomeq-export" }
 roomeq-model = { path = "autoeq/crates/roomeq-model" }
@@ -280,7 +289,7 @@ roomeq-workflow = { path = "autoeq/crates/roomeq-workflow" }
 rqrr = { version = "0.11.0" }
 rtrb = { version = "0.4" }
 rubato = { package = "sotf-rubato", version = "5.0.0", git = "https://github.com/pierreaubert/sotf-3rdparties" }
-rusqlite = { version = "0.38" }
+rusqlite = { version = "0.41.1" }
 rust-embed = { version = "8" }
 rustfft = { version = "6.4" }
 rustls = { version = "0.23" }
@@ -291,7 +300,7 @@ serde_json = { version = "1.0", features = [ "float_roundtrip" ] }
 serde_yaml = { version = "0.9" }
 serial_test = { version = "4.0.1" }
 sha2 = { version = "0.11" }
-signal-hook = { version = "0.3.18" }
+signal-hook = { version = "0.4.5" }
 smol = { version = "2" }
 socket2 = { version = "0.6" }
 sofa-reader = { version = "0.2", git = "https://github.com/pierreaubert/sofa-reader" }
@@ -384,7 +393,7 @@ thiserror = { version = "2.0.17" }
 tokio = { version = "1", features = [ "fs", "io-util", "macros", "process", "rt-multi-thread", "signal" ] }
 tokio-rustls = { version = "0.26" }
 toml = { version = "1.1" }
-tract-onnx = { package = "sotf-tract-onnx", version = "0.22", git = "https://github.com/pierreaubert/sotf-3rdparties" }
+tract-onnx = { version = "=0.23.9" }
 unicode-normalization = { version = "0.1" }
 unicode-segmentation = { version = "1" }
 url = { version = "2" }
@@ -398,7 +407,7 @@ which = { version = "8" }
 wide = { version = "0.6.1" }
 windows-sys = { version = "0.61" }
 winresource = { version = "0.1" }
-zip = { version = "8", default-features = false }
+zip = { version = "9.1.3", default-features = false }
 
 [workspace.lints.clippy]
 allow_attributes_without_reason = "warn"

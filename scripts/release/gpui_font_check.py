@@ -107,16 +107,16 @@ def main() -> int:
         persist_report(evidence, report)
         workspace = ROOT / "gpui-toolkit"
         run_required("gpui-font-all-targets",
-                     ["cargo", "check", "--locked", "-p", "sotf-gpui-toolkit-gpui",
+                     ["cargo", "check", "-p", "sotf-gpui-toolkit-gpui",
                       "-p", "sotf-gpui-toolkit-gpui-wgpu", "--all-targets", "--all-features"],
                      workspace, evidence, report)
         text = run_required("bundled-font-layout",
-                            ["cargo", "test", "--locked", "-p", "sotf-gpui-toolkit-gpui-wgpu",
+                            ["cargo", "test", "-p", "sotf-gpui-toolkit-gpui-wgpu",
                              "--features", "headless-qa", "--lib", FONT_TEST, "--",
                              "--test-threads=1", "--show-output"], workspace, evidence, report)
         exact_test(text, FONT_TEST)
         text = run_required("svg-font-fallback",
-                            ["cargo", "test", "--locked", "-p", "sotf-gpui-toolkit-gpui",
+                            ["cargo", "test", "-p", "sotf-gpui-toolkit-gpui",
                              "--lib", "svg_renderer::tests::", "--", "--test-threads=1",
                              "--show-output"], workspace, evidence, report)
         passed = set(re.findall(r"(?m)^test\s+(\S+)\s+\.\.\.\s+ok$", text))
@@ -127,7 +127,7 @@ def main() -> int:
         paint_env = os.environ.copy()
         paint_env["GPUI_FONT_CAPTURE_DIR"] = str(evidence / "paint")
         text = run_required("wgpu-multiscript-paint",
-                            ["cargo", "test", "--locked", "-p", "sotf-gpui-toolkit-gpui-wgpu",
+                            ["cargo", "test", "-p", "sotf-gpui-toolkit-gpui-wgpu",
                              "--features", "headless-qa", "--lib", PAINT_TEST, "--",
                              "--test-threads=1", "--show-output"],
                             workspace, evidence, report, env=paint_env)

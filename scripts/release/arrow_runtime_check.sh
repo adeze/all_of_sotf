@@ -54,7 +54,7 @@ run_check() {
     fi
 }
 
-run_check arrow-runtime-lib cargo test --locked -p gpui-python-runtime --lib
+run_check arrow-runtime-lib cargo test -p gpui-python-runtime --lib
 for test in arrow_ipc_ingest_stores_bytes_for_preview arrow_ipc_ingest_rejects_non_arrow_bytes \
     preview_reads_only_requested_arrow_rows_and_fields \
     grouping_and_aggregation_execute_over_arrow_without_unbounded_output \
@@ -64,6 +64,6 @@ for test in arrow_ipc_ingest_stores_bytes_for_preview arrow_ipc_ingest_rejects_n
         failed=1
     fi
 done
-run_check arrow-runtime-all-features cargo check --locked -p gpui-python-runtime --all-targets --all-features
+run_check arrow-runtime-all-features cargo check -p gpui-python-runtime --all-targets --all-features
 source_state after || failed=1
 exit "$failed"

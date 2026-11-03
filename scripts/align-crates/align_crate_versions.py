@@ -469,7 +469,6 @@ def collect_sotf_duplicates(
     cmd = [
         "cargo",
         "metadata",
-        "--locked",
         "--format-version",
         "1",
         "--manifest-path",

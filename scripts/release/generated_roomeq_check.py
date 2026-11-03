@@ -159,7 +159,7 @@ def main() -> int:
             env["JACK_NO_START_SERVER"] = "1"
             for method in ("iir", "fir", "mixed"):
                 artifact = output / f"dsp_{method}.json"
-                argv = ["cargo", "run", "--locked", "--features", "cli", "--bin", "roomeq",
+                argv = ["cargo", "run", "--features", "cli", "--bin", "roomeq",
                         "--release", "--", "--config", str(config), "--override-config",
                         str(overrides / f"optimiser-{method}.json"), "--output", str(artifact)]
                 result = run(f"generate-{method}", argv, autoeq, evidence / f"generate-{method}.log", env)
@@ -193,7 +193,7 @@ def main() -> int:
                 raise RuntimeError("expected exactly three generated DSP JSON artifacts")
             (evidence / "artifact-inventory.json").write_text(json.dumps(files, indent=2))
             env["SOTF_GENERATED_ROOM_EQ_DIR"] = str(graph_handoff)
-            argv = ["cargo", "test", "--locked", "-p", "sotf-daemon", "--bin", "sotf-daemon",
+            argv = ["cargo", "test", "-p", "sotf-daemon", "--bin", "sotf-daemon",
                     "plugin_artifact::tests::all_generated_room_eq_files_build_graphs", "--",
                     "--ignored", "--exact"]
             result = run("systemwide-graph", argv, ROOT / "sotf-systemwide",

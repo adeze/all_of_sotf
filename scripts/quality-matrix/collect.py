@@ -179,7 +179,7 @@ def _source_dirs(repo_path):
         if (base / d).is_dir():
             dirs.append(d)
 
-    # Workspaces whose members live at the repo root (e.g. symphonia-add-ons)
+    # Workspaces whose members live at the repo root
     cargo_toml = base / "Cargo.toml"
     if cargo_toml.exists() and not dirs:
         text = cargo_toml.read_text(encoding="utf-8", errors="ignore")

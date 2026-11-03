@@ -105,17 +105,17 @@ run_named_test() {
 
 cd "$root/sotf-daw"
 run_named_test native-stream clap_state_stream_handles_short_reads_and_rejects_untrusted_lengths \
-    cargo test --locked -p plugins-nih --lib \
+    cargo test -p plugins-nih --lib \
     --features convolution clap_state_stream_handles_short_reads_and_rejects_untrusted_lengths \
     -- --nocapture
 run_named_test native-resource clap_state_restore_stages_true_stereo_resource_and_survives_rejections \
-    cargo test --locked -p plugins-nih --lib \
+    cargo test -p plugins-nih --lib \
     --features convolution clap_state_restore_stages_true_stereo_resource_and_survives_rejections \
     -- --nocapture
 
 built="$root/sotf-daw/target/release/libplugins_nih.so"
 rm -f "$built"
-if run_logged gain-build cargo build --release --locked -p plugins-nih \
+if run_logged gain-build cargo build --release -p plugins-nih \
     --features gain --no-default-features; then
     if [[ -s "$built" ]]; then
         cp "$built" "$evidence/artifacts/sotf_gain.clap"

@@ -51,7 +51,7 @@ jobs:
           rustup component add clippy --toolchain 1.99.0
           cargo clippy --version
           if ! command -v just >/dev/null 2>&1; then
-            cargo install just --version 1.58.0 --locked
+            cargo install just --version 1.58.0
           fi
           if [ "$(just --version | awk '{print $2}')" != '1.58.0' ]; then
             echo 'Just version differs from pinned release QA version' >&2

@@ -318,7 +318,7 @@ run_check() {
     fi
 }
 
-run_check native-tests cargo test --locked -p webdriver-downloader --lib traits:: \
+run_check native-tests cargo test -p webdriver-downloader --lib traits:: \
     --no-default-features --features native-tls
 for name in test_extract_zip_finds_nested_driver test_extract_zip_rejects_missing_driver \
     test_extract_tarball_success test_extract_tarball_executable_not_found; do
@@ -327,9 +327,9 @@ for name in test_extract_zip_finds_nested_driver test_extract_zip_rejects_missin
         exit 1
     }
 done
-run_check native-check cargo check --locked -p webdriver-downloader --all-targets \
+run_check native-check cargo check -p webdriver-downloader --all-targets \
     --no-default-features --features native-tls
-run_check rustls-tests cargo test --locked -p webdriver-downloader --lib traits:: \
+run_check rustls-tests cargo test -p webdriver-downloader --lib traits:: \
     --no-default-features --features rustls-tls
 for name in test_extract_zip_finds_nested_driver test_extract_zip_rejects_missing_driver; do
     grep -E "^test .*${name} \\.\\.\\. ok$" "$output/rustls-tests.log" >/dev/null || {
@@ -337,7 +337,7 @@ for name in test_extract_zip_finds_nested_driver test_extract_zip_rejects_missin
         exit 1
     }
 done
-run_check rustls-check cargo check --locked -p webdriver-downloader --all-targets \
+run_check rustls-check cargo check -p webdriver-downloader --all-targets \
     --no-default-features --features rustls-tls
 
 if [ "$platform" = linux ]; then
@@ -440,7 +440,7 @@ for name, prefix in (("fantoccini", "0.22."), ("reqwest", "0.12."), ("zip", "4."
 print("Plotly smoke lock selects the candidate and aligned dependency families")
 PY
     echo '[plotly-export] build and render PNG with automatic driver download'
-    if run_owned "$output/plotly-export.log" "$smoke" 3600 "${smoke_env[@]}" cargo run --locked; then
+    if run_owned "$output/plotly-export.log" "$smoke" 3600 "${smoke_env[@]}" cargo run; then
         echo '[plotly-export] passed'
     else
         status=$?

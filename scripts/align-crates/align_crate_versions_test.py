@@ -332,13 +332,13 @@ def test_workspace_members_are_excluded_from_duplicates(tmp_path, monkeypatch):
     assert "sotf-engine" not in duplicates
 
 
-def test_duplicate_check_keeps_lock_and_workspace_config(tmp_path, monkeypatch):
+def test_duplicate_check_uses_normal_cargo_and_workspace_config(tmp_path, monkeypatch):
     manifest = tmp_path / "sotf" / "Cargo.toml"
     manifest.parent.mkdir()
     manifest.write_text("[workspace]\n")
 
     def metadata(cmd, **kwargs):
-        assert "--locked" in cmd
+        assert "--locked" not in cmd
         assert kwargs["cwd"] == manifest.parent
         return _metadata_result({"packages": [], "workspace_members": []})
 
