@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "server": "http://192.168.1.32:3001",
+  "owner": "pierre",
+  "sources": {
+    "autoeq": {
+      "revision": "d1e07cdb385b249b5ed6f1006330b430476c06f5"
+    },
+    "gpui-toolkit": {
+      "revision": "4469cdce54e82d2e7684b129f0de9ad15a163cda"
+    },
+    "math-audio": {
+      "revision": "65bf29a2259ab5d49fe0ffdf982f3757696bd793"
+    },
+    "sofa-reader": {
+      "revision": "23f1177b9233c8c1d9e70155a53f0620ff1bfdb5"
+    },
+    "sotf": {
+      "revision": "bc18c771051017740168cfab69034842e1a7a4ce"
+    },
+    "sotf-3rdparties": {
+      "revision": "739bbe8955e1fd63127feed062b085466f8030d4"
+    },
+    "sotf-capture": {
+      "revision": "a7e9a13639a27e39b9508e1170424d0f89a2b5c7"
+    },
+    "sotf-daw": {
+      "revision": "0ea90d348154664532de4b5fe1a7021fe3bd2f1a"
+    },
+    "sotf-systemwide": {
+      "revision": "7cbfaec83d09d6ec6aafb38e3dc16b2bb22b5d70"
+    }
+  }
+}

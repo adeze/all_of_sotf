@@ -171,3 +171,16 @@ That manifest describes an explicit frozen release candidate. Updating a local
 branch does not automatically update or qualify the candidate. Local aggregate
 recipes cover submodule workspaces; the release checkout qualifies external
 Git dependencies separately.
+
+The local history-contracts source candidate is recorded in
+`scripts/release/candidates/history-contracts-20261103.json`. It selects the
+aggregate gitlinks and GPUI Toolkit revision used by the consumer lockfiles.
+Check a clean, materialized candidate with:
+
+```sh
+python3 scripts/release/preflight.py --release --root /path/to/aggregate --manifest /path/to/aggregate/scripts/release/candidates/history-contracts-20261103.json
+```
+
+The selected objects have been checked locally; their availability from the
+manifest server has not been established. This check establishes source
+consistency only, not package, native runtime, or release qualification.

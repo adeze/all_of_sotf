@@ -69,5 +69,29 @@ class PreflightTests(unittest.TestCase):
                 self.assertIn("release source is dirty", preflight.check_release_pins(root)[0])
 
 
+    def test_release_uses_selected_root_and_manifest(self):
+        root = Path("/selected/root")
+        manifest = Path("/selected/candidate.json")
+        with patch.object(preflight, "check_layout", return_value=[]) as layout, \
+                patch.object(preflight, "check_recipes", return_value=[]), \
+                patch.object(preflight, "check_generated_manifest", return_value=[]), \
+                patch.object(preflight, "read_manifest", return_value=("server", "owner", {"audio": "a" * 40})) as read, \
+                patch.object(preflight, "root_layout_status", return_value={"missing": [], "unexpected": []}), \
+                patch.object(preflight, "check_release_pins", return_value=[]) as pins:
+            self.assertEqual(preflight.main(["--release", "--root", str(root), "--manifest", str(manifest)]), 0)
+            layout.assert_called_once_with(root)
+            read.assert_called_once_with(manifest)
+            pins.assert_called_once_with(root, manifest)
+
+    def test_release_rejects_dirty_root_and_pin_mismatch(self):
+        with patch.object(preflight, "check_layout", return_value=[]), \
+                patch.object(preflight, "check_recipes", return_value=[]), \
+                patch.object(preflight, "check_generated_manifest", return_value=[]), \
+                patch.object(preflight, "read_manifest", return_value=("server", "owner", {})), \
+                patch.object(preflight, "root_layout_status", return_value={"missing": ["audio: root gitlink pin mismatch"], "unexpected": [" M README.md"]}), \
+                patch.object(preflight, "check_release_pins", return_value=[]):
+            self.assertEqual(preflight.main(["--release"]), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

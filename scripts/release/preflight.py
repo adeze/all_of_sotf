@@ -13,7 +13,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 from workspaces import source_names, vendor_names, workspace_names
-from checkout_sources import gitlink_revision, read_manifest
+from checkout_sources import gitlink_revision, read_manifest, root_layout_status
 
 
 def check_layout(root: Path) -> list[str]:
@@ -47,8 +47,8 @@ def check_generated_manifest(root: Path) -> list[str]:
     return []
 
 
-def check_release_pins(root: Path) -> list[str]:
-    _, _, pins = read_manifest(root / "scripts/release/sources.json")
+def check_release_pins(root: Path, manifest: Path | None = None) -> list[str]:
+    _, _, pins = read_manifest(manifest or root / "scripts/release/sources.json")
     errors = []
     for name in source_names():
         expected = pins[name]
@@ -74,11 +74,20 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--release", action="store_true",
                         help="also require every pinned release source, including external dependencies")
+    parser.add_argument("--root", type=Path, default=ROOT, help="aggregate checkout to inspect")
+    parser.add_argument("--manifest", type=Path, help="release source manifest (default: ROOT/scripts/release/sources.json)")
     args = parser.parse_args(argv)
+    if args.manifest and not args.release:
+        parser.error("--manifest requires --release")
+    root = args.root.resolve()
     try:
-        errors = check_layout(ROOT) + check_recipes(ROOT) + check_generated_manifest(ROOT)
+        errors = check_layout(root) + check_recipes(root) + check_generated_manifest(root)
         if args.release:
-            errors += check_release_pins(ROOT)
+            manifest = args.manifest or root / "scripts/release/sources.json"
+            _, _, pins = read_manifest(manifest)
+            layout = root_layout_status(root, pins)
+            errors += [f"root: {entry}" for entry in layout["missing"] + layout["unexpected"]]
+            errors += check_release_pins(root, manifest)
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"preflight: {exc}", file=sys.stderr)
         return 1
