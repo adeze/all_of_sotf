@@ -1,6 +1,7 @@
 """Behavioral checks for aggregate input preflight."""
 
 from pathlib import Path
+import json
 import subprocess
 import sys
 import tempfile
@@ -91,6 +92,41 @@ class PreflightTests(unittest.TestCase):
                 patch.object(preflight, "root_layout_status", return_value={"missing": ["audio: root gitlink pin mismatch"], "unexpected": [" M README.md"]}), \
                 patch.object(preflight, "check_release_pins", return_value=[]):
             self.assertEqual(preflight.main(["--release"]), 1)
+
+
+    def test_target_inventory_controls_layout_and_manifest_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "scripts/quality-matrix/repos.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(json.dumps({
+                "repositories": [{"path": "target-audio", "primary_language": "Rust"}],
+                "vendored_repositories": ["target-vendor"],
+            }))
+            for name in ("target-audio", "target-vendor"):
+                (root / name).mkdir()
+            (root / "target-audio/Cargo.toml").touch()
+            manifest = root / "candidate.json"
+            data = {"schema": 1, "server": "https://example.test", "owner": "owner",
+                    "sources": {name: {"revision": "a" * 40}
+                                for name in ("target-audio", "target-vendor")}}
+            manifest.write_text(json.dumps(data))
+            original = preflight.workspaces.INVENTORY
+            def git_result(args, **kwargs):
+                output = "a" * 40 if "rev-parse" in args else ""
+                return subprocess.CompletedProcess(args, 0, output)
+            with patch.object(preflight, "check_recipes", return_value=[]), \
+                    patch.object(preflight, "check_generated_manifest", return_value=[]), \
+                    patch.object(preflight, "root_layout_status", return_value={"missing": [], "unexpected": []}), \
+                    patch.object(preflight, "gitlink_revision", return_value="a" * 40), \
+                    patch.object(preflight.subprocess, "run", side_effect=git_result):
+                args = ["--release", "--root", str(root), "--manifest", str(manifest)]
+                self.assertEqual(preflight.main(args), 0)
+                self.assertEqual(preflight.workspaces.INVENTORY, original)
+                del data["sources"]["target-vendor"]
+                manifest.write_text(json.dumps(data))
+                self.assertEqual(preflight.main(args), 1)
+                self.assertEqual(preflight.workspaces.INVENTORY, original)
 
 
 if __name__ == "__main__":

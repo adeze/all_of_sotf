@@ -12,6 +12,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
+import workspaces
 from workspaces import source_names, vendor_names, workspace_names
 from checkout_sources import gitlink_revision, read_manifest, root_layout_status
 
@@ -80,6 +81,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.manifest and not args.release:
         parser.error("--manifest requires --release")
     root = args.root.resolve()
+    previous_inventory = workspaces.INVENTORY
+    workspaces.INVENTORY = root / "scripts/quality-matrix/repos.json"
     try:
         errors = check_layout(root) + check_recipes(root) + check_generated_manifest(root)
         if args.release:
@@ -91,6 +94,8 @@ def main(argv: list[str] | None = None) -> int:
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"preflight: {exc}", file=sys.stderr)
         return 1
+    finally:
+        workspaces.INVENTORY = previous_inventory
     for error in errors:
         print(f"preflight: {error}", file=sys.stderr)
     if errors:
