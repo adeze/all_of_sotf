@@ -1,12 +1,7 @@
 {
-  "generated_at": "2026-11-03T18:50:25.111788+00:00",
+  "generated_at": "2026-11-03T21:26:15.544873+00:00",
   "assessment": "static inspection; no tests or coverage executed",
-  "unassessed": [
-    {
-      "name": "gpui-toolkit",
-      "reason": "source checkout is absent"
-    }
-  ],
+  "unassessed": [],
   "repositories": [
     {
       "name": "sotf",
@@ -45,6 +40,45 @@
       },
       "overall": 4.01,
       "source_revision": "bc18c771051017740168cfab69034842e1a7a4ce",
+      "source_dirty": false
+    },
+    {
+      "name": "gpui-toolkit",
+      "path": "gpui-toolkit",
+      "language": "Rust",
+      "unit_test_score": 5,
+      "integration_test_score": 0,
+      "unit_coverage_percent": null,
+      "unit_coverage_note": "no coverage report found; run toolchains to generate",
+      "test_counts": {
+        "unit_files": 0,
+        "unit_blocks": 5109
+      },
+      "documentation": 5,
+      "architecture": 4,
+      "design_patterns": 5,
+      "benchmarks": 4,
+      "ci_maturity": 4,
+      "static_analysis": 5,
+      "dependency_security": 3,
+      "maintainability": 3,
+      "type_safety": 5,
+      "test_pyramid_balance": 2,
+      "mutation_fuzz": 3,
+      "complexity_score": null,
+      "complexity_stats": {
+        "high_function_count": null,
+        "threshold": 25,
+        "functions": []
+      },
+      "workflow_categories": {
+        "test": 4,
+        "lint": 2,
+        "release_deploy": 3,
+        "perf_coverage": 1
+      },
+      "overall": 3.81,
+      "source_revision": "4469cdce54e82d2e7684b129f0de9ad15a163cda",
       "source_dirty": false
     },
     {
@@ -204,7 +238,7 @@
       "unit_coverage_note": "no coverage report found; run toolchains to generate",
       "test_counts": {
         "unit_files": 0,
-        "unit_blocks": 499
+        "unit_blocks": 503
       },
       "documentation": 4,
       "architecture": 0,
@@ -225,7 +259,7 @@
       },
       "workflow_categories": {},
       "overall": 2.0,
-      "source_revision": "a7e9a13639a27e39b9508e1170424d0f89a2b5c7",
+      "source_revision": "1959fc954f7882882b79c139f64c00c7374188dc",
       "source_dirty": false
     },
     {
