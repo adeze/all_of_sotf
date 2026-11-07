@@ -20,7 +20,7 @@
 set -u
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-workspace_list="$(python3 "$ROOT/scripts/workspaces.py")" || exit 2
+workspace_list="$(python3 "$ROOT/scripts/workspaces.py" --local)" || exit 2
 ALL_WORKSPACES=()
 while IFS= read -r ws; do
     ALL_WORKSPACES+=("$ws")

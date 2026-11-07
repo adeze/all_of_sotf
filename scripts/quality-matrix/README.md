@@ -1,6 +1,6 @@
 # Software Quality Matrix Methodology
 
-This directory contains a static assessment of the nine Rust repositories in `all_of_sotf`. Scores describe the inspected revision; they are not a release QA pass.
+This directory contains a static assessment of the populated Rust repositories in `all_of_sotf`. Scores describe the inspected revision; they are not a release QA pass.
 
 ## Files
 
@@ -111,15 +111,13 @@ Then update `coverage_value` in `collect.py` to parse the generated artifacts an
 Generate static scores only:
 
 ```bash
-cd /Users/pierrre/src.local/polkadot/quality-matrix
-python3 collect.py
+python3 scripts/quality-matrix/collect.py
 ```
 
 Run tests, coverage and benchmarks and merge the results into the matrix (resumes from `execution_results.json` if interrupted):
 
 ```bash
-cd /Users/pierrre/src.local/polkadot/quality-matrix
-python3 execute_quality.py
+python3 scripts/quality-matrix/execute_quality.py
 ```
 
 ## Limitations
@@ -128,3 +126,12 @@ python3 execute_quality.py
 - Architecture and design-pattern scores are heuristic; they indicate structural conventions, not true design quality.
 - Coverage is N/A for repositories where the test toolchain could not run; see the per-repo coverage notes in `matrix.md`.
 - Mobile repositories may be under-scored if test conventions differ from the heuristics used.
+
+## Evidence freshness
+
+Static collection records its timestamp and each inspected source revision. An
+absent checkout is listed as unassessed and receives no score. The external GPUI
+Toolkit may be absent from a submodule checkout. Complexity from a separately
+maintained TokenSave index is excluded by default, and its weight is removed
+from the overall score. Use `--with-index-complexity` only after verifying index
+freshness. Static collection does not execute tests, coverage, or benchmarks.

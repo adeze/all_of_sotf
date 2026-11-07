@@ -18,7 +18,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from scripts.buildbot.ci_matrix import workspace_map
+from scripts.workspaces import source_names, vendor_names
 from scripts.release import qa
 from scripts.release.checkout_sources import read_manifest, root_layout_status
 from scripts.release.local_release_groups import CONTRACT, NIH_FEATURES, TARGETS
@@ -222,7 +222,7 @@ def _current_provenance(root: Path, target: str) -> dict[str, Any]:
     platform_name = "macos" if target == "macos-arm64" else "linux"
     manifest_path = root / "scripts/release/sources.json"
     _server, _owner, pins = read_manifest(manifest_path)
-    names = sorted(workspace_map())
+    names = sorted(source_names())
     sources = qa.source_state(root, names, platform_name)
     issues = qa.source_issues(sources, sources, require_clean=True)
     for name, revision in pins.items():
@@ -230,7 +230,7 @@ def _current_provenance(root: Path, target: str) -> dict[str, Any]:
         if source.get("revision") != revision:
             issues.append(f"{name}: source revision does not match release pin")
         lock_hash = source.get("lock_sha256")
-        if not isinstance(lock_hash, str) or not SHA256_RE.fullmatch(lock_hash):
+        if name not in vendor_names() and (not isinstance(lock_hash, str) or not SHA256_RE.fullmatch(lock_hash)):
             issues.append(f"{name}: canonical Cargo.lock hash is missing")
         if name == "autoeq" and (
             not isinstance(source.get("nested_lock_sha256"), str)
@@ -294,7 +294,7 @@ def _validate_source_report(
         if source.get("revision") != revision:
             raise ValueError(f"build receipt source pin differs for {name}")
         lock_hash = source.get("lock_sha256")
-        if not isinstance(lock_hash, str) or not SHA256_RE.fullmatch(lock_hash):
+        if name not in vendor_names() and (not isinstance(lock_hash, str) or not SHA256_RE.fullmatch(lock_hash)):
             raise ValueError(f"build receipt canonical Cargo.lock hash is missing for {name}")
         if name == "autoeq" and (
             not isinstance(source.get("nested_lock_sha256"), str)

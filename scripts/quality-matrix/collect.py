@@ -4,11 +4,14 @@ Static software-quality collector for the SOTF repository family.
 Produces quality-matrix/scores.json and quality-matrix/matrix.md.
 """
 
+import argparse
+import fnmatch
 import json
 import os
 import re
 import glob
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from collections import defaultdict
 
@@ -18,6 +21,7 @@ MATRIX_DIR = _SCRIPT_DIR
 REPOS_JSON = MATRIX_DIR / "repos.json"
 SCORES_JSON = MATRIX_DIR / "scores.json"
 MATRIX_MD = MATRIX_DIR / "matrix.md"
+INDEX_COMPLEXITY = False
 
 
 def load_repos():
@@ -34,20 +38,32 @@ SKIP_DIRS = {
 }
 
 
+def _matches_path(parts, pattern):
+    if not pattern:
+        return not parts
+    if pattern[0] == "**":
+        return _matches_path(parts, pattern[1:]) or bool(parts) and _matches_path(parts[1:], pattern)
+    return bool(parts) and fnmatch.fnmatchcase(parts[0], pattern[0]) and _matches_path(parts[1:], pattern[1:])
+
+
 def list_files(repo_path, patterns):
-    """Return unique files matching any glob pattern under repo_path."""
+    """Return matched files without descending into build and cache directories."""
     base = ROOT / repo_path
     seen = set()
     files = []
-    for pat in patterns:
-        for f in base.rglob(pat):
-            if any(part in SKIP_DIRS for part in f.relative_to(base).parts[:-1]):
+    patterns = [tuple(pattern.split("/")) if pattern.startswith("**/")
+                else ("**", *pattern.split("/")) for pattern in patterns]
+    for directory, children, names in os.walk(base):
+        children[:] = [name for name in children if name not in SKIP_DIRS]
+        for name in names:
+            path = Path(directory) / name
+            relative = path.relative_to(base)
+            if not any(_matches_path(relative.parts, pattern) for pattern in patterns):
                 continue
-            key = f.resolve()
-            if key in seen:
-                continue
-            seen.add(key)
-            files.append(f)
+            key = path.resolve()
+            if key not in seen:
+                seen.add(key)
+                files.append(path)
     return files
 
 
@@ -152,9 +168,9 @@ def _tokensave_complexity_ranking_once(repo_path, source_dir, limit):
             timeout=180,
         )
         data = _safe_json_loads(result.stdout)
-        if data is None:
+        if not isinstance(data, dict) or not isinstance(data.get("ranking"), list):
             return None
-        return data.get("ranking", [])
+        return data["ranking"]
     except Exception:
         return None
 
@@ -168,7 +184,7 @@ def _tokensave_complexity_ranking(repo_path, source_dir, max_limit=100):
         ranking = _tokensave_complexity_ranking_once(repo_path, source_dir, limit)
         if ranking is not None:
             return ranking
-    return []
+    return None
 
 
 def _source_dirs(repo_path):
@@ -201,8 +217,13 @@ def analyze_repo_complexity(repo_path, threshold=25):
     """Return cyclomatic-complexity stats using the existing TokenSave index."""
     high_funcs = []
     seen_ids = set()
+    complete = True
     for source_dir in _source_dirs(repo_path):
-        for item in _tokensave_complexity_ranking(repo_path, source_dir):
+        ranking = _tokensave_complexity_ranking(repo_path, source_dir)
+        if ranking is None:
+            complete = False
+            continue
+        for item in ranking:
             fid = item.get("id")
             if fid in seen_ids:
                 continue
@@ -220,7 +241,7 @@ def analyze_repo_complexity(repo_path, threshold=25):
                     "complexity": cc,
                 })
     return {
-        "high_function_count": len(high_funcs),
+        "high_function_count": len(high_funcs) if complete else None,
         "threshold": threshold,
         "functions": high_funcs,
     }
@@ -664,8 +685,12 @@ def score_complexity(repo, threshold=25):
     Compute cyclomatic-complexity stats and return a 0-5 score.
     Higher score means fewer functions above the complexity threshold.
     """
+    if not INDEX_COMPLEXITY:
+        return None, {"high_function_count": None, "threshold": threshold, "functions": []}
     stats = analyze_repo_complexity(repo["path"], threshold=threshold)
     count = stats["high_function_count"]
+    if count is None:
+        return None, stats
     if count == 0:
         score = 5
     elif count <= 5:
@@ -733,64 +758,106 @@ def overall_score(scores):
         "complexity_score": 0.05,
     }
     total = 0
+    available_weight = 0
     for k, w in weights.items():
-        total += scores.get(k, 0) * w
-    return round(total, 2)
+        value = scores.get(k, 0)
+        if value is not None:
+            total += value * w
+            available_weight += w
+    return round(total / available_weight, 2) if available_weight else None
+
+
+def source_revision(repo_path):
+    result = subprocess.run(["git", "-C", str(ROOT / repo_path), "rev-parse", "HEAD"],
+                            capture_output=True, text=True, check=False)
+    return result.stdout.strip() if result.returncode == 0 else None
+
+
+def source_dirty(repo_path):
+    status = subprocess.run(["git", "-C", str(ROOT / repo_path), "status", "--porcelain", "--untracked-files=normal"],
+                            capture_output=True, text=True, check=False)
+    return bool(status.returncode or status.stdout)
 
 
 def build_matrix():
     repos = load_repos()
     results = []
+    unassessed = []
     for repo in repos:
+        if not (ROOT / repo["path"] / "Cargo.toml").is_file():
+            unassessed.append({"name": repo["name"], "reason": "source checkout is absent"})
+            continue
         print(f"Analyzing {repo['name']} ...")
         scores = analyze_repo(repo)
         scores["overall"] = overall_score(scores)
+        scores["source_revision"] = source_revision(repo["path"])
+        scores["source_dirty"] = source_dirty(repo["path"])
         results.append(scores)
 
     # sort by overall score descending
     results.sort(key=lambda x: x["overall"], reverse=True)
 
     with open(SCORES_JSON, "w") as f:
-        json.dump({"repositories": results}, f, indent=2)
+        json.dump({"generated_at": datetime.now(timezone.utc).isoformat(),
+                   "assessment": "static inspection; no tests or coverage executed",
+                   "unassessed": unassessed, "repositories": results}, f, indent=2)
     print(f"Wrote {SCORES_JSON}")
 
-    write_markdown(results)
+    write_markdown(results, unassessed)
     print(f"Wrote {MATRIX_MD}")
 
 
-def write_markdown(results):
+def write_markdown(results, unassessed=None):
     lines = []
     lines.append("# Software Quality Matrix\n")
+    lines.append(f"Generated {datetime.now(timezone.utc).isoformat()}. "
+                 "Static inspection only; this run executes no tests, coverage, or benchmarks.\n")
     lines.append("Scores are 0-5 unless otherwise noted. Higher is better.\n")
     lines.append("| Repo | Lang | Unit | Integ | Docs | Arch | Patterns | Bench | CI | Lint | Sec | Maint | Type | Pyramid | Fuzz | Cx>25 | **Overall** |")
     lines.append("|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     for r in results:
         cov = f"{r['unit_coverage_percent']}%" if r['unit_coverage_percent'] is not None else "N/A"
         cx_count = r['complexity_stats']['high_function_count']
+        cx_display = f"{cx_count} ({r['complexity_score']})" if cx_count is not None else "N/A"
         lines.append(
             f"| {r['name']} | {r['language']} | {r['unit_test_score']} ({cov}) | "
             f"{r['integration_test_score']} | {r['documentation']} | {r['architecture']} | "
             f"{r['design_patterns']} | {r['benchmarks']} | {r['ci_maturity']} | "
             f"{r['static_analysis']} | {r['dependency_security']} | {r['maintainability']} | "
             f"{r['type_safety']} | {r['test_pyramid_balance']} | {r['mutation_fuzz']} | "
-            f"{cx_count} ({r['complexity_score']}) | **{r['overall']}** |"
+            f"{cx_display} | **{r['overall']}** |"
         )
     lines.append("\n## Coverage Notes\n")
     for r in results:
         lines.append(f"- **{r['name']}**: {r['unit_coverage_note']}")
+    lines.append("\n## Source revisions\n")
+    for r in results:
+        lines.append(f"- **{r['name']}**: `{r.get('source_revision') or 'unknown'}`"
+                     + (" with working-tree changes" if r.get("source_dirty") else ""))
+    if unassessed:
+        lines.append("\n## Not assessed\n")
+        for item in unassessed:
+            lines.append(f"- **{item['name']}**: {item['reason']}; no score assigned.")
     lines.append("\n## Complexity Notes\n")
+    if not INDEX_COMPLEXITY:
+        lines.append("Complexity is not assessed by default. Overall scores exclude its weight. "
+                     "Use `--with-index-complexity` only after checking index freshness.\n")
     lines.append("Cx>25 counts functions/methods with cyclomatic complexity greater than 25, "
                  "computed from the existing TokenSave index. Because TokenSave truncates "
                  "large tool outputs, the count is a lower-bound estimate of the most "
                  "complex functions.\n")
     for r in results:
         cx = r['complexity_stats']
-        lines.append(f"- **{r['name']}**: {cx['high_function_count']} functions above "
+        lines.append(f"- **{r['name']}**: {cx['high_function_count'] if cx['high_function_count'] is not None else 'unassessed'} functions above "
                      f"complexity threshold {cx['threshold']}")
     lines.append("\n## Methodology\n")
-    lines.append("See `quality-matrix/README.md` for rubric definitions and weighting.\n")
+    lines.append("See `README.md` for rubric definitions and weighting.\n")
     MATRIX_MD.write_text("\n".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--with-index-complexity", action="store_true",
+                        help="include complexity estimates from separately verified TokenSave indexes")
+    INDEX_COMPLEXITY = parser.parse_args().with_index_complexity
     build_matrix()

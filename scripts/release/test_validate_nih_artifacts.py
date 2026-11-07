@@ -33,10 +33,10 @@ class ValidateNihArtifactsTests(unittest.TestCase):
     def current_snapshot(self) -> dict:
         _, _, pins = read_manifest(packer.ROOT / "scripts/release/sources.json")
         sources = {}
-        for index, name in enumerate(sorted(packer.workspace_map())):
+        for index, name in enumerate(sorted(pins)):
             source = {
                 "revision": pins[name], "dirty": False,
-                "lock_sha256": f"{index + 1:064x}",
+                "lock_sha256": None if name in packer.vendor_names() else f"{index + 1:064x}",
             }
             if name == "autoeq":
                 source["nested_lock_sha256"] = "a" * 64

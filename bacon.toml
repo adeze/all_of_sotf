@@ -1,9 +1,9 @@
 #:schema https://dystroy.org/bacon/.bacon.schema.json
 
-# Aggregated bacon setup: 9 Rust workspaces + Python maintenance scripts.
+# Aggregated submodule checks and Python maintenance scripts.
 #
-# There is no Cargo.toml at the root, so the default cargo file watching is
-# disabled and every job declares its own `watch` paths. `apply_gitignore`
+# Workspaces have independent manifests; the root manifest is generated.
+# Every job declares its own `watch` paths. `apply_gitignore`
 # is off because the root .gitignore excludes the nested workspace checkouts
 # (each workspace has its own .git); build outputs are excluded with the
 # explicit `ignore` patterns below instead.
@@ -35,7 +35,6 @@ ignore = [
 # scripts/bacon/cargo-all.sh so all workspaces build in parallel.
 watch = [
     "autoeq",
-    "gpui-toolkit",
     "math-audio",
     "sofa-reader",
     "sotf",
@@ -73,7 +72,7 @@ need_stdout = true
 analyzer = "nextest"
 
 [jobs.mono-check]
-command = ["cargo", "check", "--workspace", "--manifest-path", "Cargo.toml"]
+command = ["just", "mono-check"]
 need_stdout = false
 
 [jobs.scripts]
@@ -89,12 +88,6 @@ command = ["scripts/bacon/cargo-all.sh", "check"]
 need_stdout = false
 watch = ["autoeq"]
 env.BACON_WORKSPACES = "autoeq"
-
-[jobs.check-gpui-toolkit]
-command = ["scripts/bacon/cargo-all.sh", "check"]
-need_stdout = false
-watch = ["gpui-toolkit"]
-env.BACON_WORKSPACES = "gpui-toolkit"
 
 [jobs.check-math-audio]
 command = ["scripts/bacon/cargo-all.sh", "check"]

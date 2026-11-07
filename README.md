@@ -1,6 +1,6 @@
 # all_of_sotf
 
-This repository is the top-level tree for nine related Rust workspaces and
+This repository is the top-level tree for seven Rust workspace submodules and
 the shared `sotf-3rdparties/` vendored dependency repository. The
 workspaces are kept as Git submodules so each project retains its own history,
 Cargo workspace, tests, and release process.
@@ -8,15 +8,18 @@ Cargo workspace, tests, and release process.
 | Workspace | Directory | Repository |
 | --- | --- | --- |
 | SOTF | `sotf/` | <https://github.com/pierreaubert/sotf> |
+| DAW core | `sotf-daw/` | <https://github.com/pierreaubert/sotf-daw> |
+| Systemwide audio | `sotf-systemwide/` | <https://github.com/pierreaubert/sotf-systemwide> |
+| Capture | `sotf-capture/` | <https://github.com/pierreaubert/sotf-capture> |
 | AutoEQ | `autoeq/` | <https://github.com/pierreaubert/autoeq> |
 | Math Audio | `math-audio/` | <https://github.com/pierreaubert/math-audio> |
-| GPUI Toolkit | `gpui-toolkit/` | <https://github.com/pierreaubert/gpui-toolkit> |
+| GPUI Toolkit | external Git dependency; materialized for release QA | <https://github.com/pierreaubert/gpui-toolkit> |
 | SOFA Reader | `sofa-reader/` | <https://github.com/pierreaubert/sofa-reader> |
 | Symphonia Add-ons | git dependency | <https://github.com/pierreaubert/symphonia-add-ons> |
 | Shared third-party crates | `sotf-3rdparties/` | <https://github.com/pierreaubert/sotf-3rdparties> |
 
-There is no top-level `Cargo.toml`; run Cargo commands from a workspace or
-pass its manifest path explicitly.
+The generated root `Cargo.toml` supports aggregate host checks. Run `just mono-check`
+to validate its inputs before Cargo. Standalone builds retain each workspace's own manifest and release configuration.
 
 ## Populate the Git tree
 
@@ -72,7 +75,7 @@ python3 -m pip install -r scripts/requirements.txt
 
 ### `scripts/align-crates/` — Cargo dependency alignment
 
-`align_crate_versions.py` scans Cargo manifests across all six workspaces and
+`align_crate_versions.py` scans Cargo manifests across the shared inventory and
 reports external crates whose version requirements differ. It ignores path
 dependencies and avoids changing risky platform/audio/UI packages by default.
 
@@ -156,3 +159,15 @@ The generated `scores.json`, `matrix.md`, and execution log are written under
 `scripts/quality-matrix/`. See
 [`scripts/quality-matrix/README.md`](scripts/quality-matrix/README.md) for the
 scoring methodology and toolchain prerequisites.
+
+## Check source consistency
+
+`just preflight` checks the local submodule layout, recipe inputs, and generated
+aggregate manifest without compiling. `just mono-check` runs it before Cargo.
+
+`just preflight-release` also requires every checkout to match
+`scripts/release/sources.json`, including the external GPUI Toolkit checkout.
+That manifest describes an explicit frozen release candidate. Updating a local
+branch does not automatically update or qualify the candidate. Local aggregate
+recipes cover submodule workspaces; the release checkout qualifies external
+Git dependencies separately.

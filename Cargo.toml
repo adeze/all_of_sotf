@@ -184,7 +184,7 @@ flate2 = { version = "1.1.10" }
 font-kit = { package = "sotf-zed-font-kit", version = "0.14.1-zed", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 fontdue = { version = "0.9" }
 futures = { version = "0.3" }
-glam = { version = "0.33" }
+glam = { version = "0.34.1" }
 gpui = { package = "sotf-gpui-toolkit-gpui", version = "0.2.3", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 gpui-au = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui-audio-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
@@ -401,7 +401,7 @@ urlencoding = { version = "2.1" }
 uuid = { version = "1", features = [ "serde", "v4", "v5" ] }
 vergen = { version = "=9.0.6" }
 walkdir = { version = "2" }
-wasm-bindgen = { version = "=0.2.128" }
+wasm-bindgen = { version = "=0.2.130" }
 wasm-bindgen-rayon = { version = "1.2" }
 which = { version = "8" }
 wide = { version = "0.6.1" }
