@@ -140,6 +140,24 @@ mono-check: preflight
 mono-test-build: preflight
 	cargo test --workspace --manifest-path Cargo.toml --no-run
 
+# Submodule sync: gate (lint -> test, qa opt-in), CHANGELOG, version bump,
+# then commit submodules and top-level gitlinks. prepare never commits;
+# commit requires the prepare review. See scripts/release/sync_submodules.py.
+sync-status:
+	python3 scripts/release/sync_submodules.py status
+
+sync-check *args:
+	python3 scripts/release/sync_submodules.py check {{args}}
+
+sync-check-qa *args:
+	python3 scripts/release/sync_submodules.py check --qa {{args}}
+
+sync-prepare bump="patch" *args:
+	python3 scripts/release/sync_submodules.py prepare --bump {{bump}} {{args}}
+
+sync-commit *args:
+	python3 scripts/release/sync_submodules.py commit --yes {{args}}
+
 preflight:
 	python3 scripts/release/preflight.py
 

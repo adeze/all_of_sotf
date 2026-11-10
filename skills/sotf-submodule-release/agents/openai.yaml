@@ -1,0 +1,4 @@
+interface:
+  display_name: "SOTF Submodule Release"
+  short_description: "Gate, bump, and commit all submodules"
+  default_prompt: "Use $sotf-submodule-release to check, bump, and commit the SOTF submodules."

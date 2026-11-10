@@ -186,21 +186,21 @@ fontdue = { version = "0.9" }
 futures = { version = "0.3" }
 glam = { version = "0.34.1" }
 gpui = { package = "sotf-gpui-toolkit-gpui", version = "0.2.3", git = "https://github.com/pierreaubert/sotf-3rdparties" }
-gpui-au = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-audio-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-builder = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-component-lab = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-d3rs = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-design = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-design-tools = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-ios = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-keybinding = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-miniapp = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-pretext = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-px = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-themes = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-ui-kit = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
-gpui-ui-kit-macros = { version = "0.10", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-au = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-audio-kit = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-builder = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-component-lab = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-d3rs = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-design = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-design-tools = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-ios = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-keybinding = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-miniapp = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-pretext = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-px = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-themes = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-ui-kit = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
+gpui-ui-kit-macros = { version = "0.11", git = "https://github.com/pierreaubert/gpui-toolkit" }
 gpui_linux = { package = "sotf-gpui-toolkit-gpui-linux", version = "0.1.0", git = "https://github.com/pierreaubert/sotf-3rdparties" }
 gpui_macos = { package = "sotf-gpui-toolkit-gpui-macos", version = "0.1.2", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "font-kit" ] }
 gpui_wgpu = { package = "sotf-gpui-toolkit-gpui-wgpu", version = "0.1.3", git = "https://github.com/pierreaubert/sotf-3rdparties" }
