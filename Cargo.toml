@@ -237,7 +237,7 @@ metaheuristics-nature = { package = "sotf-metaheuristics-nature", version = "10.
 metal = { version = "0.33" }
 midir = { version = "0.11" }
 mimalloc = { version = "0.1" }
-mpris-server = { version = "0.9" }
+mpris-server = { version = "0.11" }
 nalgebra = { package = "sotf-nalgebra", version = "0.35", git = "https://github.com/pierreaubert/sotf-3rdparties", features = [ "std" ], default-features = false }
 ndarray = { version = "0.17", features = [ "rayon", "serde" ], default-features = false }
 nnnoiseless = { package = "sotf-nnnoiseless", version = "0.1", git = "https://github.com/pierreaubert/sotf-3rdparties" }
@@ -294,7 +294,7 @@ roomeq-workflow = { path = "autoeq/crates/roomeq-workflow" }
 rqrr = { version = "0.11.0" }
 rtrb = { version = "0.4" }
 rubato = { package = "sotf-rubato", version = "5.0.0", git = "https://github.com/pierreaubert/sotf-3rdparties" }
-rusqlite = { version = "0.41.1" }
+rusqlite = { version = "0.42.0" }
 rust-embed = { version = "8" }
 rustfft = { version = "6.4" }
 rustls = { version = "0.23" }
