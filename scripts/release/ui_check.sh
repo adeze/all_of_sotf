@@ -78,14 +78,14 @@ run_check() {
     return "$status"
 }
 
-run_check toolkit-horizontal-accordion gpui-toolkit yes cargo test --locked -p gpui-ui-kit --test integration_tests horizontal_accordion_content_spans_header_width
-run_check toolkit-side-accordion gpui-toolkit yes cargo test --locked -p gpui-ui-kit --test integration_tests side_accordion_places_tabs_on_both_sides_of_content
-run_check toolkit-wizard-width gpui-toolkit yes cargo test --locked -p gpui-ui-kit --test integration_tests wizard_step_labels_follow_rendered_viewport_width
+run_check toolkit-horizontal-accordion gpui-toolkit yes cargo test -p gpui-ui-kit --test integration_tests horizontal_accordion_content_spans_header_width
+run_check toolkit-side-accordion gpui-toolkit yes cargo test -p gpui-ui-kit --test integration_tests side_accordion_places_tabs_on_both_sides_of_content
+run_check toolkit-wizard-width gpui-toolkit yes cargo test -p gpui-ui-kit --test integration_tests wizard_step_labels_follow_rendered_viewport_width
 if [ "$platform" = linux ]; then
-    run_check sotf-linux-screenshot-fallback sotf yes cargo test --locked -p sotf-dev-driver --bin sotf-dev-driver linux_screenshot_fallback_tests
+    run_check sotf-linux-screenshot-fallback sotf yes cargo test -p sotf-dev-driver --bin sotf-dev-driver linux_screenshot_fallback_tests
 fi
 if run_check sotf-dev-driver-build sotf no just dev-driver-build-gpui; then
-    run_check sotf-plugin-workflow-ui sotf no cargo run --locked -p sotf-dev-driver -- run-suite crates/sotf-dev-driver/suites/plugin_workflow_ui.toml -v
+    run_check sotf-plugin-workflow-ui sotf no cargo run -p sotf-dev-driver -- run-suite crates/sotf-dev-driver/suites/plugin_workflow_ui.toml -v
     if [ "$platform" = linux ]; then
         run_check sotf-atspi-session-bus sotf no /usr/bin/python3 ../scripts/release/atspi_smoke.py
     fi

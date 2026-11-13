@@ -76,12 +76,12 @@ run_check() {
     fi
 }
 
-run_check capture-full-tests sotf-capture cargo test --locked
-run_check toolkit-util-tests gpui-toolkit cargo test --locked -p gpui-toolkit-util
-run_check gpui-notification-condition gpui-toolkit cargo test --locked -p gpui-toolkit-gpui --features test-support --lib test_entity_notification_and_condition_wake
-run_check gpui-app-tests gpui-toolkit cargo test --locked -p gpui-toolkit-gpui --features test-support --lib
-run_check gpui-all-targets gpui-toolkit cargo check --locked -p gpui-toolkit-gpui --features test-support --all-targets
-run_check toolkit-vendored-inventory gpui-toolkit cargo test --locked -p gpui-release-gates vendored_patches
+run_check capture-full-tests sotf-capture cargo test
+run_check toolkit-util-tests gpui-toolkit cargo test -p gpui-toolkit-util
+run_check gpui-notification-condition gpui-toolkit cargo test -p gpui-toolkit-gpui --features test-support --lib test_entity_notification_and_condition_wake
+run_check gpui-app-tests gpui-toolkit cargo test -p gpui-toolkit-gpui --features test-support --lib
+run_check gpui-all-targets gpui-toolkit cargo check -p gpui-toolkit-gpui --features test-support --all-targets
+run_check toolkit-vendored-inventory gpui-toolkit cargo test -p gpui-release-gates vendored_patches
 run_check toolkit-importer-tests gpui-toolkit env PYTHONPATH=scripts python3 -m unittest discover -s scripts/tests -p test_import_gpui_upstream.py
 
 source_state after || failed=1

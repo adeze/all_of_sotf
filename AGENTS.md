@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This repository aggregates nine sibling Rust workspaces: `sotf/`, `sotf-daw/`, `sotf-systemwide/`, `sotf-capture/`, `autoeq/`, `math-audio/`, `gpui-toolkit/`, `sofa-reader/`, and `symphonia-add-ons/`. Each workspace owns its own `Cargo.toml`, source tree, tests, docs, and in several cases a local `AGENTS.md`; read that file before editing inside the workspace. Shared maintenance code lives under `scripts/`: `scripts/align-crates/` checks dependency alignment and `scripts/quality-matrix/` generates static quality reports. Their shared inventory is `scripts/quality-matrix/repos.json`, also consumed by Bacon and Buildbot through `scripts/workspaces.py`.
+This repository tracks seven Rust workspace submodules and the external GPUI Toolkit dependency: `sotf/`, `sotf-daw/`, `sotf-systemwide/`, `sotf-capture/`, `autoeq/`, `math-audio/`, `gpui-toolkit/`, and `sofa-reader/`. `symphonia-add-ons` is consumed as a GitHub git dependency, not a submodule. Each workspace owns its own `Cargo.toml`, source tree, tests, docs, and in several cases a local `AGENTS.md`; read that file before editing inside the workspace. Shared maintenance code lives under `scripts/`: `scripts/align-crates/` checks dependency alignment and `scripts/quality-matrix/` generates static quality reports. Their shared inventory is `scripts/quality-matrix/repos.json`, also consumed by Bacon and Buildbot through `scripts/workspaces.py`.
 
 ## Build, Test, and Development Commands
 

@@ -20,7 +20,7 @@ class MatrixTests(unittest.TestCase):
         self.assertEqual(
             set(workspace_map()),
             {"gpui-toolkit", "math-audio", "autoeq", "sotf", "sotf-daw",
-             "sotf-systemwide", "sotf-capture", "sofa-reader", "symphonia-add-ons"},
+             "sotf-systemwide", "sotf-capture", "sofa-reader"},
         )
 
     def test_every_workspace_has_tests_and_qa_on_every_desktop(self):
@@ -40,10 +40,10 @@ class MatrixTests(unittest.TestCase):
             self.assertIn(f"sotf-{platform.name}-qa", names)
 
     def test_roots_without_qa_recipes_run_cargo_and_doctests(self):
-        for name in ("sotf-capture", "symphonia-add-ons"):
+        for name in ("sotf-capture",):
             commands = gate_commands(workspace_map()[name], qa=True)
             self.assertTrue(all(command[0] == "cargo" for command in commands))
-            self.assertIn(("cargo", "test", "--workspace", "--doc", "--locked"), commands)
+            self.assertIn(("cargo", "test", "--workspace", "--doc"), commands)
             self.assertTrue(any("--all-targets" in command for command in commands))
 
     def test_sofa_runs_its_minimal_feature_gate(self):

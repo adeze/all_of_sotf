@@ -1,6 +1,6 @@
 # all_of_sotf
 
-This repository is the top-level tree for nine related Rust workspaces and
+This repository is the top-level tree for seven Rust workspace submodules and
 the shared `sotf-3rdparties/` vendored dependency repository. The
 workspaces are kept as Git submodules so each project retains its own history,
 Cargo workspace, tests, and release process.
@@ -235,7 +235,7 @@ inputs, command connections and remaining qualification gaps.
 
 ### `scripts/align-crates/` — Cargo dependency alignment
 
-`align_crate_versions.py` scans Cargo manifests across all six workspaces and
+`align_crate_versions.py` scans Cargo manifests across the shared inventory and
 reports external crates whose version requirements differ. It ignores path
 dependencies and avoids changing risky platform/audio/UI packages by default.
 
@@ -319,3 +319,28 @@ The generated `scores.json`, `matrix.md`, and execution log are written under
 `scripts/quality-matrix/`. See
 [`scripts/quality-matrix/README.md`](scripts/quality-matrix/README.md) for the
 scoring methodology and toolchain prerequisites.
+
+## Check source consistency
+
+`just preflight` checks the local submodule layout, recipe inputs, and generated
+aggregate manifest without compiling. `just mono-check` runs it before Cargo.
+
+`just preflight-release` also requires every checkout to match
+`scripts/release/sources.json`, including the external GPUI Toolkit checkout.
+That manifest describes an explicit frozen release candidate. Updating a local
+branch does not automatically update or qualify the candidate. Local aggregate
+recipes cover submodule workspaces; the release checkout qualifies external
+Git dependencies separately.
+
+The local history-contracts source candidate is recorded in
+`scripts/release/candidates/history-contracts-20261103.json`. It selects the
+aggregate gitlinks and GPUI Toolkit revision used by the consumer lockfiles.
+Check a clean, materialized candidate with:
+
+```sh
+python3 scripts/release/preflight.py --release --root /path/to/aggregate --manifest /path/to/aggregate/scripts/release/candidates/history-contracts-20261103.json
+```
+
+The selected objects have been checked locally; their availability from the
+manifest server has not been established. This check establishes source
+consistency only, not package, native runtime, or release qualification.

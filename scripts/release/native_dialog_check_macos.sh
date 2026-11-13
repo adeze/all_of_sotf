@@ -160,9 +160,9 @@ PY
 
 mkdir "$fixture/selected-folder" || exit 1
 printf 'sotf-rfd-fixture\n' >"$fixture/open.txt"
-printf 'cargo build --locked -p sotf-gpui --example rfd_native_smoke\n' >"$output/commands.txt"
+printf 'cargo build -p sotf-gpui --example rfd_native_smoke\n' >"$output/commands.txt"
 failed=0
-if ! (cd sotf && cargo build --locked -p sotf-gpui --example rfd_native_smoke) \
+if ! (cd sotf && cargo build -p sotf-gpui --example rfd_native_smoke) \
     >"$output/logs/build.log" 2>&1; then
     tail -n 80 "$output/logs/build.log"
     failed=1

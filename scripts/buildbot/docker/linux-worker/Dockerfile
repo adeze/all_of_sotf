@@ -61,9 +61,9 @@ RUN curl --http1.1 --proto '=https' --tlsv1.2 -fsSL \
 ENV PATH="/home/buildbot/.cargo/bin:${PATH}"
 
 # The repository's canonical test and coverage recipes use these Cargo tools.
-RUN cargo install cargo-nextest --locked && \
-    cargo install cargo-llvm-cov --locked && \
-    cargo install just --version 1.40.0 --locked
+RUN cargo install cargo-nextest && \
+    cargo install cargo-llvm-cov && \
+    cargo install just --version 1.40.0
 
 # Named volumes are created as root by Docker; pre-create and chown the
 # directories so the buildbot user can write the Cargo cache and target cache.

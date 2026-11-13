@@ -169,12 +169,12 @@ def main() -> int:
         commands = [
             ("lfs-pull", ["git", "lfs", "pull"]),
             ("resolve", ["cargo", "generate-lockfile"]),
-            ("default", ["cargo", "check", "--locked", "--lib"]),
-            ("all-features", ["cargo", "check", "--locked", "--all-features", "--all-targets"]),
-            ("no-default", ["cargo", "check", "--locked", "--no-default-features", "--lib"]),
-            ("no-std", ["cargo", "check", "--locked", "--no-default-features", "--features", "no_std", "--lib"]),
-            ("default-tests", ["cargo", "test", "--locked", "--lib", "--tests"]),
-            ("all-feature-tests", ["cargo", "test", "--locked", "--all-features", "--lib", "--tests"]),
+            ("default", ["cargo", "check", "--lib"]),
+            ("all-features", ["cargo", "check", "--all-features", "--all-targets"]),
+            ("no-default", ["cargo", "check", "--no-default-features", "--lib"]),
+            ("no-std", ["cargo", "check", "--no-default-features", "--features", "no_std", "--lib"]),
+            ("default-tests", ["cargo", "test", "--lib", "--tests"]),
+            ("all-feature-tests", ["cargo", "test", "--all-features", "--lib", "--tests"]),
         ]
         lock_hash = None
         for name, argv in commands:

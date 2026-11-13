@@ -18,7 +18,6 @@ WORKSPACES = (
     "math-audio",
     "gpui-toolkit",
     "sofa-reader",
-    "symphonia-add-ons",
     "autoeq",
     "sotf-daw",
     "sotf-capture",
@@ -67,7 +66,7 @@ def main() -> int:
             "sotf-desktop-production",
             "sotf",
             [
-                "cargo", "tree", "--locked", "--target", target,
+                "cargo", "tree", "--target", target,
                 "--edges", "normal,build", "--duplicates", "-p", "sotf-gpui",
                 "--features", DESKTOP_FEATURES,
             ],
@@ -80,7 +79,7 @@ def main() -> int:
                 f"daw-plugins-nih-{feature}",
                 "sotf-daw",
                 [
-                    "cargo", "tree", "--locked", "--target", target,
+                    "cargo", "tree", "--target", target,
                     "--edges", "normal,build", "--duplicates", "-p", "plugins-nih",
                     "--no-default-features", "--features", feature,
                 ],
@@ -92,7 +91,7 @@ def main() -> int:
             (
                 f"{workspace}-workspace-all-features",
                 workspace,
-                ["cargo", "tree", "--locked", "--target", target, "--edges", "normal,build", "--duplicates", "--workspace", "--all-features"],
+                ["cargo", "tree", "--target", target, "--edges", "normal,build", "--duplicates", "--workspace", "--all-features"],
                 "Diagnostic upper-bound inventory; not a production recipe",
             )
         )

@@ -18,7 +18,7 @@ def clean_snapshot() -> dict[str, object]:
     sources: dict[str, object] = {}
     for index, name in enumerate((
         "autoeq", "gpui-toolkit", "math-audio", "sofa-reader", "sotf",
-        "sotf-capture", "sotf-daw", "sotf-systemwide", "symphonia-add-ons",
+        "sotf-capture", "sotf-daw", "sotf-systemwide",
     )):
         row: dict[str, object] = {
             "revision": f"{index + 1:040x}", "dirty": False,
@@ -178,7 +178,7 @@ class LocalReleaseGroupsTests(unittest.TestCase):
             self.assertFalse(complete)
             self.assertEqual(report["status"], "INCOMPLETE")
             self.assertEqual(report["cargo_environment"]["cargo_home"], cargo_home)
-            self.assertEqual(report["cargo_environment"]["cargo_net_offline"], "true")
+            self.assertIsNone(report["cargo_environment"]["cargo_net_offline"])
             target_dir = Path(report["cargo_environment"]["cargo_target_dir"])
             self.assertEqual(target_dir, (evidence / "cargo-target").resolve())
             self.assertTrue(all(str(target_dir) in command for command in FakeProcess.commands))
@@ -195,7 +195,7 @@ class LocalReleaseGroupsTests(unittest.TestCase):
             recorded_sources = report["sources_before"]["sources"]
             lock_hashes = [row["lock_sha256"] for row in recorded_sources.values()]
             lock_hashes.append(recorded_sources["autoeq"]["nested_lock_sha256"])
-            self.assertEqual(len(lock_hashes), 10)
+            self.assertEqual(len(lock_hashes), 9)
             self.assertTrue(report["sources_before"]["root_layout"])
             self.assertTrue((evidence / "local-release-groups-report.json").is_file())
 

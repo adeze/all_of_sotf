@@ -36,7 +36,7 @@ def snapshot() -> dict[str, object]:
 
 def run_case(feature: str, log_path: Path) -> dict[str, object]:
     command = [
-        "cargo", "test", "--locked", "-p", "plugins-nih", "--lib",
+        "cargo", "test", "-p", "plugins-nih", "--lib",
         "--no-default-features", "--features", feature,
         "clap_param_text_roundtrip_tests", "--", "--test-threads=1",
     ]

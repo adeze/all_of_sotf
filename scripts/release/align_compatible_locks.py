@@ -28,7 +28,7 @@ sys.path.insert(0, str(ROOT / "scripts" / "release"))
 from checkout_sources import read_manifest
 
 WORKSPACES = (
-    "math-audio", "gpui-toolkit", "sofa-reader", "symphonia-add-ons",
+    "math-audio", "gpui-toolkit", "sofa-reader",
     "autoeq", "sotf-daw", "sotf-capture", "sotf", "sotf-systemwide",
 )
 NESTED = "autoeq-gpui-examples"
@@ -387,7 +387,7 @@ def main() -> int:
                 break
         if not report["issues"]:
             for name, cwd, _ in specs:
-                result = command(["cargo", "metadata", "--locked", "--all-features",
+                result = command(["cargo", "metadata", "--all-features",
                                   "--format-version", "1", "--no-deps"],
                                  cwd, output / "logs" / f"metadata-{name}.log", 300)
                 report["commands"].append(result)

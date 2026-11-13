@@ -6,13 +6,13 @@
   "vendored_repositories": ["sotf-3rdparties", "sonium"],
   "repositories": [
     {"name": "autoeq", "path": "autoeq", "primary_language": "Rust", "is_monorepo": false},
+    {"name": "symphonia-add-ons", "path": "symphonia-add-ons", "primary_language": "Rust", "is_monorepo": true},
     {"name": "gpui-toolkit", "path": "gpui-toolkit", "primary_language": "Rust", "is_monorepo": true},
     {"name": "math-audio", "path": "math-audio", "primary_language": "Rust", "is_monorepo": true},
     {"name": "sofa-reader", "path": "sofa-reader", "primary_language": "Rust", "is_monorepo": false},
     {"name": "sotf", "path": "sotf", "primary_language": "Rust", "is_monorepo": true},
     {"name": "sotf-capture", "path": "sotf-capture", "primary_language": "Rust", "is_monorepo": false},
     {"name": "sotf-daw", "path": "sotf-daw", "primary_language": "Rust", "is_monorepo": true},
-    {"name": "sotf-systemwide", "path": "sotf-systemwide", "primary_language": "Rust", "is_monorepo": false},
-    {"name": "symphonia-add-ons", "path": "symphonia-add-ons", "primary_language": "Rust", "is_monorepo": true}
+    {"name": "sotf-systemwide", "path": "sotf-systemwide", "primary_language": "Rust", "is_monorepo": false}
   ]
 }

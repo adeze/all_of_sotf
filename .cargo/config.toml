@@ -51,9 +51,12 @@ rustflags = [
 linker = "clang"
 rustflags = [
   "-C", "link-arg=-fuse-ld=mold",
-  "-C", "target-cpu=native",
+  # Portable x86-64-v2 baseline for shipped binaries (AppImage/tarball):
+  # target-cpu=native here made release binaries SIGILL on pre-Haswell
+  # machines. DSP SIMD kernels are runtime-dispatched, so modern CPUs keep
+  # their AVX2/AVX-512 paths. This overrides [build] target-cpu=native.
+  "-C", "target-cpu=x86-64-v2",
   "-C", "symbol-mangling-version=v0",
-  "-C", "target-feature=+sse,+sse2,+sse3,+ssse3,+sse4.1,+sse4.2,+avx,+avx2",
 ]
 
 # Linux ARM64 configuration
@@ -88,6 +91,20 @@ rustflags = [
 # Windows GNU x86_64 configuration, untested
 [target.x86_64-pc-windows-gnu]
 rustflags = [
+]
+
+# Windows GNU (llvm-mingw/gnullvm) — used by the Docker Windows builds.
+# Explicit sections are required: without one, [build] target-cpu=native
+# applies and the binaries SIGILL on CPUs older than the build machine.
+# Mirrors the MSVC sections above.
+[target.x86_64-pc-windows-gnullvm]
+rustflags = [
+  "-C", "target-feature=+sse,+sse2,+sse3,+ssse3,+sse4.1,+sse4.2,+avx,+avx2",
+]
+
+[target.aarch64-pc-windows-gnullvm]
+rustflags = [
+  "-C", 'target-feature=+neon',
 ]
 
 # Linux x86_64 musl configuration (static linking)
@@ -127,6 +144,9 @@ gpui-px = { path = "gpui-toolkit/crates/gpui-px" }
 gpui-themes = { path = "gpui-toolkit/crates/gpui-themes" }
 gpui-ui-kit = { path = "gpui-toolkit/crates/gpui-ui-kit" }
 gpui-ui-kit-macros = { path = "gpui-toolkit/crates/gpui-ui-kit-macros" }
+
+[patch."https://github.com/pierreaubert/math-audio"]
+math-dsp = { path = "math-audio/crates/math-dsp" }
 
 [patch."https://github.com/pierreaubert/sofa-reader"]
 sofa-reader = { path = "sofa-reader" }

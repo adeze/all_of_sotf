@@ -100,7 +100,7 @@ stage() {
 
 case "$group" in
     desktop)
-        if run_step desktop-build sotf cargo build --release --locked -p sotf-gpui --bin sotf-desktop --features onnx,hal,gpu-2d,gpu-3d,iamf,streaming,hls &&
+        if run_step desktop-build sotf cargo build --release -p sotf-gpui --bin sotf-desktop --features onnx,hal,gpu-2d,gpu-3d,iamf,streaming,hls &&
             stage sotf/target/release/sotf-desktop; then
             run_step desktop-runtime-smoke . python3 scripts/release/desktop_runtime_smoke.py \
                 "$platform" "$output/artifacts/sotf/target/release/sotf-desktop" \

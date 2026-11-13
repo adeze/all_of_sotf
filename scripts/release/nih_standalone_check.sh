@@ -49,7 +49,7 @@ docker run --rm --platform linux/amd64 \
     -w /all_of_sotf/sotf-daw \
     -e CARGO_TARGET_DIR=/target \
     "$image_id" \
-    cargo check -p plugins-nih --features nih_plug/standalone --locked || status=$?
+    cargo check -p plugins-nih --features nih_plug/standalone || status=$?
 
 python3 - "$root" "$evidence/source-before.json" "$evidence/source-after.json" <<'PY' || status=1
 import hashlib, json, pathlib, subprocess, sys

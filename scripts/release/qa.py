@@ -48,23 +48,20 @@ def host_platform() -> str:
 def commands_for(name: str, phase: str, platform_name: str | None = None) -> list[tuple[str, ...]]:
     """Return commands required of this workspace on the selected platform."""
     platform_name = platform_name or host_platform()
-    metadata = ("cargo", "metadata", "--locked", "--format-version", "1")
+    metadata = ("cargo", "metadata", "--format-version", "1")
     demo_manifest = "crates/autoeq-gpui-examples/Cargo.toml"
     demo_metadata = (*metadata, "--all-features", "--manifest-path", demo_manifest)
-    demo_check = ("cargo", "check", "--locked", "--all-targets", "--all-features",
+    demo_check = ("cargo", "check", "--all-targets", "--all-features",
                   "--manifest-path", demo_manifest)
     if phase == "metadata":
         return [metadata, demo_metadata] if name == "autoeq" else [metadata]
     if phase == "check":
-        commands = [metadata, ("cargo", "check", "--workspace", "--all-targets", "--locked")]
+        commands = [metadata, ("cargo", "check", "--workspace", "--all-targets")]
         return [*commands, demo_metadata, demo_check] if name == "autoeq" else commands
     workspace = workspace_map()[name]
     commands = [metadata, *gate_commands(workspace, qa=phase == "qa")]
     if name == "autoeq":
         commands.extend((demo_metadata, demo_check))
-    if name == "symphonia-add-ons":
-        commands.append(("cargo", "test", "--locked", "--all-features",
-                         "-p", "symphonia-iamf-core", "-p", "symphonia-format-iamf"))
     if phase == "qa":
         extras = {
             "sotf": [("just", recipe) for recipe in (
@@ -77,7 +74,7 @@ def commands_for(name: str, phase: str, platform_name: str | None = None) -> lis
         }
         if name == "sotf-daw" and platform_name == "linux":
             extras[name].append((
-                "cargo", "test", "--locked", "-p", "sotf-host",
+                "cargo", "test", "-p", "sotf-host",
                 "--features", "worker-test-backend,external-plugin-clap",
                 "--test", "external_plugin_isolation", "--", "--nocapture",
             ))
@@ -173,7 +170,7 @@ def sandbox_coverage_skipped(name: str, phase: str, platform_name: str,
     """Reject the sandbox integration test's successful kernel-unavailable return."""
     if (name, phase, platform_name) != ("sotf-daw", "qa", "linux"):
         return False
-    if not (command[:5] == ("cargo", "test", "--locked", "-p", "sotf-host")
+    if not (command[:4] == ("cargo", "test", "-p", "sotf-host")
             and "external_plugin_isolation" in command):
         return False
     with log.open("r", encoding="utf-8", errors="replace") as stream:
@@ -235,9 +232,9 @@ def approved_ignored_inventory(name: str, command: tuple[str, ...], inventory: d
         "aud132_preserves_small_fft_and_512_pre_edit_full_output_controls",
     }
     return (name == "sotf-daw"
-            and command[:7] == ("cargo", "test", "--locked", "-p", "sotf-plugin-upmixer",
+            and command[:6] == ("cargo", "test", "-p", "sotf-plugin-upmixer",
                                 "--features", "onnx")
-            and "--lib" in command and len(command) == 8
+            and "--lib" in command and len(command) == 7
             and inventory["passed"] >= 147
             and len(observed) == inventory["passed"]
             and aud132_controls <= observed

@@ -17,12 +17,12 @@ from qa import ROOT, source_issues, source_state
 
 MODES = ("iir", "fir", "mixed", "mixed_phase")
 EXTRAS = {
-    "quality": ("cargo", "run", "--locked", "--features", "qa", "--bin", "roomeq-qa-quality", "--release", "--", "--jobs", "1"),
-    "generated": ("cargo", "test", "--locked", "--release", "-p", "autoeq", "--features", "qa", "--test", "roomeq_generated_data_test", "--", "--ignored", "--test-threads=1"),
-    "synthetic": ("cargo", "run", "--locked", "--features", "qa", "--bin", "roomeq-qa-synthetic", "--no-default-features", "--release", "--", "--full-matrix"),
-    "features": ("cargo", "run", "--locked", "--features", "qa", "--bin", "roomeq-qa-features", "--no-default-features", "--release"),
-    "acoustic": ("cargo", "run", "--locked", "--features", "qa", "--bin", "roomeq-qa-acoustic", "--release", "--", "--tier", "nightly"),
-    "fuzzer": ("cargo", "run", "--locked", "--bin", "roomeq-fuzzer", "--release", "--features=qa,plotly", "--", "-n", "1000", "--seed", "42", "--skip-kautz-modal"),
+    "quality": ("cargo", "run", "--features", "qa", "--bin", "roomeq-qa-quality", "--release", "--", "--jobs", "1"),
+    "generated": ("cargo", "test", "--release", "-p", "autoeq", "--features", "qa", "--test", "roomeq_generated_data_test", "--", "--ignored", "--test-threads=1"),
+    "synthetic": ("cargo", "run", "--features", "qa", "--bin", "roomeq-qa-synthetic", "--no-default-features", "--release", "--", "--full-matrix"),
+    "features": ("cargo", "run", "--features", "qa", "--bin", "roomeq-qa-features", "--no-default-features", "--release"),
+    "acoustic": ("cargo", "run", "--features", "qa", "--bin", "roomeq-qa-acoustic", "--release", "--", "--tier", "nightly"),
+    "fuzzer": ("cargo", "run", "--bin", "roomeq-fuzzer", "--release", "--features=qa,plotly", "--", "-n", "1000", "--seed", "42", "--skip-kautz-modal"),
 }
 LANES = ("autoeq", *(f"coverage-{mode}" for mode in MODES), *EXTRAS, "export")
 
@@ -88,7 +88,7 @@ def run_lane(lane: str, output: Path) -> int:
             raise ValueError("; ".join(issues))
         if lane.startswith("coverage-"):
             mode = lane.removeprefix("coverage-")
-            command = ("cargo", "run", "--locked", "--features", "qa", "--bin", "roomeq-qa-coverage", "--release", "--", "--tier", "weekly", "--mode", mode, "--jobs", "1", "--junit", str(output / "coverage.xml"))
+            command = ("cargo", "run", "--features", "qa", "--bin", "roomeq-qa-coverage", "--release", "--", "--tier", "weekly", "--mode", mode, "--jobs", "1", "--junit", str(output / "coverage.xml"))
         elif lane in EXTRAS:
             command = EXTRAS[lane]
         else:

@@ -5,8 +5,8 @@ crate in every member repo with a single command, a single resolve, and a
 single lockfile:
 
 ```sh
-cargo check --workspace --locked   # from the aggregate root
-cargo test --workspace --locked --no-run
+cargo check --workspace   # from the aggregate root
+cargo test --workspace --no-run
 ```
 
 Each repo keeps building standalone with its own manifest: nested workspace
@@ -94,11 +94,12 @@ inherit only names mono defines.
 
 ## Excluded members
 
-- **20 temporary (issue #4).** The `autoeq` and `sotf-capture` root packages
-  are workspace roots, which cargo forbids in an outer workspace, so they
-  plus their reverse-dependency closure stay out until those repo roots are
-  virtualized (facade moves into `crates/`). Removing the overlay entries
-  then rejoins the crates untouched; no other mono change is needed.
+- **Temporary (issue #4).** The `sotf-capture` root package is a workspace
+  root, which Cargo forbids in an outer workspace, so it and its
+  reverse-dependency closure stay out until that root is virtualized.
+  AutoEQ is already a virtual workspace and no longer needs a root-package
+  exclusion. Remove the remaining overlay entries when their root-package
+  constraint is resolved, then regenerate the manifest.
 - **1 permanent.** `sofa-reader` remains a standalone workspace rather than
   an aggregate member. Consumers declare a Git dependency, but this umbrella's
   `.cargo/config.toml` patches it to the local `sofa-reader/` checkout. Standalone

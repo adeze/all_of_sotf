@@ -99,11 +99,11 @@ jobs:
           rustup component add clippy --toolchain 1.99.0
           rustup component add rustfmt --toolchain 1.99.0
           if ! command -v just >/dev/null 2>&1; then
-            cargo install just --version 1.58.0 --locked
+            cargo install just --version 1.58.0
           fi
           test "$(just --version | awk '{print $2}')" = 1.58.0
           if ! cargo nextest --version >/dev/null 2>&1; then
-            cargo install cargo-nextest --version 0.9.143 --locked
+            cargo install cargo-nextest --version 0.9.143
           fi
           test "$(cargo nextest --version | awk 'NR == 1 { print $2 }')" = 0.9.143
           cargo fmt --version

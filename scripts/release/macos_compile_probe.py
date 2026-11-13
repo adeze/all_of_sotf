@@ -18,7 +18,7 @@ from scripts.buildbot.ci_matrix import workspace_map
 from scripts.release.checkout_sources import read_manifest
 from scripts.release.qa import ROOT, source_issues, source_state
 
-COMMAND = ["cargo", "check", "--locked", "-p", "sotf-engine", "--all-targets"]
+COMMAND = ["cargo", "check", "-p", "sotf-engine", "--all-targets"]
 LIMIT_SECONDS = 1800
 HEARTBEAT_SECONDS = 10
 

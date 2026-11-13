@@ -122,7 +122,7 @@ jobs:
           fi
           export PATH="$CARGO_HOME/bin:$PATH"
           if ! command -v just >/dev/null 2>&1 || [ "$(just --version)" != 'just 1.58.0' ]; then
-            cargo install just --version 1.58.0 --locked --force
+            cargo install just --version 1.58.0 --force
           fi
           if [ "$(rustc --version | awk '{print $2}')" != '1.99.0' ] || [ "$(just --version)" != 'just 1.58.0' ]; then
             echo 'Linux plugin toolchain differs from pinned release QA versions'
