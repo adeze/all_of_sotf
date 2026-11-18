@@ -16,7 +16,7 @@ jobs:
     env:
       CI: 'true'
       SOTF_GITEA_DISPOSABLE_RUNNER: '1'
-      RUSTUP_TOOLCHAIN: '1.99.0'
+      RUSTUP_TOOLCHAIN: '1.100.0'
       PYTHONOPTIMIZE: '0'
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -26,8 +26,8 @@ jobs:
           fetch-depth: 0
       - name: Require Python 3.11 or newer
         run: python3 -c 'import sys; assert sys.version_info >= (3, 11)'
-      - name: Require pinned Rust 1.99.0
-        run: test "$(rustc --version | awk '{print $2}')" = '1.99.0'
+      - name: Require pinned Rust 1.100.0
+        run: test "$(rustc --version | awk '{print $2}')" = '1.100.0'
       - name: Use private HOME with original Rust tool homes
         run: |
           set -euo pipefail
@@ -70,7 +70,7 @@ jobs:
     env:
       CI: 'true'
       SOTF_GITEA_DISPOSABLE_RUNNER: '1'
-      RUSTUP_TOOLCHAIN: '1.99.0'
+      RUSTUP_TOOLCHAIN: '1.100.0'
       PYTHONOPTIMIZE: '0'
       PYTHONDONTWRITEBYTECODE: '1'
       CARGO_HOME: /root/.cargo
@@ -111,14 +111,14 @@ jobs:
               https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init \
               --output /tmp/rustup-init
             chmod +x /tmp/rustup-init
-            /tmp/rustup-init --default-toolchain 1.99.0 --profile minimal -y --no-modify-path
+            /tmp/rustup-init --default-toolchain 1.100.0 --profile minimal -y --no-modify-path
           fi
           export PATH="$CARGO_HOME/bin:$PATH"
           if command -v rustup >/dev/null 2>&1 && \
              ! rustup toolchain list | grep -Eq '^1\.99\.0-x86_64-unknown-linux-gnu'; then
-            rustup toolchain install 1.99.0 --profile minimal
+            rustup toolchain install 1.100.0 --profile minimal
           fi
-          test "$(rustc --version | awk '{print $2}')" = '1.99.0'
+          test "$(rustc --version | awk '{print $2}')" = '1.100.0'
           echo "$CARGO_HOME/bin" >> "$GITHUB_PATH"
       - name: Require Python 3.11 or newer
         run: python3 -c 'import sys; assert sys.version_info >= (3, 11)'

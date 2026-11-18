@@ -26,7 +26,7 @@ for name, entry in sources.items():
 pathlib.Path(sys.argv[2]).write_text(json.dumps(state, indent=2) + '\n')
 PY
 
-base_tag=rust:1.99.0-bookworm
+base_tag=rust:1.100.0-bookworm
 docker info --format '{{.ServerVersion}} {{.OSType}}/{{.Architecture}}'
 docker pull --platform linux/amd64 "$base_tag"
 base_digest=$(docker image inspect "$base_tag" --format '{{index .RepoDigests 0}}')

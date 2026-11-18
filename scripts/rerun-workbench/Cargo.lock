@@ -410,7 +410,7 @@ version = "0.5.12"
 dependencies = [
  "libm",
  "log",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "ndarray 0.17.2",
  "num-complex",
  "rustfft",
@@ -427,7 +427,7 @@ version = "0.5.3"
 dependencies = [
  "autoeq-core",
  "hound",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "ndarray 0.17.2",
  "num-complex",
  "rustfft",
@@ -463,7 +463,7 @@ dependencies = [
  "autoeq-optim-types",
  "log",
  "math-dsp",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "ndarray 0.17.2",
  "num-complex",
  "rayon",
@@ -482,7 +482,7 @@ dependencies = [
  "autoeq-optim-types",
  "log",
  "math-dsp",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "math-optimisation",
  "ndarray 0.17.2",
  "num-complex",
@@ -673,9 +673,9 @@ dependencies = [
 
 [[package]]
 name = "bumpalo"
-version = "3.20.3"
+version = "3.20.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "72f5acc6cb2ba439de613abc23857ec3d78374d8ed5ac84e9d11336e87da8649"
+checksum = "87a0cf66fd1eb2fb7b822cb78370d82303750809bc6ba855f3f58e517d3238db"
 
 [[package]]
 name = "bytemuck"
@@ -744,9 +744,9 @@ dependencies = [
 
 [[package]]
 name = "cc"
-version = "1.11.1"
+version = "1.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4ff2a8126fff0f8c839080d619675a585e61720bb12d2baceae45769fd66f155"
+checksum = "33ef9e3e8154a45c7a95cff4c1299702106ad94062d7bb85fdc5d3a5afd91d45"
 dependencies = [
  "find-msvc-tools",
  "jobserver",
@@ -1191,7 +1191,7 @@ dependencies = [
  "libc",
  "option-ext",
  "redox_users",
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -1321,7 +1321,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e35d6e78f4cebb90e51d543db8fe41528851d6deeef6ef21ebd4bfdc1e784776"
 dependencies = [
  "libc",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -2021,9 +2021,9 @@ checksum = "3bd1574e617a9a6c1f8f8181bd7e841e1f20e4277607ef28945765188d6284d4"
 
 [[package]]
 name = "jiff"
-version = "0.2.43"
+version = "0.2.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "26699905cc795a23e3949585cc7ba3ee8ade090872a27e4316304a777297894a"
+checksum = "ac63a5a611e9d720726d6ab6ee2ee19e6f620503554ea5d303c7cb294ff40c12"
 dependencies = [
  "jiff-core",
  "jiff-static",
@@ -2039,18 +2039,18 @@ dependencies = [
 
 [[package]]
 name = "jiff-core"
-version = "0.1.5"
+version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ffe6854081f5ac0a3046a9b223729ccd7a20b1e0e8277e44dc0660eedf67dfe2"
+checksum = "48e9635854583b49ce3c6c43a071f70b0a49e79ad3c261c7b3aa76b2280416d2"
 dependencies = [
  "log",
 ]
 
 [[package]]
 name = "jiff-static"
-version = "0.2.43"
+version = "0.2.44"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b4ff49b2887190c760b86207b55cdcaabbdecaf7a0660d68aa2ed6f652abf0a"
+checksum = "9f9c27796c21cc8b33ce490f148d53fe41d679b887885bf0ef8f662cdb9b35c0"
 dependencies = [
  "jiff-core",
  "proc-macro2",
@@ -2060,9 +2060,9 @@ dependencies = [
 
 [[package]]
 name = "jiff-tzdb"
-version = "0.1.9"
+version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fa8377070c6bae868759445e5a77f66d84f0b72f3a054bfb00e6d038b8282da7"
+checksum = "0980fca2cc272465bd60e82397607ba9f33add9e48defd77923301bbd03808f2"
 
 [[package]]
 name = "jiff-tzdb-platform"
@@ -2259,9 +2259,9 @@ dependencies = [
 
 [[package]]
 name = "libsqlite3-sys"
-version = "0.39.1"
+version = "0.40.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14a5f01b87b92705d07b433c06f96cbc764637d81a0bffb5734ce17cf0f9a2b3"
+checksum = "b06e69070b7e12262b0cd90832f0a7396f142a2b330181255562decf9f0c6215"
 dependencies = [
  "cc",
  "pkg-config",
@@ -2310,9 +2310,9 @@ checksum = "4050469837a6ff301cd14c1f8f24f88549e6d548f24f64e2148eb0f72cebc51f"
 
 [[package]]
 name = "lz4_flex"
-version = "0.13.1"
+version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7ef0d4ed8669f8f8826eb00dc878084aa8f253506c4fd5e8f58f5bce72ddb97e"
+checksum = "6a027efd2ad3c4dbb4123b5c018e3efbe7f6236da7c7612f122dad030f5d2de5"
 dependencies = [
  "twox-hash",
 ]
@@ -2335,12 +2335,11 @@ checksum = "47e1ffaa40ddd1f3ed91f717a33c8c0ee23fff369e3aa8772b9605cc1d22f4c3"
 [[package]]
 name = "math-dsp"
 version = "0.5.37"
-source = "git+https://github.com/pierreaubert/math-audio#b52e1309e22e1837fa9e89b438e89d331ce493a4"
 dependencies = [
  "clap",
  "hound",
  "log",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "ndarray 0.17.2",
  "num-complex",
  "oxiblas-ndarray",
@@ -2357,23 +2356,6 @@ dependencies = [
 [[package]]
 name = "math-iir-fir"
 version = "0.5.29"
-dependencies = [
- "base64 0.23.1",
- "byteorder",
- "hound",
- "ndarray 0.17.2",
- "num-complex",
- "num-traits",
- "rustfft",
- "serde",
- "serde_json",
- "thiserror",
-]
-
-[[package]]
-name = "math-iir-fir"
-version = "0.5.29"
-source = "git+https://github.com/pierreaubert/math-audio#b52e1309e22e1837fa9e89b438e89d331ce493a4"
 dependencies = [
  "base64 0.23.1",
  "byteorder",
@@ -2411,7 +2393,7 @@ name = "math-rir"
 version = "0.5.14"
 source = "git+https://github.com/pierreaubert/math-audio#b52e1309e22e1837fa9e89b438e89d331ce493a4"
 dependencies = [
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "rayon",
 ]
 
@@ -2481,9 +2463,9 @@ dependencies = [
 
 [[package]]
 name = "mio"
-version = "1.2.4"
+version = "1.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1788edb87fdc09c7e26304471e2f5be8cdefb1b6930d6e3985fc02ff53bf86ee"
+checksum = "20521a903f02b0a573cd6840e9d0a5a0cc043d361fe924092cd70f8556cc9c4a"
 dependencies = [
  "libc",
  "wasi",
@@ -2573,7 +2555,7 @@ version = "0.50.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -3194,7 +3176,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -4603,7 +4585,7 @@ name = "rerun-workbench"
 version = "0.1.0"
 dependencies = [
  "autoeq-measurements",
- "math-iir-fir 0.5.29",
+ "math-iir-fir",
  "roomeq-model",
  "roomeq-workflow",
  "serde",
@@ -4635,7 +4617,7 @@ dependencies = [
  "hound",
  "log",
  "math-dsp",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "math-rir",
  "ndarray 0.17.2",
  "num-complex",
@@ -4652,7 +4634,7 @@ dependencies = [
 name = "roomeq-dsp"
 version = "0.5.0"
 dependencies = [
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "roomeq-model",
  "serde_json",
 ]
@@ -4667,7 +4649,7 @@ dependencies = [
  "autoeq-optim",
  "log",
  "math-dsp",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "math-optimisation",
  "math-rir",
  "ndarray 0.17.2",
@@ -4695,7 +4677,7 @@ dependencies = [
  "anyhow",
  "autoeq-core",
  "hound",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "roomeq-dsp",
  "roomeq-model",
  "roomeq-quality",
@@ -4725,7 +4707,7 @@ version = "0.5.62"
 dependencies = [
  "autoeq-core",
  "hound",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "ndarray 0.17.2",
  "num-complex",
  "roomeq-model",
@@ -4748,7 +4730,7 @@ dependencies = [
  "hound",
  "log",
  "math-dsp",
- "math-iir-fir 0.5.29 (git+https://github.com/pierreaubert/math-audio)",
+ "math-iir-fir",
  "math-rir",
  "ndarray 0.17.2",
  "num-complex",
@@ -4782,9 +4764,9 @@ dependencies = [
 
 [[package]]
 name = "rusqlite"
-version = "0.41.1"
+version = "0.42.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da9bba6f3506135e120a6586df05be18b48d18896600646a4bec8f993d91a594"
+checksum = "a4edff0039f148731aee2fd80f76dbfeb12d204ab3d1c544838d34e02151049b"
 dependencies = [
  "bitflags",
  "fallible-iterator",
@@ -4840,7 +4822,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -4899,7 +4881,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -5499,10 +5481,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
 dependencies = [
  "fastrand",
- "getrandom 0.4.3",
+ "getrandom 0.3.4",
  "once_cell",
  "rustix",
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]
@@ -6289,7 +6271,7 @@ version = "0.1.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
 dependencies = [
- "windows-sys 0.61.2",
+ "windows-sys 0.52.0",
 ]
 
 [[package]]

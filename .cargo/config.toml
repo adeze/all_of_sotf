@@ -10,6 +10,10 @@
 #   the framework paths without it).
 # - the wasm32 table comes from autoeq (needed by autoeq-report-wasm).
 
+# Give newly published registry releases time for review.
+[registry]
+global-min-publish-age = "3 days"
+
 [env]
 # macOS-specific configuration
 MACOSX_DEPLOYMENT_TARGET = "15.0"
@@ -147,6 +151,7 @@ gpui-ui-kit-macros = { path = "gpui-toolkit/crates/gpui-ui-kit-macros" }
 
 [patch."https://github.com/pierreaubert/math-audio"]
 math-dsp = { path = "math-audio/crates/math-dsp" }
+math-iir-fir = { path = "math-audio/crates/math-iir-fir" }
 
 [patch."https://github.com/pierreaubert/sofa-reader"]
 sofa-reader = { path = "sofa-reader" }

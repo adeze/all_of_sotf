@@ -15,7 +15,7 @@ jobs:
     env:
       CI: "true"
       DISPOSABLE: "1"
-      RUSTUP_TOOLCHAIN: "1.99.0"
+      RUSTUP_TOOLCHAIN: "1.100.0"
       PYTHONOPTIMIZE: "0"
       PYTHONDONTWRITEBYTECODE: "1"
     steps:
@@ -34,13 +34,13 @@ jobs:
               https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init \
               --output /tmp/rustup-init
             chmod +x /tmp/rustup-init
-            /tmp/rustup-init --default-toolchain 1.99.0 --profile minimal -y --no-modify-path
+            /tmp/rustup-init --default-toolchain 1.100.0 --profile minimal -y --no-modify-path
             echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
             export PATH="$HOME/.cargo/bin:$PATH"
           fi
           git lfs version
-          rustup toolchain install 1.99.0 --profile minimal
-          test "$(rustc +1.99.0 --version | awk '{print $2}')" = 1.99.0
+          rustup toolchain install 1.100.0 --profile minimal
+          test "$(rustc +1.100.0 --version | awk '{print $2}')" = 1.100.0
       - name: Checkout exact nine sibling revisions
         env:
           GITEA_TOKEN: ${{ secrets.RELEASE_READ_TOKEN }}
@@ -84,7 +84,7 @@ jobs:
     env:
       CI: "true"
       DISPOSABLE: "1"
-      RUSTUP_TOOLCHAIN: "1.99.0"
+      RUSTUP_TOOLCHAIN: "1.100.0"
       PYTHONOPTIMIZE: "0"
       PYTHONDONTWRITEBYTECODE: "1"
     steps:
@@ -94,7 +94,7 @@ jobs:
       - name: Require pinned toolchain and Python
         run: |
           set -euo pipefail
-          test "$(rustc --version | awk '{print $2}')" = 1.99.0
+          test "$(rustc --version | awk '{print $2}')" = 1.100.0
           python3 -c 'import sys; assert sys.version_info >= (3, 11)'
           git lfs version
       - name: Checkout exact nine sibling revisions

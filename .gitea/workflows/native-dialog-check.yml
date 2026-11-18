@@ -15,7 +15,7 @@ jobs:
     runs-on: m4
     timeout-minutes: 120
     env:
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 180
     env:
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
       CARGO_HOME: /root/.cargo
       RUSTUP_HOME: /root/.rustup
     steps:
@@ -79,10 +79,10 @@ jobs:
               https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init \
               --output /tmp/rustup-init
             chmod +x /tmp/rustup-init
-            /tmp/rustup-init --default-toolchain 1.99.0 --profile minimal -y --no-modify-path
+            /tmp/rustup-init --default-toolchain 1.100.0 --profile minimal -y --no-modify-path
           fi
           export PATH="$CARGO_HOME/bin:$PATH"
-          test "$(rustc --version | awk '{print $2}')" = '1.99.0'
+          test "$(rustc --version | awk '{print $2}')" = '1.100.0'
           command -v mold xvfb-run dbus-run-session xdg-desktop-portal xdg-desktop-portal-gtk xdotool import openbox
       - name: Checkout pinned sibling repositories
         env:

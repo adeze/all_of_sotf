@@ -15,7 +15,7 @@ jobs:
     env:
       CARGO_HOME: /root/.cargo
       RUSTUP_HOME: /root/.rustup
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
       PINNED_ROOT: ${{ inputs.root_sha }}
     steps:
       - uses: actions/checkout@v4
@@ -56,12 +56,12 @@ jobs:
               https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init \
               --output /tmp/rustup-init
             chmod +x /tmp/rustup-init
-            /tmp/rustup-init --default-toolchain 1.99.0 --profile minimal -y --no-modify-path
+            /tmp/rustup-init --default-toolchain 1.100.0 --profile minimal -y --no-modify-path
           fi
           export PATH="$CARGO_HOME/bin:$PATH"
           rustc --version
           cargo --version
-          if [ "$(rustc --version | awk '{print $2}')" != '1.99.0' ]; then
+          if [ "$(rustc --version | awk '{print $2}')" != '1.100.0' ]; then
             echo 'Resolver Rust toolchain differs from the pinned release version'
             exit 1
           fi

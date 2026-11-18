@@ -76,8 +76,8 @@ def main() -> int:
                                                             cwd=ROOT, text=True).strip()
         report["rustc"] = subprocess.check_output(["rustc", "--version"], text=True).strip()
         report["cargo"] = subprocess.check_output(["cargo", "--version"], text=True).strip()
-        if report["rustc"].split()[1] != "1.99.0":
-            raise RuntimeError("runner Rust differs from pinned 1.99.0")
+        if report["rustc"].split()[1] != "1.100.0":
+            raise RuntimeError("runner Rust differs from pinned 1.100.0")
         report["host"] = {"os": platform.platform(),
                           "disk_free_bytes": shutil.disk_usage(ROOT).free,
                           "physical_memory_bytes": int(subprocess.check_output(

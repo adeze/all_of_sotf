@@ -14,7 +14,7 @@ jobs:
     if: inputs.platform == 'all' || inputs.platform == 'linux'
     runs-on: ubuntu-latest
     env:
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
       CARGO_HOME: /root/.cargo
       RUSTUP_HOME: /root/.rustup
       CI: 'true'
@@ -44,11 +44,11 @@ jobs:
               https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init \
               --output /tmp/rustup-init
             chmod +x /tmp/rustup-init
-            /tmp/rustup-init --default-toolchain 1.99.0 --profile minimal -y --no-modify-path
+            /tmp/rustup-init --default-toolchain 1.100.0 --profile minimal -y --no-modify-path
           fi
           export PATH="$CARGO_HOME/bin:$PATH"
-          test "$(rustc --version | awk '{print $2}')" = 1.99.0
-          rustup component add clippy rustfmt --toolchain 1.99.0
+          test "$(rustc --version | awk '{print $2}')" = 1.100.0
+          rustup component add clippy rustfmt --toolchain 1.100.0
           if ! command -v just >/dev/null 2>&1; then
             cargo install just --version 1.58.0
           fi
@@ -104,7 +104,7 @@ jobs:
     if: inputs.platform == 'all' || inputs.platform == 'macos'
     runs-on: m4
     env:
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
       CI: 'true'
       DISPOSABLE: '1'
     steps:
@@ -117,8 +117,8 @@ jobs:
           export CARGO_HOME="$(python3 -c 'import os,pathlib; print(pathlib.Path(os.environ.get("CARGO_HOME") or pathlib.Path.home()/".cargo").expanduser().resolve())')"
           export RUSTUP_HOME="$(python3 -c 'import os,pathlib; print(pathlib.Path(os.environ.get("RUSTUP_HOME") or pathlib.Path.home()/".rustup").expanduser().resolve())')"
           export PATH="$CARGO_HOME/bin:$PATH"
-          test "$(rustc --version | awk '{print $2}')" = 1.99.0
-          rustup component add clippy rustfmt --toolchain 1.99.0
+          test "$(rustc --version | awk '{print $2}')" = 1.100.0
+          rustup component add clippy rustfmt --toolchain 1.100.0
           test "$(just --version | awk '{print $2}')" = 1.58.0
       - name: Checkout exact candidate siblings
         env:

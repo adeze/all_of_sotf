@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     env:
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
       CARGO_HOME: /root/.cargo
       RUSTUP_HOME: /root/.rustup
     steps:
@@ -118,13 +118,13 @@ jobs:
               https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init \
               --output /tmp/rustup-init
             chmod +x /tmp/rustup-init
-            /tmp/rustup-init --default-toolchain 1.99.0 --profile minimal -y --no-modify-path
+            /tmp/rustup-init --default-toolchain 1.100.0 --profile minimal -y --no-modify-path
           fi
           export PATH="$CARGO_HOME/bin:$PATH"
           if ! command -v just >/dev/null 2>&1 || [ "$(just --version)" != 'just 1.58.0' ]; then
             cargo install just --version 1.58.0 --force
           fi
-          if [ "$(rustc --version | awk '{print $2}')" != '1.99.0' ] || [ "$(just --version)" != 'just 1.58.0' ]; then
+          if [ "$(rustc --version | awk '{print $2}')" != '1.100.0' ] || [ "$(just --version)" != 'just 1.58.0' ]; then
             echo 'Linux plugin toolchain differs from pinned release QA versions'
             exit 1
           fi

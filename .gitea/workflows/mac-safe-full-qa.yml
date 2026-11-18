@@ -7,7 +7,7 @@ jobs:
   mac-safe-qa:
     runs-on: m4
     env:
-      RUSTUP_TOOLCHAIN: 1.99.0
+      RUSTUP_TOOLCHAIN: 1.100.0
       CI: 'true'
     steps:
       - uses: actions/checkout@v4

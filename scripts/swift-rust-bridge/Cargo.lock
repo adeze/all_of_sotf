@@ -7,6 +7,14 @@ name = "adeze-abi-build-probe"
 version = "0.1.0"
 
 [[patch.unused]]
+name = "math-dsp"
+version = "0.5.37"
+
+[[patch.unused]]
+name = "math-iir-fir"
+version = "0.5.29"
+
+[[patch.unused]]
 name = "gpui-android"
 version = "0.11.0"
 

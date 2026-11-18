@@ -24,7 +24,7 @@ jobs:
           set -euo pipefail
           mkdir -p autoeq-pipewire-evidence
           exec > >(tee autoeq-pipewire-evidence/image-build.log) 2>&1
-          base_tag=rust:1.99.0-bookworm
+          base_tag=rust:1.100.0-bookworm
           docker info --format '{{.ServerVersion}} {{.OSType}}/{{.Architecture}}'
           docker pull --platform linux/amd64 "$base_tag"
           base_digest=$(docker image inspect "$base_tag" --format '{{index .RepoDigests 0}}')
